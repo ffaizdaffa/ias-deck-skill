@@ -54,6 +54,7 @@ Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layo
   - `infographic` — ilustrasi 3D isometrik buatan AI (tanpa teks) di kanan + kartu penjelasan berikon di kiri (`items[{icon, value, title, desc}]`). Dibuat otomatis oleh `--imagine`.
   - Pakai 1–3 slide jenis ini per deck untuk momen penting; sisanya grafik & layout data.
 - **Jangan ada ruang kosong**: slide statement/quote/agenda otomatis diberi panel foto; pilih layout visual sebelum `bullets`.
+- **Mix visual, bukan AI slop**: campur jenis komposisi antar slide (foto utama · data/grafik · diagram 3D · tipografi besar · foto + kartu data) — jangan dua slide berurutan tampil sama. Tolak & render ulang slide yang terlihat "AI slop": glow/hologram di mana-mana, ikon melayang acak, otak bercahaya tanpa konteks, dashboard palsu, wajah plastik/kembar, gradien ungu, kolase berantakan. Setiap elemen visual harus bermakna terhadap materi.
 - **Visual sesuai konteks**: jenis grafik/visual dipilih dari makna datanya (lihat "Aturan visual" di `references/layouts.md`); `waterfall` maksimal 1 per deck, hanya untuk bridge dua total. Jangan mengulang jenis visual yang sama berturut-turut.
 - **Banyak visual, sedikit teks**: setiap slide wajib punya visual utama (grafik, diagram, hero, angka besar, ikon) dan teks isi ≤ 40 kata. Slide data ditutup `takeaway` satu kalimat + `source`. Ikon: `references/icons.md`. Detail aturan: bagian "Aturan visual" di `references/layouts.md`.
 
