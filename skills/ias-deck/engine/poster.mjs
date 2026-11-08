@@ -1,4 +1,4 @@
-// IAS Deck — MODE POSTER : setiap slide dirender UTUH oleh GPT Image lewat Codex,
+// IAS Deck — MODE POSTER: setiap slide dirender UTUH oleh GPT Image lewat Codex,
 // termasuk judul, angka, dan infografisnya. Hasil paling memukau, tetapi teks di dalam gambar TIDAK bisa diedit.
 // Pakai: node render.mjs deck.json --poster [--slides 1,3] [--force]
 // Keluaran: out/<nama>-poster/ (PNG per slide) + <nama>-poster.html (pemutar) + .pdf + .pptx (gambar per slide + catatan pembicara)
@@ -7,7 +7,7 @@ import path from 'node:path';
 import { execFile, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
-const plain = (t) => String(t ?? '').replace(/\*\*|==/g, '').replace(/\n/g, ' ').trim;
+const plain = (t) => String(t ?? '').replace(/\*\*|==/g, '').replace(/\n/g, ' ').trim();
 const q = (t) => `"${plain(t)}"`;
 const arr = (x) => (Array.isArray(x) ? x : x ? [x] : []);
 const nm = (x) => (typeof x === 'string' ? x : x.title || x.name || x.label || '');
@@ -62,10 +62,10 @@ export async function poster(file, deck, outDir, { only, force } = {}) {
     console.log(`… Mode poster: merender ${jobs.length} slide lewat GPT Image (Codex), ±1 menit per slide`);
     await new Promise((res) => {
       const child = execFile('codex', ['exec', '--skip-git-repo-check', '-s', 'workspace-write', '-C', dir, prompt], { cwd: dir, timeout: (jobs.length * 150 + 180) * 1000, maxBuffer: 64 << 20 }, (err, so, se) => {
-        fs.writeFileSync(path.join(dir, 'codex-log.txt'), `${so || ''}\n${se || ''}`); if (err) console.warn(`⚠ Codex berhenti: ${err.message.split('\n')[0]}`); res; });
-      child.stdin.end;
-      const tick = setInterval( => process.stdout.write(`\r  ${jobs.filter((j) => fs.existsSync(path.join(dir, j.file))).length}/${jobs.length} slide selesai`), 5000);
-      child.on('exit',  => { clearInterval(tick); process.stdout.write('\n'); });
+        fs.writeFileSync(path.join(dir, 'codex-log.txt'), `${so || ''}\n${se || ''}`); if (err) console.warn(`⚠ Codex berhenti: ${err.message.split('\n')[0]}`); res(); });
+      child.stdin.end();
+      const tick = setInterval(() => process.stdout.write(`\r  ${jobs.filter((j) => fs.existsSync(path.join(dir, j.file))).length}/${jobs.length} slide selesai`), 5000);
+      child.on('exit', () => { clearInterval(tick); process.stdout.write('\n'); });
     });
   }
   // kumpulkan slide terbaru per nomor
@@ -75,7 +75,7 @@ export async function poster(file, deck, outDir, { only, force } = {}) {
   const notes = deck.slides.map((s) => plain(s.notes));
   const html = `<!doctype html><html lang="id"><head><meta charset="utf-8"><title>${plain(deck.title)} — Poster</title><style>html,body{margin:0;height:100%;background:#000;overflow:hidden}img{position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;opacity:0;transition:opacity .5s}img.on{opacity:1}@media print{@page{size:1672px 941px;margin:0}html,body{height:auto;overflow:visible;background:#fff}img{position:static;opacity:1;width:1672px;height:941px;page-break-after:always;display:block}}</style></head><body>
 ${files.filter(Boolean).map((f, i) => `<img src="${name}-poster/${f}"${i ? '' : ' class="on"'} alt="">`).join('\n')}
-<script>const S=[...document.images];let c=0;const go=i=>{c=Math.max(0,Math.min(S.length-1,i));S.forEach((s,k)=>s.classList.toggle('on',k===c))};addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key))go(c+1);if(['ArrowLeft','PageUp'].includes(e.key))go(c-1);if(e.key==='f')document.documentElement.requestFullscreen});addEventListener('click',e=>go(c+(e.clientX>innerWidth/2?1:-1)));</script></body></html>`;
+<script>const S=[...document.images];let c=0;const go=i=>{c=Math.max(0,Math.min(S.length-1,i));S.forEach((s,k)=>s.classList.toggle('on',k===c))};addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key))go(c+1);if(['ArrowLeft','PageUp'].includes(e.key))go(c-1);if(e.key==='f')document.documentElement.requestFullscreen()});addEventListener('click',e=>go(c+(e.clientX>innerWidth/2?1:-1)));</script></body></html>`;
   const htmlFile = path.join(outDir, `${name}-poster.html`);
   fs.writeFileSync(htmlFile, html);
   const spec = path.join(dir, 'poster.json');
@@ -84,7 +84,7 @@ ${files.filter(Boolean).map((f, i) => `<img src="${name}-poster/${f}"${i ? '' : 
 import json,sys
 from pptx import Presentation
 from pptx.util import Emu
-d=json.load(open(sys.argv[1])); p=Presentation; p.slide_width,p.slide_height=Emu(12192000),Emu(6858000)
+d=json.load(open(sys.argv[1])); p=Presentation(); p.slide_width,p.slide_height=Emu(12192000),Emu(6858000)
 for s in d['slides']:
     sl=p.slides.add_slide(p.slide_layouts[6]); sl.shapes.add_picture(s['img'],0,0,p.slide_width,p.slide_height)
     if s['notes']: sl.notes_slide.notes_text_frame.text=s['notes']

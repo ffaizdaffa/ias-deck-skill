@@ -21,9 +21,9 @@ const ROLE = {
 };
 const STYLE = 'Bright high-key, airy, optimistic premium futuristic technology look; predominantly white, pale grey and light sky tones with clean accents in the color HEX; soft natural daylight or soft studio light; photoreal unless stated otherwise; Indonesian context and Southeast Asian people where people appear. Absolutely no text, letters, numbers, logos, emblems, watermarks or readable UI labels.';
 
-const plain = (t) => String(t || '').replace(/\*\*|==/g, '').replace(/\n/g, ' ').trim;
+const plain = (t) => String(t || '').replace(/\*\*|==/g, '').replace(/\n/g, ' ').trim();
 
-function codexReady {
+function codexReady() {
   try { execFileSync('codex', ['--version'], { stdio: 'ignore' }); } catch { return 'Codex CLI belum terpasang. Pasang: npm i -g @openai/codex, lalu jalankan: codex login'; }
   const st = spawnSync('codex', ['login', 'status'], { encoding: 'utf8' }); // status ditulis ke stderr
   if (!/logged in/i.test(`${st.stdout || ''}${st.stderr || ''}`)) return 'Codex belum login. Jalankan: codex login (pilih Sign in with ChatGPT)';
@@ -39,7 +39,7 @@ export async function imagine(file, deck, { only, force } = {}) {
   const jobs = [];
   deck.slides.forEach((s, i) => {
     if (pick && !pick.has(i)) return;
-    const manual = typeof s.imagine === 'string' && s.imagine.trim;
+    const manual = typeof s.imagine === 'string' && s.imagine.trim();
     const auto = deck.imagine && AUTO.includes(s.layout) && s.imagine !== false && !Array.isArray(s.collage);
     if (!manual && !auto) return;
     const key = createHash('sha1').update(`${s.layout}|${s.imagine || ''}|${s.title || ''}`).digest('hex').slice(0, 6);
@@ -51,7 +51,7 @@ export async function imagine(file, deck, { only, force } = {}) {
     jobs.push({ i, name, prompt: `${what}. Purpose: ${ROLE[s.layout] || ROLE.split}.` });
   });
   if (!jobs.length) { console.log('✔ Imagine: tidak ada slide yang perlu dibuatkan gambar (isi "imagine" di slide atau "imagine": true di akar deck).'); return deck; }
-  const why = codexReady;
+  const why = codexReady();
   if (why) { console.warn(`⚠ Imagine dilewati — ${why}`); return deck; }
   fs.mkdirSync(imgDir, { recursive: true });
   console.log(`… Membuat ${jobs.length} gambar lewat Codex (GPT Image), ±1 menit per gambar. Log: images/codex-log.txt`);
@@ -61,11 +61,11 @@ export async function imagine(file, deck, { only, force } = {}) {
     const child = execFile('codex', ['exec', '--skip-git-repo-check', '-s', 'workspace-write', '-C', imgDir, prompt], { cwd: imgDir, timeout: (jobs.length * 120 + 180) * 1000, maxBuffer: 64 << 20 }, (err, so, se) => {
       fs.writeFileSync(path.join(imgDir, 'codex-log.txt'), `${so || ''}\n${se || ''}`);
       if (err) console.warn(`⚠ Codex berhenti: ${err.message.split('\n')[0]}`);
-      res;
+      res();
     });
-    child.stdin.end; // Codex menunggu stdin bila dibiarkan terbuka
-    const tick = setInterval( => { const n = jobs.filter((j) => fs.existsSync(path.join(imgDir, j.name))).length; process.stdout.write(`\r  ${n}/${jobs.length} gambar selesai`); }, 5000);
-    child.on('exit',  => { clearInterval(tick); process.stdout.write('\n'); });
+    child.stdin.end(); // Codex menunggu stdin bila dibiarkan terbuka
+    const tick = setInterval(() => { const n = jobs.filter((j) => fs.existsSync(path.join(imgDir, j.name))).length; process.stdout.write(`\r  ${n}/${jobs.length} gambar selesai`); }, 5000);
+    child.on('exit', () => { clearInterval(tick); process.stdout.write('\n'); });
   });
   let ok = 0;
   const next = { ...deck, slides: deck.slides.map((s) => ({ ...s })) };
