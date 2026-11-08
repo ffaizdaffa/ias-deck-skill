@@ -113,7 +113,7 @@
       29,
       26
      ],
-     "gauge": 58
+     "icon": "timer"
     },
     {
      "value": "3,1",
@@ -128,10 +128,12 @@
       3.6,
       3.1
      ],
-     "gauge": 72
+     "icon": "truck"
     }
    ],
-   "notes": "Tegaskan ini angka ilustrasi; ganti dengan data pilot sebenarnya."
+   "notes": "Tegaskan ini angka ilustrasi; ganti dengan data pilot sebenarnya.",
+   "takeaway": "Hasil terbesar datang dari **disiplin harian**, bukan dari alat paling mahal.",
+   "source": "Data ilustrasi pilot 6 bulan — ganti dengan data pabrik Anda"
   },
   {
    "layout": "grid",
@@ -224,7 +226,8 @@
     "valueAdded": "242 dtk",
     "pce": "0,05%"
    },
-   "notes": "Process cycle efficiency sangat kecil — itulah ruang perbaikan."
+   "notes": "Process cycle efficiency sangat kecil — itulah ruang perbaikan.",
+   "takeaway": "Hanya **0,05%** waktu di lini yang benar-benar menambah nilai."
   },
   {
    "layout": "beforeafter",
@@ -249,7 +252,9 @@
     ],
     "metric": "26 mnt",
     "metricLabel": "rata-rata changeover"
-   }
+   },
+   "takeaway": "Changeover turun **42%** tanpa investasi mesin baru.",
+   "takeawayIcon": "timer"
   },
   {
    "layout": "cycle",
@@ -307,22 +312,61 @@
       ]
      }
     ],
-    "unit": "%"
+    "unit": "%",
+    "highlight": "Jun"
    },
-   "insight": "Kenaikan terbesar datang dari **availability**: downtime tak terencana turun setelah alarm real-time."
+   "insight": "Naik bertahap tiap bulan — terbesar dari **availability** setelah alarm real-time.",
+   "insightValue": "+18",
+   "insightLabel": "Poin OEE",
+   "source": "Data ilustrasi"
+  },
+  {
+   "layout": "chart",
+   "kicker": "Bridge OEE (data ilustrasi)",
+   "title": "Dari mana tambahan **18 poin** OEE",
+   "chart": {
+    "type": "waterfall",
+    "labels": [
+     "OEE awal",
+     "Availability",
+     "Performance",
+     "Quality",
+     "OEE baru"
+    ],
+    "values": [
+     61,
+     9,
+     6,
+     3,
+     79
+    ],
+    "unit": "%",
+    "highlight": 4,
+    "groups": [
+     {
+      "from": 1,
+      "to": 3,
+      "label": "Tiga komponen OEE"
+     }
+    ]
+   },
+   "insightValue": "½",
+   "insightLabel": "Porsi terbesar",
+   "insight": "Separuh kenaikan dari **availability** — downtime terdeteksi lebih cepat.",
+   "source": "Data ilustrasi"
   },
   {
    "layout": "chart",
    "kicker": "Sumber downtime (data ilustrasi)",
    "title": "Apa yang menghentikan lini",
    "chart": {
-    "type": "bar",
+    "type": "hbar",
     "labels": [
      "Setup",
      "Material",
      "Breakdown",
      "Quality",
-     "Lain"
+     "Lain-lain"
     ],
     "series": [
      {
@@ -336,9 +380,35 @@
       ]
      }
     ],
-    "unit": "j"
+    "unit": " j"
    },
-   "insight": "80% downtime dari 3 penyebab. Fokus di sana dulu."
+   "insight": "Fokuskan kaizen ke **setup, material, breakdown** dulu.",
+   "insightValue": "80%",
+   "insightLabel": "Dari 3 penyebab",
+   "source": "Data ilustrasi Pareto downtime"
+  },
+  {
+   "layout": "number",
+   "kicker": "Target respons (ilustrasi)",
+   "value": "5",
+   "unit": "mnt",
+   "title": "Waktu respons gangguan dengan andon digital",
+   "text": "Turun dari rata-rata 25 menit saat panggilan masih manual.",
+   "items": [
+    {
+     "value": "25 → 5",
+     "label": "menit respons"
+    },
+    {
+     "value": "24/7",
+     "label": "pantauan lini"
+    },
+    {
+     "value": "1 layar",
+     "label": "untuk semua shift"
+    }
+   ],
+   "notes": "Angka ilustrasi — ganti dengan data pilot."
   },
   {
    "layout": "layers",
@@ -438,7 +508,9 @@
      "title": "Analitik prediktif",
      "desc": "Maintenance berbasis kondisi"
     }
-   ]
+   ],
+   "takeaway": "Mulai kecil, buktikan dalam **90 hari**, baru replikasi.",
+   "takeawayIcon": "rocket"
   },
   {
    "layout": "compare",

@@ -28,6 +28,11 @@ def rgb(css):
     if css.startswith("#"):
         h = css[1:]
         return RGBColor(int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+    if css.startswith("color(srgb"):  # hasil color-mix(): komponen 0–1
+        m = re.findall(r"[\d.]+", css)
+        if len(m) == 4 and float(m[3]) == 0:
+            return None
+        return RGBColor(*[max(0, min(255, round(float(x) * 255))) for x in m[:3]])
     m = re.findall(r"[\d.]+", css)
     if len(m) >= 3:
         if len(m) == 4 and float(m[3]) == 0:
@@ -107,22 +112,40 @@ def add_chart(slide, c, theme):
     spec = c.get("spec") or {}
     labels = spec.get("labels") or []
     series = spec.get("series") or []
+    kind_name = spec.get("type")
+    if kind_name == "waterfall":
+        vals = spec.get("values") or (series[0]["data"] if series else [])
+        tots = set(spec.get("totals") or [0, len(vals) - 1])
+        base, up, down, total, run = [], [], [], [], 0
+        for i, v in enumerate(vals):
+            if i in tots:
+                run = v
+                base.append(0); up.append(0); down.append(0); total.append(v)
+            else:
+                lo = run + min(v, 0); run += v
+                base.append(lo); up.append(max(v, 0)); down.append(-min(v, 0)); total.append(0)
+        series = [{"name": "_base", "data": base}, {"name": "Total", "data": total}, {"name": "Naik", "data": up}, {"name": "Turun", "data": down}]
     if not labels or not series:
         return
+    if kind_name == "hbar" and spec.get("sort", True) is not False:
+        order = sorted(range(len(labels)), key=lambda i: series[0]["data"][i])  # PowerPoint menggambar dari bawah
+        labels = [labels[i] for i in order]
+        series = [{"name": series[0].get("name", ""), "data": [series[0]["data"][i] for i in order]}]
     data = CategoryChartData()
     data.categories = labels
     for s in series:
         data.add_series(s.get("name", ""), s.get("data", []))
-    kind = {"line": XL_CHART_TYPE.LINE_MARKERS, "donut": XL_CHART_TYPE.DOUGHNUT}.get(spec.get("type"), XL_CHART_TYPE.COLUMN_CLUSTERED)
+    kind = {"line": XL_CHART_TYPE.LINE_MARKERS, "donut": XL_CHART_TYPE.DOUGHNUT, "hbar": XL_CHART_TYPE.BAR_CLUSTERED,
+            "waterfall": XL_CHART_TYPE.COLUMN_STACKED}.get(kind_name, XL_CHART_TYPE.COLUMN_CLUSTERED)
     gf = slide.shapes.add_chart(kind, Emu(int(c["x"] * PX)), Emu(int(c["y"] * PX)), Emu(int(c["w"] * PX)), Emu(int(c["h"] * PX)), data)
     ch = gf.chart
     ch.has_title = False
-    fg, muted = rgb(theme["fg"]), rgb(theme["muted"])
-    palette = [rgb(theme["accent"]), rgb(theme["accent2"]), muted, fg]
+    fg, muted, acc, acc2 = rgb(theme["fg"]), rgb(theme["muted"]), rgb(theme["accent"]), rgb(theme["accent2"])
+    palette = [acc, acc2, muted, fg]
     ch.font.size = Pt(11)
     ch.font.color.rgb = muted
     ch.font.name = theme.get("fm")
-    ch.has_legend = len(series) > 1 or kind == XL_CHART_TYPE.DOUGHNUT
+    ch.has_legend = (len(series) > 1 and kind_name != "waterfall") or kind == XL_CHART_TYPE.DOUGHNUT
     if ch.has_legend:
         ch.legend.position = XL_LEGEND_POSITION.RIGHT if kind == XL_CHART_TYPE.DOUGHNUT else XL_LEGEND_POSITION.TOP
         ch.legend.include_in_layout = False
@@ -133,21 +156,37 @@ def add_chart(slide, c, theme):
             pt.format.fill.solid()
             pt.format.fill.fore_color.rgb = palette[i % 4]
         return
-    if kind == XL_CHART_TYPE.COLUMN_CLUSTERED:
+    hi = spec.get("highlight")
+    hi_idx = hi if isinstance(hi, int) else (labels.index(hi) if hi in labels else -1)
+    if kind in (XL_CHART_TYPE.COLUMN_CLUSTERED, XL_CHART_TYPE.BAR_CLUSTERED, XL_CHART_TYPE.COLUMN_STACKED):
         plot.gap_width = 60
-        if len(series) == 1:
-            plot.has_data_labels = True
-            plot.data_labels.font.color.rgb = fg
-            plot.data_labels.font.size = Pt(12)
+        if kind == XL_CHART_TYPE.COLUMN_STACKED:
+            plot.overlap = 100
+    if kind_name == "waterfall":
+        for i, s in enumerate(plot.series):
+            if i == 0:
+                s.format.fill.background()
+                continue
+            s.format.fill.solid()
+            s.format.fill.fore_color.rgb = [None, fg, acc, muted][i]
+        return
     for i, s in enumerate(plot.series):
         col = palette[i % 4]
         if kind == XL_CHART_TYPE.LINE_MARKERS:
             s.format.line.color.rgb = col
             s.format.line.width = Pt(2.5)
             s.smooth = False
-        else:
-            s.format.fill.solid()
-            s.format.fill.fore_color.rgb = col
+            continue
+        s.format.fill.solid()
+        s.format.fill.fore_color.rgb = col
+        if len(series) == 1 and hi_idx >= 0:
+            for j, pt in enumerate(s.points):
+                pt.format.fill.solid()
+                pt.format.fill.fore_color.rgb = acc if j == hi_idx else muted
+    if len(series) == 1 and kind != XL_CHART_TYPE.LINE_MARKERS:
+        plot.has_data_labels = True
+        plot.data_labels.font.color.rgb = fg
+        plot.data_labels.font.size = Pt(12)
     va = ch.value_axis
     va.major_gridlines.format.line.color.rgb = muted
     va.major_gridlines.format.line.width = Pt(0.5)

@@ -1,4 +1,4 @@
-# 40 Tema IAS Deck (semua cerah)
+# 41 Tema IAS Deck (semua cerah)
 
 Pilih dengan `"theme": "<id>"` di deck JSON, atau coba langsung dengan tombol `T` saat deck tampil. Galeri visual: `node engine/render.mjs --gallery`.
 
@@ -78,10 +78,11 @@ elegan, lega, gradien aurora pastel; cocok untuk forum resmi kementerian & board
 | `clean-aurora` | Aurora | flow | Geist | #4F46E5 / #0EA5A4 |
 | `clean-porcelain` | Porcelain | flow | Michroma | #1D4ED8 / #D35A3C |
 | `clean-desert` | Desert Lab | dots | Space Grotesk | #B93C0A / #0F766E |
+| `clean-nusantara` | Nusantara Industri | flow | Montserrat | #0B3D91 / #2E8B3A |
 | `clean-merahputih` | Merah Putih Tech | flow | Sora | #D7141A / #1F2937 |
 
 ## Rekomendasi cepat
-- **Kemenperin / forum resmi:** `clean-merahputih`, `clean-porcelain`, `clean-swiss`, `hud-arctic`
+- **Kemenperin / forum resmi:** `clean-nusantara`, `clean-merahputih`, `clean-porcelain`, `clean-swiss`, `hud-arctic`
 - **Keynote IT/AI paling futuristik:** `hud-cobalt`, `hud-ion`, `twin-hologram`, `hud-cyan`
 - **Lean / shop-floor:** `bp-classic`, `fac-safety`, `fac-andon`, `bp-graphite`
 - **Data & AI:** `term-mainframe`, `twin-mesh`, `term-void`

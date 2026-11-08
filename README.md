@@ -10,9 +10,12 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 | **PPTX** | Dikirim ke panitia / diedit di PowerPoint atau Keynote — teks & grafik asli, efek futuristik ikut sebagai latar |
 
 - **Gaya cinematic tech yang cerah**: latar putih/pucat dengan gradien aurora, panel kaca putih, garis HUD tipis, tipografi display besar
-- **40 tema** dalam 6 keluarga: HUD / Command Center · Blueprint / Engineering · Digital Twin · Smart Factory · Data Terminal · Clean Future
+- **41 tema** dalam 6 keluarga: HUD / Command Center · Blueprint / Engineering · Digital Twin · Smart Factory · Data Terminal · Clean Future
 - **100 gambar hero render AI** (manufaktur, Industri 4.0, AI, robotik, IT, lean, Indonesia/Kemenperin, latar 3D abstrak), dipilih otomatis sesuai judul slide. Galeri: `skills/ias-deck/assets/heroes/index.html`
-- **21 layout** khusus materi industri: KPI, value stream map, siklus PDCA, 8 waste (TIMWOODS), sebelum–sesudah, roadmap, arsitektur berlapis, grafik, tabel, dan lainnya
+- **25 layout** khusus materi industri (termasuk waterfall/bridge, Pareto, angka raksasa, deret pilar berikon, kolase foto gaya poster Kemenperin)
+- **102 ikon** (Lucide) untuk kartu, poin, dan pilar
+- Pola dari referensi: kesimpulan per slide, sumber data, panel insight berangka besar, pita sorotan `==frasa==`
+- Layout dasar: KPI, value stream map, siklus PDCA, 8 waste (TIMWOODS), sebelum–sesudah, roadmap, arsitektur berlapis, grafik, tabel, dan lainnya
 - Semua tema lolos uji kontras WCAG, sehingga tetap terbaca di proyektor ruangan besar
 - Logo & warna aksen bisa diganti per acara (Astra, Kemenperin, pribadi)
 

@@ -128,6 +128,8 @@
       const charts = [...s.querySelectorAll('[data-chart]')].map((el) => { const r = el.querySelector('svg').getBoundingClientRect(); return { x: r.left - R.left, y: r.top - R.top, w: r.width, h: r.height, k: +el.dataset.chart }; });
       const fr = s.querySelector('.frame'), over = [];
       if (fr.scrollHeight > fr.clientHeight + 4) over.push(`isi melebihi area (${fr.scrollHeight}px > ${fr.clientHeight}px)`);
+      const FR = fr.getBoundingClientRect(), ft = FR.top - R.top - 6;
+      texts.forEach((t) => { if (t.y < ft && t.y < 140) over.push(`teks naik melewati batas atas: "${t.runs.map((r) => r.t).join('').slice(0, 40)}"`); });
       texts.forEach((t) => { if (t.y + t.h > 1050 || t.x + t.w > 1880 || t.x < 30) over.push(`teks keluar slide: "${t.runs.map((r) => r.t).join('').slice(0, 40)}"`); });
       [...s.querySelectorAll('[data-t]')].forEach((el) => { if (el.scrollWidth > el.clientWidth + 4 && getComputedStyle(el).overflow !== 'visible') over.push(`teks terpotong: "${el.textContent.slice(0, 40)}"`); });
       return { texts, charts, over, notes: s.querySelector('.notes').textContent };

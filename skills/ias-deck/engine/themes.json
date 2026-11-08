@@ -38,7 +38,8 @@
   "Syne": "400;600;700;800",
   "Geist": "400;500;600;700",
   "Geist Mono": "400;500",
-  "Michroma": "400"
+  "Michroma": "400",
+  "Montserrat": "400;600;700;800"
  },
  "themes": [
   {
@@ -802,6 +803,26 @@
    "decor": "clean",
    "upper": false,
    "tint": "natural"
+  },
+  {
+   "id": "clean-nusantara",
+   "name": "Nusantara Industri",
+   "family": "clean",
+   "mode": "light",
+   "bg": "#F2F6FB",
+   "fg": "#0B1F4B",
+   "muted": "#4F5D78",
+   "accent": "#0B3D91",
+   "accent2": "#2E8B3A",
+   "fx": "flow",
+   "fd": "Montserrat",
+   "fb": "Manrope",
+   "fm": "DM Mono",
+   "card": "glass",
+   "decor": "clean",
+   "upper": false,
+   "tint": "natural",
+   "weight": 800
   }
  ]
 }

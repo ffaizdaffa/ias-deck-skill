@@ -1,0 +1,197 @@
+{
+ "title": "Industri Nasional Inklusif & Berkelanjutan",
+ "code": "INDUSTRI-ID",
+ "theme": "clean-nusantara",
+ "speaker": {
+  "name": "Irfan A. Shidiq",
+  "role": "General Manager IT"
+ },
+ "event": "Forum Industri Nasional · Jakarta",
+ "brand": {
+  "name": "Forum Industri Nasional"
+ },
+ "slides": [
+  {
+   "layout": "cover",
+   "pretitle": "Peran strategis",
+   "title": "TRANSFORMASI\nINDUSTRI 4.0",
+   "subtitle": "dalam mendorong **industri nasional** yang inklusif dan berkelanjutan",
+   "collage": [
+    "id-workers",
+    "id-jakarta-aerial",
+    "mfg-electronics",
+    "id-port"
+   ],
+   "pillars": [
+    {
+     "icon": "trending-up",
+     "title": "Daya saing"
+    },
+    {
+     "icon": "users",
+     "title": "Inklusif"
+    },
+    {
+     "icon": "leaf",
+     "title": "Berkelanjutan"
+    },
+    {
+     "icon": "lightbulb",
+     "title": "Inovasi"
+    },
+    {
+     "icon": "handshake",
+     "title": "Kolaborasi"
+    }
+   ],
+   "band": "Industri kuat, Indonesia maju — bersama untuk masa depan"
+  },
+  {
+   "layout": "pillars",
+   "kicker": "Lima pilar",
+   "title": "Arah transformasi industri nasional",
+   "items": [
+    {
+     "icon": "trending-up",
+     "title": "Daya saing",
+     "desc": "Produktivitas & kualitas"
+    },
+    {
+     "icon": "users",
+     "title": "Inklusif",
+     "desc": "UMKM & SDM lokal"
+    },
+    {
+     "icon": "leaf",
+     "title": "Berkelanjutan",
+     "desc": "Energi bersih"
+    },
+    {
+     "icon": "cpu",
+     "title": "Digital",
+     "desc": "Data & otomasi"
+    },
+    {
+     "icon": "handshake",
+     "title": "Kolaborasi",
+     "desc": "Industri–kampus–pemerintah"
+    }
+   ],
+   "photos": [
+    "mfg-car-line",
+    "id-smk",
+    "mfg-solar-factory"
+   ]
+  },
+  {
+   "layout": "statement",
+   "kicker": "Pesan utama",
+   "text": "Teknologi baru berdampak bila ==dipakai setiap hari== oleh orang di lantai produksi.",
+   "source": "Prinsip kerja"
+  },
+  {
+   "layout": "showcase",
+   "kicker": "Manfaat",
+   "title": "Dampak transformasi bagi ==industri manufaktur==",
+   "photos": [
+    "id-port",
+    "mfg-cnc",
+    "mfg-car-line"
+   ],
+   "items": [
+    {
+     "icon": "chart-line",
+     "title": "Daya saing naik",
+     "desc": "Biaya per unit turun"
+    },
+    {
+     "icon": "cog",
+     "title": "Produktivitas",
+     "desc": "Mesin & orang lebih efektif"
+    },
+    {
+     "icon": "users",
+     "title": "Lapangan kerja",
+     "desc": "Keahlian baru untuk SDM"
+    },
+    {
+     "icon": "globe",
+     "title": "Kemandirian",
+     "desc": "Rantai pasok dalam negeri"
+    }
+   ]
+  },
+  {
+   "layout": "number",
+   "kicker": "Contoh target (ilustrasi)",
+   "value": "30",
+   "unit": "%",
+   "title": "Kenaikan produktivitas lini percontohan",
+   "text": "Dicapai lewat lean + data real-time dalam 12 bulan.",
+   "items": [
+    {
+     "value": "5",
+     "label": "lini percontohan"
+    },
+    {
+     "value": "120",
+     "label": "operator terlatih"
+    },
+    {
+     "value": "12 bln",
+     "label": "durasi program"
+    }
+   ],
+   "takeaway": "Mulai dari ==lini percontohan==, lalu replikasi.",
+   "takeawayIcon": "rocket"
+  },
+  {
+   "layout": "chart",
+   "kicker": "Peta jalan (ilustrasi)",
+   "title": "Kontribusi tiap inisiatif ke target",
+   "chart": {
+    "type": "waterfall",
+    "labels": [
+     "Saat ini",
+     "Lean",
+     "Otomasi",
+     "Data & AI",
+     "SDM",
+     "Target"
+    ],
+    "values": [
+     100,
+     12,
+     8,
+     6,
+     4,
+     130
+    ],
+    "unit": "",
+    "highlight": 5,
+    "groups": [
+     {
+      "from": 1,
+      "to": 4,
+      "label": "Empat inisiatif"
+     }
+    ]
+   },
+   "insightValue": "+30",
+   "insightLabel": "Indeks produktivitas",
+   "insight": "Lean memberi porsi terbesar dengan biaya paling kecil.",
+   "source": "Data ilustrasi"
+  },
+  {
+   "layout": "closing",
+   "kicker": "Terima kasih",
+   "title": "Industri kuat,\n==Indonesia maju==",
+   "subtitle": "Diskusi & tanya jawab",
+   "contact": [
+    "Irfan A. Shidiq",
+    "General Manager IT"
+   ],
+   "hero": "id-industrial-estate"
+  }
+ ]
+}

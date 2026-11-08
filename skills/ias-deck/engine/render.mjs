@@ -11,6 +11,8 @@ import { renderSlide, LAYOUTS, esc } from './layouts.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const TH = JSON.parse(fs.readFileSync(path.join(HERE, 'themes.json'), 'utf8'));
+const ICONS = JSON.parse(fs.readFileSync(path.join(HERE, 'icons.json'), 'utf8'));
+const icon = (n) => (ICONS[n] ? `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>` : (console.warn(`⚠ ikon tidak dikenal: ${n} (lihat references/icons.md)`), ''));
 const HERO_DIR = path.join(HERE, '..', 'assets', 'heroes');
 const HEROES = fs.existsSync(path.join(HERO_DIR, 'heroes.json')) ? JSON.parse(fs.readFileSync(path.join(HERO_DIR, 'heroes.json'), 'utf8')) : [];
 // kata Indonesia -> tag gambar
@@ -29,36 +31,67 @@ const die = (m) => { console.error(`✖ ${m}`); process.exit(1); };
 
 /* ---------- grafik SVG (pratinjau HTML; di PPTX diganti grafik asli) ---------- */
 function svgChart(c = {}) {
-  const W = 1000, H = 560, P = { l: 70, r: 20, t: 30, b: 60 }, labels = c.labels || [], series = c.series || [];
-  const cols = ['var(--a)', 'var(--a2)', 'var(--m)', 'var(--f)'];
+  const W = 1000, H = 560, P = { l: 70, r: 20, t: 40, b: 70 }, labels = c.labels || [], series = c.series || [];
+  const cols = ['var(--a)', 'var(--a2)', 'var(--m)', 'var(--f)'], u = esc(c.unit || '');
+  const fmt = (v) => `${String(v).replace('.', ',')}${u}`;
+  const hiIdx = typeof c.highlight === 'number' ? c.highlight : labels.indexOf(c.highlight);
+  const defs = `<defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--a)" stop-opacity=".28"/><stop offset="1" stop-color="var(--a)" stop-opacity="0"/></linearGradient>
+<linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--a)"/><stop offset="1" stop-color="var(--a)" stop-opacity=".35"/></linearGradient>
+<linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--m)" stop-opacity=".55"/><stop offset="1" stop-color="var(--m)" stop-opacity=".18"/></linearGradient>
+<linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--f)"/><stop offset="1" stop-color="var(--f)" stop-opacity=".7"/></linearGradient>
+<linearGradient id="gh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--a)" stop-opacity=".35"/><stop offset="1" stop-color="var(--a)"/></linearGradient></defs>`;
   if (c.type === 'donut') {
     const s = series[0] || { data: [] }, tot = s.data.reduce((a, b) => a + b, 0) || 1, cx = 300, cy = H / 2, R = 220, r = 140;
     let a0 = -Math.PI / 2;
     const arcs = s.data.map((v, i) => { const a1 = a0 + (v / tot) * Math.PI * 2, lg = a1 - a0 > Math.PI ? 1 : 0, p = (a, rr) => `${cx + Math.cos(a) * rr} ${cy + Math.sin(a) * rr}`;
       const d = `M${p(a0, R)}A${R} ${R} 0 ${lg} 1 ${p(a1, R)}L${p(a1, r)}A${r} ${r} 0 ${lg} 0 ${p(a0, r)}Z`; a0 = a1;
-      return `<path d="${d}" fill="${cols[i % 4]}" opacity="${1 - Math.floor(i / 4) * 0.35}" stroke="var(--bg)" stroke-width="4"/>`; }).join('');
-    const leg = labels.map((l, i) => `<rect x="620" y="${130 + i * 56}" width="22" height="22" fill="${cols[i % 4]}"/><text x="656" y="${148 + i * 56}">${esc(l)}</text><text class="vl" x="980" y="${148 + i * 56}" text-anchor="end">${esc(s.data[i])}${esc(c.unit || '')}</text>`).join('');
-    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${arcs}${leg}</svg>`;
+      return `<path d="${d}" fill="${cols[i % 4]}" opacity="${1 - Math.floor(i / 4) * 0.35}" stroke="var(--bg)" stroke-width="5"/>`; }).join('');
+    const leg = labels.map((l, i) => `<rect x="620" y="${130 + i * 56}" width="22" height="22" rx="4" fill="${cols[i % 4]}"/><text x="656" y="${148 + i * 56}">${esc(l)}</text><text class="vl" x="980" y="${148 + i * 56}" text-anchor="end">${fmt(s.data[i])}</text>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${arcs}<text class="vl" x="${cx}" y="${cy + 12}" text-anchor="middle" style="font-size:40px">${esc(c.center || '')}</text>${leg}</svg>`;
   }
-  const all = series.flatMap((s) => s.data), max = Math.max(...all, 0) * 1.12 || 1, iw = W - P.l - P.r, ih = H - P.t - P.b;
+  if (c.type === 'hbar') {
+    const s = series[0] || { data: [] }, idx = s.data.map((v, i) => i), mx = Math.max(...s.data, 0) || 1, n = labels.length || 1, rowH = (H - 20) / n, L = 260;
+    if (c.sort !== false) idx.sort((a, b) => s.data[b] - s.data[a]);
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${defs}${idx.map((i, k) => { const y = 10 + k * rowH, w = ((W - L - 110) * s.data[i]) / mx, hi = i === hiIdx || (hiIdx < 0 && k === 0);
+      return `<text x="${L - 18}" y="${y + rowH / 2 + 7}" text-anchor="end" style="font-size:20px;fill:var(--f)">${esc(labels[i])}</text><rect x="${L}" y="${y + rowH * 0.18}" width="${W - L - 110}" height="${rowH * 0.64}" rx="6" fill="var(--ln)" opacity=".5"/><rect x="${L}" y="${y + rowH * 0.18}" width="${w}" height="${rowH * 0.64}" rx="6" fill="${hi ? 'url(#gh)' : 'url(#gm)'}"/><text class="vl" x="${L + w + 14}" y="${y + rowH / 2 + 8}">${fmt(s.data[i])}</text>`; }).join('')}</svg>`;
+  }
+  if (c.type === 'waterfall') {
+    const vals = c.values || (series[0] || {}).data || [], tots = new Set(c.totals || [0, vals.length - 1]);
+    let run = 0; const bars = vals.map((v, i) => { if (tots.has(i)) { run = v; return { lo: 0, hi: v, v, t: true }; } const lo = run; run += v; return { lo: Math.min(lo, run), hi: Math.max(lo, run), v, t: false }; });
+    const mx = Math.max(...bars.map((b) => b.hi)) * 1.15 || 1, n = vals.length || 1, iw = W - P.l - P.r, ih = H - P.t - P.b - 40, y = (v) => P.t + ih - (v / mx) * ih, bw = (iw / n) * 0.62;
+    let g = `<line class="ax" x1="${P.l}" x2="${W - P.r}" y1="${P.t + ih}" y2="${P.t + ih}"/>`;
+    bars.forEach((b, i) => { const x = P.l + (iw / n) * i + (iw / n - bw) / 2, hi = i === hiIdx;
+      const fill = b.t ? (hi ? 'url(#ga)' : i === 0 ? 'url(#gm)' : 'url(#gf)') : b.v < 0 ? 'var(--m)' : 'url(#ga)';
+      g += `<rect x="${x}" y="${y(b.hi)}" width="${bw}" height="${Math.max(3, y(b.lo) - y(b.hi))}" rx="4" fill="${fill}"/>`;
+      const ly = y(b.t || b.v >= 0 ? b.hi : b.lo);
+      if (i < n - 1) g += `<line x1="${x + bw}" x2="${x + iw / n}" y1="${ly}" y2="${ly}" stroke="var(--m)" stroke-dasharray="4 5"/>`;
+      g += `<text class="vl" x="${x + bw / 2}" y="${y(b.hi) - 14}" text-anchor="middle"${b.t ? ' style="font-size:30px;font-weight:700"' : ''}>${b.t ? '' : b.v > 0 ? '+' : ''}${fmt(b.v)}</text>`;
+      g += `<text x="${x + bw / 2}" y="${P.t + ih + 30}" text-anchor="middle" style="fill:var(--f)">${esc(labels[i] || '')}</text>`; });
+    (c.groups || []).forEach((gr) => { const x1 = P.l + (iw / n) * gr.from + 10, x2 = P.l + (iw / n) * (gr.to + 1) - 10, yy = H - 28;
+      g += `<path d="M${x1},${yy - 12} V${yy} H${x2} V${yy - 12}" fill="none" stroke="var(--a)" stroke-width="2"/><text x="${(x1 + x2) / 2}" y="${yy + 26}" text-anchor="middle" style="fill:var(--a);font-weight:600">${esc(gr.label)}</text>`; });
+    return `<svg viewBox="0 0 ${W} ${H + 30}" preserveAspectRatio="xMidYMid meet">${defs}${g}</svg>`;
+  }
+  const all = series.flatMap((s) => s.data), max = Math.max(...all, 0) * 1.15 || 1, iw = W - P.l - P.r, ih = H - P.t - P.b;
   const y = (v) => P.t + ih - (v / max) * ih, n = labels.length || 1;
   let g = '';
   for (let k = 0; k <= 4; k++) { const v = (max / 4) * k; g += `<line class="gl" x1="${P.l}" x2="${W - P.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${P.l - 12}" y="${y(v) + 6}" text-anchor="end">${Math.round(v)}</text>`; }
-  g += labels.map((l, i) => `<text x="${P.l + (iw / n) * (i + 0.5)}" y="${H - 22}" text-anchor="middle">${esc(l)}</text>`).join('');
+  g += labels.map((l, i) => `<text x="${P.l + (iw / n) * (i + 0.5)}" y="${H - 30}" text-anchor="middle"${i === hiIdx ? ' style="fill:var(--a);font-weight:700"' : ''}>${esc(l)}</text>`).join('');
   let marks = '';
   if (c.type === 'line') {
     series.forEach((s, si) => { const pts = s.data.map((v, i) => `${P.l + (iw / n) * (i + 0.5)},${y(v)}`);
-      if (si === 0) marks += `<defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--a)" stop-opacity=".28"/><stop offset="1" stop-color="var(--a)" stop-opacity="0"/></linearGradient></defs><path d="M${pts[0].split(',')[0]},${P.t + ih} L${pts.join(' L')} L${pts[pts.length - 1].split(',')[0]},${P.t + ih}Z" fill="url(#ar)"/>`;
-      marks += `<polyline class="ln" points="${pts.join(' ')}" fill="none" stroke="${cols[si % 4]}" stroke-width="5" stroke-linejoin="round"/>` + s.data.map((v, i) => `<circle cx="${P.l + (iw / n) * (i + 0.5)}" cy="${y(v)}" r="7" fill="var(--bg)" stroke="${cols[si % 4]}" stroke-width="3"/>`).join('');
-      const last = s.data.length - 1; marks += `<text class="vl" x="${P.l + (iw / n) * (last + 0.5)}" y="${y(s.data[last]) - 18}" text-anchor="middle">${esc(s.data[last])}${esc(c.unit || '')}</text>`; });
+      if (si === 0) marks += `<path d="M${pts[0].split(',')[0]},${P.t + ih} L${pts.join(' L')} L${pts[pts.length - 1].split(',')[0]},${P.t + ih}Z" fill="url(#ar)"/>`;
+      marks += `<polyline class="ln" points="${pts.join(' ')}" fill="none" stroke="${cols[si % 4]}" stroke-width="5" stroke-linejoin="round"/>` + s.data.map((v, i) => `<circle cx="${P.l + (iw / n) * (i + 0.5)}" cy="${y(v)}" r="${i === hiIdx ? 11 : 7}" fill="var(--bg)" stroke="${cols[si % 4]}" stroke-width="3"/>`).join('');
+      const last = hiIdx >= 0 ? hiIdx : s.data.length - 1; marks += `<text class="vl" x="${P.l + (iw / n) * (last + 0.5)}" y="${y(s.data[last]) - 22}" text-anchor="middle">${fmt(s.data[last])}</text>`; });
   } else {
-    const bw = (iw / n) * 0.7 / series.length;
-    series.forEach((s, si) => s.data.forEach((v, i) => { const x = P.l + (iw / n) * i + (iw / n) * 0.15 + si * bw;
-      if (!marks.includes('id="bg${si}"')) marks += `<defs><linearGradient id="bg${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cols[si % 4]}"/><stop offset="1" stop-color="${cols[si % 4]}" stop-opacity=".25"/></linearGradient></defs>`;
-      marks += `<rect x="${x}" y="${y(v)}" width="${bw - 6}" height="${P.t + ih - y(v)}" rx="4" fill="url(#bg${si})"/><rect x="${x}" y="${y(v)}" width="${bw - 6}" height="4" fill="${cols[si % 4]}" class="ln"/>`;
-      if (series.length === 1) marks += `<text class="vl" x="${x + (bw - 6) / 2}" y="${y(v) - 12}" text-anchor="middle">${esc(v)}${esc(c.unit || '')}</text>`; }));
+    const bw = (iw / n) * 0.66 / series.length;
+    series.forEach((s, si) => s.data.forEach((v, i) => { const x = P.l + (iw / n) * i + (iw / n) * 0.17 + si * bw;
+      const fill = series.length > 1 ? cols[si % 4] : hiIdx < 0 || i === hiIdx ? 'url(#ga)' : 'url(#gm)';
+      marks += `<rect x="${x}" y="${y(v)}" width="${bw - 8}" height="${P.t + ih - y(v)}" rx="5" fill="${fill}"/>`;
+      if (series.length === 1) marks += `<text class="vl" x="${x + (bw - 8) / 2}" y="${y(v) - 14}" text-anchor="middle"${i === hiIdx ? ' style="fill:var(--a);font-size:26px;font-weight:700"' : ''}>${fmt(v)}</text>`; }));
   }
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><line class="ax" x1="${P.l}" x2="${W - P.r}" y1="${P.t + ih}" y2="${P.t + ih}"/>${g}${marks}</svg>`;
+  if (c.avg) { const vals = (series[0] || { data: [] }).data, av = vals.reduce((a, b) => a + b, 0) / (vals.length || 1);
+    marks += `<line x1="${P.l}" x2="${W - P.r}" y1="${y(av)}" y2="${y(av)}" stroke="var(--a2)" stroke-width="2.5" stroke-dasharray="10 8"/><text x="${W - P.r}" y="${y(av) - 10}" text-anchor="end" style="fill:var(--a2);font-weight:600">${esc(c.avgLabel || 'rata-rata')} ${fmt(Math.round(av * 10) / 10)}</text>`; }
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${defs}<line class="ax" x1="${P.l}" x2="${W - P.r}" y1="${P.t + ih}" y2="${P.t + ih}"/>${g}${marks}</svg>`;
 }
 
 /* ---------- validasi ringan ---------- */
@@ -108,7 +141,7 @@ function buildHtml(deck, baseDir, themeId) {
     deck, code: deck.code || (deck.title || 'DECK').replace(/[^A-Za-z0-9]+/g, '-').slice(0, 18).toUpperCase(),
     chart: (c) => (charts.push(c), charts.length - 1), svgChart,
     clock: new Date().toTimeString().slice(0, 8), date: new Date().toISOString().slice(0, 10), tint: '',
-    hero: (id) => heroSrc(id, baseDir),
+    hero: (id) => heroSrc(id, baseDir), icon,
     heroFor: (s, i) => pickHero(deck, s, i, baseDir, used),
     asset: (p) => {
       if (/^(https?:|data:)/.test(p)) return p;

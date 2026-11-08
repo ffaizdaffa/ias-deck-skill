@@ -31,7 +31,7 @@ Baca `references/storytelling.md`. Aturan inti:
 
 ### 3. Pilih tema & gambar hero
 Lihat `references/themes.md` (40 tema cerah, 6 keluarga, rekomendasi per acara). Default yang aman:
-- Forum resmi kementerian/board → `clean-merahputih`, `clean-porcelain`, `clean-swiss`, `hud-arctic`.
+- Forum resmi kementerian/board → `clean-nusantara` (navy-hijau, gaya poster Kemenperin), `clean-merahputih`, `clean-porcelain`, `hud-arctic`.
 - Keynote teknologi/IT/AI → `hud-cobalt`, `hud-ion`, `twin-hologram`, `term-mainframe`.
 - Materi shop-floor/lean/kaizen → `bp-classic`, `fac-safety`, `fac-andon`.
 
@@ -40,10 +40,11 @@ Lihat `references/themes.md` (40 tema cerah, 6 keluarga, rekomendasi per acara).
 Galeri visual tema: `node SKILL_DIR/engine/render.mjs --gallery --out ./out` lalu buka `out/gallery.html`.
 
 ### 4. Tulis file deck JSON
-Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layout: `references/layouts.md`. Contoh lengkap: `SKILL_DIR/examples/lean-kemenperin.json` (18 slide, semua layout utama).
+Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layout: `references/layouts.md`. Contoh lengkap: `SKILL_DIR/examples/lean-kemenperin.json` (22 slide, keynote lean) dan `SKILL_DIR/examples/forum-industri-nasional.json` (7 slide gaya poster Kemenperin: kolase, deret ikon, band, pita).
 - `**teks**` = sorotan warna aksen. `\n` = baris baru.
 - Logo/foto: path relatif terhadap file JSON (otomatis ditanam ke HTML).
 - Variasikan layout — jangan 5 slide `bullets` berturut-turut.
+- **Banyak visual, sedikit teks**: setiap slide wajib punya visual utama (grafik, diagram, hero, angka besar, ikon) dan teks isi ≤ 40 kata. Slide data ditutup `takeaway` satu kalimat + `source`. Ikon: `references/icons.md`. Detail aturan: bagian "Aturan visual" di `references/layouts.md`.
 
 ### 5. Render
 ```bash
