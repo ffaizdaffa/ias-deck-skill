@@ -43,7 +43,7 @@ Field `kicker` = label kecil di atas judul (kategori / konteks). Field `notes` m
 | `html` | jalan terakhir — HTML bebas | `html` (pakai class yang ada; beri `data-t` pada teks agar ikut ke PPTX) |
 
 ## Batas isi supaya tidak meluber
-- Judul ≤ 60 karakter (cover ≤ 40). Lead/subtitle ≤ 140 karakter.
+- Judul ≤ 60 karakter (cover, section, closing ≤ 45). Lead/subtitle ≤ 140 karakter.
 - `desc` ≤ 70 karakter. `bullets` ≤ 8 poin, `grid` ≤ 8, `timeline`/`process` ≤ 6, `table` ≤ 6 baris × 5 kolom.
 - Selalu jalankan `render.mjs --check`; perbaiki semua peringatan. Render juga memperingatkan judul yang terlalu panjang. `--check` mendeteksi teks meluber, tetapi tidak menilai kepadatan, jadi tetap lihat screenshot.
 
