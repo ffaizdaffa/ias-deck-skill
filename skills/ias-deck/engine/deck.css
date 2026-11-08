@@ -509,7 +509,7 @@ h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: cal
 .cv .ix { font-size: 84px; } .cv .it { font-size: 34px; } .cv .ds { font-size: 24px; } .cv .ichip.sm { width: 72px; height: 72px; padding: 17px; margin-bottom: 22px; }
 .L-quote:has(> .photo) .q { font-size: calc(72px * var(--ts)); } .L-quote .qm { font-size: 380px; height: 170px; }
 
-/* ================= infografis AI (gaya NotebookLM, tetap editable) ================= */
+/* ================= infografis AI (tetap editable) ================= */
 .L-infographic .frame { right: auto; width: 760px; }
 .L-infographic .ig-l { display: flex; flex-direction: column; height: 100%; }
 .L-infographic h2.title { font-size: calc(62px * var(--ts)); }
@@ -530,7 +530,7 @@ h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: cal
 .L-infographic .ig-c { gap: 12px; margin-top: 26px; } .L-infographic .co { padding: 16px 22px; }
 .L-infographic .frame:has(.take) .cv2 { font-size: 40px; }
 
-/* ================= scene: foto penuh + callout kaca mengambang (gaya Genspark) ================= */
+/* ================= scene: foto penuh + callout kaca mengambang  ================= */
 .L-scene .hero::after { background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 80%, transparent) 0%, transparent 34%), linear-gradient(90deg, color-mix(in srgb, var(--bg) 55%, transparent), transparent 45%); }
 .L-scene .frame { inset: 0; }
 .L-scene .sc-t { position: absolute; left: 132px; top: 120px; max-width: 980px; padding: 30px 38px; border-radius: 20px; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(150%); box-shadow: 0 30px 60px -30px rgba(10,30,70,.35), inset 0 1px 0 #fff; }

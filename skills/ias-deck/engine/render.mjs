@@ -6,7 +6,7 @@
 //        node render.mjs --picker [--out DIR]       (halaman pilih tema + gambar)
 //        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
 //        node render.mjs <deck.json> --review       (lembar pratinjau semua slide + rubrik penilaian visual)
-//        node render.mjs <deck.json> --poster       (MODE POSTER: tiap slide dirender utuh oleh GPT Image — gaya Genspark Creative)
+//        node render.mjs <deck.json> --poster       (MODE POSTER: tiap slide dirender utuh oleh GPT Image)
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
@@ -30,7 +30,7 @@ const ICON_KW = [[/biaya|cost|hemat|rupiah|rp|anggaran|budget|harga/, 'coins'], 
   [/keamanan siber|cyber|keamanan|security/, 'shield-check'], [/cloud|server|infrastruktur/, 'cloud'], [/jaringan|network|5g|konek/, 'network'], [/erp|mes|sistem|aplikasi|software/, 'layers'],
   [/standar|sop|checklist|5s/, 'clipboard-check'], [/roadmap|tahap|langkah|mulai|pilot/, 'rocket'], [/pelanggan|customer|pasar|market/, 'store'], [/ekspor|global|dunia/, 'globe'],
   [/lihat|gemba|inspeksi|vision/, 'scan-eye'], [/ulang|siklus|pdca|replikasi/, 'refresh-cw'], [/kanban|alur|flow|proses/, 'workflow'], [/uang|kas|cash|modal|investasi/, 'wallet']];
-const autoIcon = (t) => { const x = String(t || '').toLowerCase(); const hit = ICON_KW.find(([re]) => re.test(x)); return hit ? hit[1] : ''; };
+const autoIcon = (t) => { const x = String(t || '').toLowerCase; const hit = ICON_KW.find(([re]) => re.test(x)); return hit ? hit[1] : ''; };
 const icon = (n) => (ICONS[n] ? `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>` : (console.warn(`⚠ ikon tidak dikenal: ${n} (lihat references/icons.md)`), ''));
 const HERO_DIR = path.join(HERE, '..', 'assets', 'heroes');
 const HEROES = fs.existsSync(path.join(HERO_DIR, 'heroes.json')) ? JSON.parse(fs.readFileSync(path.join(HERO_DIR, 'heroes.json'), 'utf8')) : [];
@@ -131,7 +131,7 @@ function heroSrc(id, baseDir) {
   const f = h ? path.join(HERO_DIR, h.file) : path.resolve(baseDir, id);
   if (/^(https?:|data:)/.test(id)) return id;
   if (!fs.existsSync(f)) { console.warn(`⚠ gambar hero tidak ditemukan: ${id}`); return ''; }
-  const ext = path.extname(f).toLowerCase();
+  const ext = path.extname(f).toLowerCase;
   return `data:image/${ext === '.png' ? 'png' : ext === '.webp' ? 'webp' : 'jpeg'};base64,${fs.readFileSync(f).toString('base64')}`;
 }
 function pickHero(deck, s, i, baseDir, used) {
@@ -141,7 +141,7 @@ function pickHero(deck, s, i, baseDir, used) {
   if (!['cover', 'section', 'closing', 'statement', 'quote', 'agenda', 'scene'].includes(s.layout) || !HEROES.length) return '';
   const pref = (deck.heroes || []).find((id) => !used.has(id));
   if (pref) { used.add(pref); return heroSrc(pref, baseDir); }
-  const words = `${deck.title || ''} ${deck.topic || ''} ${s.title || ''} ${s.kicker || ''} ${s.subtitle || ''}`.toLowerCase().replace(/\*\*/g, '').split(/[^a-z0-9.]+/);
+  const words = `${deck.title || ''} ${deck.topic || ''} ${s.title || ''} ${s.kicker || ''} ${s.subtitle || ''}`.toLowerCase.replace(/\*\*/g, '').split(/[^a-z0-9.]+/);
   const tags = new Set(words.flatMap((w) => [w, KW[w]]).filter(Boolean));
   const catBonus = { cover: { mfg: 2, rob: 2, ai: 1, id: 1 }, section: { mfg: 1, lean: 1, abs: 1, it: 1, ai: 1, rob: 1 }, closing: { id: 2, abs: 2 } }[s.layout] || {};
   const fam = (TH.themes.find((t) => t.id === deck.theme) || {}).family;
@@ -154,19 +154,19 @@ function pickHero(deck, s, i, baseDir, used) {
 }
 
 function buildHtml(deck, baseDir, themeId) {
-  const charts = [], used = new Set();
+  const charts = [], used = new Set;
   const mime = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.gif': 'image/gif' };
   const ctx = {
-    deck, code: deck.code || (deck.title || 'DECK').replace(/[^A-Za-z0-9]+/g, '-').slice(0, 18).toUpperCase(),
+    deck, code: deck.code || (deck.title || 'DECK').replace(/[^A-Za-z0-9]+/g, '-').slice(0, 18).toUpperCase,
     chart: (c) => (charts.push(c), charts.length - 1), svgChart,
-    clock: new Date().toTimeString().slice(0, 8), date: new Date().toISOString().slice(0, 10), tint: '',
+    clock: new Date.toTimeString.slice(0, 8), date: new Date.toISOString.slice(0, 10), tint: '',
     hero: (id) => heroSrc(id, baseDir), icon, autoIcon, iconsOn: deck.icons !== false,
     heroFor: (s, i) => pickHero(deck, s, i, baseDir, used),
     asset: (p) => {
       if (/^(https?:|data:)/.test(p)) return p;
       const f = path.resolve(baseDir, p);
       if (!fs.existsSync(f)) { console.warn(`⚠ gambar tidak ditemukan: ${p}`); return ''; }
-      return `data:${mime[path.extname(f).toLowerCase()] || 'application/octet-stream'};base64,${fs.readFileSync(f).toString('base64')}`;
+      return `data:${mime[path.extname(f).toLowerCase] || 'application/octet-stream'};base64,${fs.readFileSync(f).toString('base64')}`;
     },
   };
   const theme = TH.themes.find((t) => t.id === (themeId || deck.theme)) || TH.themes[0];
@@ -182,22 +182,22 @@ function buildHtml(deck, baseDir, themeId) {
 }
 
 /* ---------- Chrome headless ---------- */
-function chromePath() {
+function chromePath {
   const c = [process.env.CHROME, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/Applications/Chromium.app/Contents/MacOS/Chromium', '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge', '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
   const f = c.find((p) => p && fs.existsSync(p));
   if (!f) die('Chrome tidak ditemukan. Pasang Google Chrome atau set env CHROME=/path/ke/chrome');
   return f;
 }
-const chrome = (extra, url) => new Promise((res, rej) => execFile(chromePath(), ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check', '--force-device-scale-factor=1', '--window-size=1920,1080', '--virtual-time-budget=8000', '--run-all-compositor-stages-before-draw', ...extra, url], { maxBuffer: 64 << 20, timeout: 120000 }, (e, out) => (e ? rej(e) : res(out))));
-async function pool(items, n, fn) { const q = [...items]; await Promise.all(Array.from({ length: n }, async () => { while (q.length) await fn(q.shift()); })); }
+const chrome = (extra, url) => new Promise((res, rej) => execFile(chromePath, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check', '--force-device-scale-factor=1', '--window-size=1920,1080', '--virtual-time-budget=8000', '--run-all-compositor-stages-before-draw', ...extra, url], { maxBuffer: 64 << 20, timeout: 120000 }, (e, out) => (e ? rej(e) : res(out))));
+async function pool(items, n, fn) { const q = [...items]; await Promise.all(Array.from({ length: n }, async  => { while (q.length) await fn(q.shift); })); }
 
 async function review(htmlFile, outDir, name, n) {
   const dir = path.join(outDir, '.build', 'review'); fs.mkdirSync(dir, { recursive: true });
   const url = pathToFileURL(htmlFile).href;
-  await pool([...Array(n).keys()], 4, (i) => chrome([`--user-data-dir=${path.join(dir, `ud-${i}`)}`, `--screenshot=${path.join(dir, `s${i + 1}.png`)}`], `${url}?export=${i + 1}`));
+  await pool([...Array(n).keys], 4, (i) => chrome([`--user-data-dir=${path.join(dir, `ud-${i}`)}`, `--screenshot=${path.join(dir, `s${i + 1}.png`)}`], `${url}?export=${i + 1}`));
   fs.readdirSync(dir).filter((f) => f.startsWith('ud-')).forEach((f) => fs.rmSync(path.join(dir, f), { recursive: true, force: true }));
   const cols = n > 12 ? 4 : 3, cw = 640, ch = 360, rows = Math.ceil(n / cols), W = cols * cw + (cols + 1) * 16, H = rows * (ch + 34) + (rows + 1) * 16;
-  const cells = [...Array(n).keys()].map((i) => `<figure><img src="s${i + 1}.png"><figcaption>${i + 1}</figcaption></figure>`).join('');
+  const cells = [...Array(n).keys].map((i) => `<figure><img src="s${i + 1}.png"><figcaption>${i + 1}</figcaption></figure>`).join('');
   fs.writeFileSync(path.join(dir, 'sheet.html'), `<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#1d2230;padding:16px;display:grid;grid-template-columns:repeat(${cols},${cw}px);gap:16px;font:600 18px system-ui;color:#fff}figure{margin:0}img{width:${cw}px;height:${ch}px;display:block;border-radius:6px}figcaption{padding:6px 2px}</style>${cells}`);
   const out = path.join(outDir, `${name}-review.png`);
   await chrome([`--user-data-dir=${path.join(dir, 'ud-sheet')}`, `--window-size=${W},${H}`, `--screenshot=${out}`], pathToFileURL(path.join(dir, 'sheet.html')).href);
@@ -230,11 +230,11 @@ async function toPptx(htmlFile, outFile, deck, built, meas) {
   const work = path.join(path.dirname(outFile), '.build'); fs.mkdirSync(work, { recursive: true });
   const url = pathToFileURL(htmlFile).href;
   const n = deck.slides.length;
-  await pool([...Array(n).keys()], 4, (i) => chrome([`--user-data-dir=${path.join(work, `ud-${i}`)}`, `--screenshot=${path.join(work, `bg-${i + 1}.png`)}`], `${url}?export=${i + 1}&bg=1`).finally(() => fs.rmSync(path.join(work, `ud-${i}`), { recursive: true, force: true })));
+  await pool([...Array(n).keys], 4, (i) => chrome([`--user-data-dir=${path.join(work, `ud-${i}`)}`, `--screenshot=${path.join(work, `bg-${i + 1}.png`)}`], `${url}?export=${i + 1}&bg=1`).finally( => fs.rmSync(path.join(work, `ud-${i}`), { recursive: true, force: true })));
   meas.slides.forEach((s, i) => { s.bg = path.join(work, `bg-${i + 1}.png`); s.charts.forEach((c) => (c.spec = built.charts[c.k])); });
   const spec = path.join(work, 'export.json');
   fs.writeFileSync(spec, JSON.stringify({ title: deck.title || 'IAS Deck', ...meas }));
-  await new Promise((res, rej) => execFile(process.env.PYTHON || 'python3', [path.join(HERE, 'export_pptx.py'), spec, outFile], (e, so, se) => (e ? rej(new Error(se || e.message)) : (process.stdout.write(so), res()))));
+  await new Promise((res, rej) => execFile(process.env.PYTHON || 'python3', [path.join(HERE, 'export_pptx.py'), spec, outFile], (e, so, se) => (e ? rej(new Error(se || e.message)) : (process.stdout.write(so), res))));
 }
 
 /* ---------- galeri tema ---------- */
@@ -255,13 +255,13 @@ main{display:grid;grid-template-columns:repeat(auto-fill,minmax(560px,1fr));gap:
 figcaption{grid-column:1/3;display:flex;align-items:center;gap:10px;flex-wrap:wrap}figcaption code{background:#1a1c21;padding:2px 8px;border-radius:4px;color:#9fe}figcaption span{color:#8a8d94;font-size:13px;flex:1}figcaption i{width:18px;height:18px;border-radius:50%;border:1px solid #333}</style></head>
 <body><header><h1>IAS Deck · Galeri 40 Tema</h1><p>Sebut ID tema ke Claude/Codex, misalnya: "pakai tema <code>bp-classic</code>". Di deck yang sedang tampil, tekan <b>T</b> untuk mencoba tema lain.</p></header>
 <nav><button class="on" data-k="">Semua</button>${fam}</nav><main>${cards}</main>
-<script>const fit=()=>document.querySelectorAll('.sh').forEach(s=>s.firstElementChild.style.transform='scale('+s.clientWidth/1920+')');addEventListener('resize',fit);fit();
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('figure').forEach(f=>f.style.display=!b.dataset.k||f.dataset.f===b.dataset.k?'':'none');fit()});</script></body></html>`);
+<script>const fit==>document.querySelectorAll('.sh').forEach(s=>s.firstElementChild.style.transform='scale('+s.clientWidth/1920+')');addEventListener('resize',fit);fit;
+document.querySelectorAll('nav button').forEach(b=>b.onclick==>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('figure').forEach(f=>f.style.display=!b.dataset.k||f.dataset.f===b.dataset.k?'':'none');fit});</script></body></html>`);
   console.log(`✔ Galeri ${path.join(outDir, 'gallery.html')}`);
 }
 
 /* ---------- main ---------- */
-async function main() {
+async function main {
   if (flag('--list')) {
     Object.entries(TH.families).forEach(([k, v]) => { console.log(`\n■ ${v}`); TH.themes.filter((t) => t.family === k).forEach((t) => console.log(`  ${t.id.padEnd(18)} ${t.name.padEnd(20)} ${t.mode.padEnd(5)} fx:${t.fx}`)); });
     console.log(`\nLayout: ${LAYOUTS.filter((l) => l !== 'before-after').join(', ')}`);
@@ -277,7 +277,7 @@ async function main() {
   if (flag('--imagine')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force') }); validate(deck, file); }
   if (flag('--poster')) {
     const h = await poster(file, deck, outDir, { only: opt('--slides'), force: flag('--force') });
-    await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).then(() => console.log(`✔ PDF   ${h.replace(/\.html$/, '.pdf')}`)).catch((e) => console.warn(`⚠ PDF poster gagal: ${e.message}`));
+    await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).then( => console.log(`✔ PDF   ${h.replace(/\.html$/, '.pdf')}`)).catch((e) => console.warn(`⚠ PDF poster gagal: ${e.message}`));
     return;
   }
   const name = path.basename(file, '.json');
@@ -291,4 +291,4 @@ async function main() {
   if (flag('--pdf') || flag('--all')) await toPdf(htmlFile, path.join(outDir, `${name}.pdf`));
   if (wantPptx) await toPptx(htmlFile, path.join(outDir, `${name}.pptx`), deck, built, meas);
 }
-main().catch((e) => die(e.message));
+main.catch((e) => die(e.message));

@@ -1,6 +1,6 @@
 ---
 name: ias-deck
-description: Bikin presentasi/deck/PPT/slide futuristik berkelas dunia bergaya CERAH (cinematic tech, panel kaca putih, HUD tipis, gradien aurora) — 40 tema (HUD, blueprint, digital twin, smart factory, data terminal, clean future), 100 gambar hero AI (manufaktur, AI, robotik, IT, Indonesia/Kemenperin) & 21 layout industri (KPI, value stream map, PDCA, TIMWOODS, roadmap, arsitektur, grafik). Keluaran HTML live beranimasi + PDF + PPTX yang bisa diedit. Pakai saat diminta "buat deck/PPT/slide/presentasi/materi pembicara/keynote", terutama topik lean manufacturing, industri 4.0, transformasi digital, IT.
+description: Bikin presentasi/deck/PPT/slide futuristik berkelas dunia bergaya CERAH — default MODE POSTER: setiap slide dirender utuh oleh GPT Image (Codex) jadi poster sinematik penuh visual (cinematic tech, panel kaca putih, HUD tipis, gradien aurora) — 40 tema (HUD, blueprint, digital twin, smart factory, data terminal, clean future), 100 gambar hero AI (manufaktur, AI, robotik, IT, Indonesia/Kemenperin) & 21 layout industri (KPI, value stream map, PDCA, TIMWOODS, roadmap, arsitektur, grafik). Keluaran HTML live beranimasi + PDF + PPTX yang bisa diedit. Pakai saat diminta "buat deck/PPT/slide/presentasi/materi pembicara/keynote", terutama topik lean manufacturing, industri 4.0, transformasi digital, IT.
 ---
 
 # IAS Deck
@@ -49,7 +49,7 @@ Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layo
 - Variasikan layout — jangan 5 slide `bullets` berturut-turut.
 - **Tanpa tanda seru** di teks slide. Hal penting dibuat besar dengan menebalkan angka: `**0,05%**` otomatis tampil besar. Teks non-angka yang ditebalkan jadi warna aksen; `==frasa==` jadi pita sorotan.
 - **Ikon otomatis**: kartu, poin, agenda, proses, roadmap, lapisan diberi ikon sesuai kata kunci teks; pakai `icon` untuk memilih sendiri (`references/icons.md`).
-- **Slide paling memukau (gaya NotebookLM/Genspark, tetap editable):**
+- **Slide paling memukau (tetap editable):**
   - `scene` — foto AI penuh + panel kaca berisi angka yang mengambang di dalam adegan (`callouts[{icon, value, label, x, y, px, py}]`, x/y dalam % posisi panel, px/py titik yang ditunjuk). Isi `"imagine": "deskripsi adegan"` agar fotonya dibuat khusus.
   - `infographic` — ilustrasi 3D isometrik buatan AI (tanpa teks) di kanan + kartu penjelasan berikon di kiri (`items[{icon, value, title, desc}]`). Dibuat otomatis oleh `--imagine`.
   - Pakai 1–3 slide jenis ini per deck untuk momen penting; sisanya grafik & layout data.
@@ -72,13 +72,13 @@ Butuh: Node 18+, Google Chrome, Python 3 + `python-pptx` (untuk PPTX), internet 
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1920,1080 --virtual-time-budget=6000 --screenshot=out/s3.png "file://$PWD/out/acara.html?export=3"`
 - Pastikan tidak ada teks terpotong, tumpang tindih, atau kontras buruk.
 
-### 6a. Dua mode keluaran — tawarkan ke user
-- **Mode editable (default)**: HTML + PDF + PPTX, teks & grafik bisa diedit. Untuk dikirim ke panitia / diedit tim.
-- **Mode poster (gaya Genspark Creative / NotebookLM)**: setiap slide dirender UTUH oleh GPT Image (judul, angka, infografis, foto jadi satu gambar) — tampilan paling memukau untuk tampil di panggung & dibagikan. Teks di gambar TIDAK bisa diedit dan bisa ada salah ketik, jadi selalu periksa setiap slide; render ulang slide yang salah dengan `--poster --slides N --force`.
-  `node SKILL_DIR/engine/render.mjs deck.json --poster --out ./out` → `out/<nama>-poster.html` (pemutar), `.pdf`, `.pptx` (gambar per slide + catatan). Butuh `codex login`. ±1 menit per slide. Teks per slide harus SANGAT singkat (judul ≤ 8 kata, label ≤ 4 kata) agar ejaannya akurat.
-Kalau user minta "sebagus Genspark/NotebookLM", pakai mode poster.
+### 6a. Dua mode keluaran — MODE POSTER ADALAH DEFAULT
+- **Mode poster (default, gaya utama IAS Deck)**: setiap slide dirender UTUH oleh GPT Image — judul, angka, infografis, dan foto menjadi satu komposisi poster sinematik yang cerah. Paling memukau untuk tampil di panggung & dibagikan.
+  `node SKILL_DIR/engine/render.mjs deck.json --poster --out ./out` → `out/<nama>-poster.html` (pemutar), `.pdf`, `.pptx` (gambar per slide + catatan). Butuh `codex login` (akun ChatGPT). ±1 menit per slide.
+  Teks per slide SANGAT singkat (judul ≤ 8 kata, label ≤ 4 kata, ≤ 4 angka) agar ejaan akurat. Teks di gambar tidak bisa diedit: periksa SETIAP slide (ejaan, angka) dan render ulang yang salah dengan `--poster --slides N --force`.
+- **Mode editable**: HTML + PDF + PPTX dengan teks & grafik yang bisa diedit. Pakai bila user/panitia perlu mengubah isi, atau Codex belum login. Buat juga bersama poster bila user butuh file yang bisa diedit.
 
-### 6b. Review visual wajib (gaya Genspark: agen menilai hasil render)
+### 6b. Review visual wajib (agen menilai hasil render)
 Jalankan `node SKILL_DIR/engine/render.mjs deck.json --review` → buka gambar `out/<nama>-review.png` (lembar pratinjau semua slide bernomor) dan nilai setiap slide dengan rubrik yang tercetak. Perbaiki slide yang gagal (ganti layout, tambah visual, perbesar angka, pangkas teks), render & review ulang. Maksimal 2 putaran.
 
 ### 7. Serahkan
