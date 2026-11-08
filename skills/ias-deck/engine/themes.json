@@ -1,0 +1,69 @@
+{
+  "families": {
+    "hud": "HUD / Command Center — antarmuka kokpit & ruang kendali; cocok untuk keynote transformasi digital",
+    "blueprint": "Blueprint / Engineering — gambar teknik, garis ukur, presisi; cocok untuk materi proses & lean",
+    "twin": "Digital Twin — wireframe 3D, mesh, isometrik; cocok untuk IoT, simulasi, smart factory",
+    "factory": "Smart Factory — warna industri (safety, andon, baja); cocok untuk shop-floor, kaizen, OEE",
+    "terminal": "Data Terminal — layar monospace, data mengalir; cocok untuk data, AI, sistem IT",
+    "clean": "Clean Future — elegan, lega, minim ornamen; cocok untuk forum formal kementerian & board"
+  },
+  "fonts": {
+    "Chakra Petch": "400;500;600;700", "Barlow": "400;500;600;700", "JetBrains Mono": "400;500;700",
+    "Rajdhani": "400;500;600;700", "Share Tech Mono": "400", "Oxanium": "400;600;700",
+    "Saira Condensed": "400;600;700", "Exo 2": "400;600;700", "Archivo Narrow": "400;500;600;700",
+    "IBM Plex Sans": "400;500;600;700", "IBM Plex Mono": "400;500;600", "IBM Plex Sans Condensed": "400;500;600;700",
+    "Barlow Condensed": "400;600;700", "Space Grotesk": "400;500;600;700", "Manrope": "400;500;600;700",
+    "Space Mono": "400;700", "Sora": "400;600;700", "Red Hat Display": "400;600;700", "Red Hat Text": "400;500;600",
+    "Red Hat Mono": "400;500", "Azeret Mono": "400;500;600", "Tomorrow": "400;500;600;700",
+    "Bai Jamjuree": "400;500;600;700", "Unbounded": "400;600;700", "Archivo": "400;600;800",
+    "Instrument Sans": "400;500;600;700", "DM Mono": "400;500", "Syne": "400;600;700;800",
+    "Geist": "400;500;600;700", "Geist Mono": "400;500", "Michroma": "400"
+  },
+  "themes": [
+    {"id":"hud-cobalt","name":"Cobalt Command","family":"hud","mode":"dark","bg":"#050B16","fg":"#E6F0FF","muted":"#8DA2C0","accent":"#3D9BFF","accent2":"#00E5C7","fx":"orbit","fd":"Chakra Petch","fb":"Barlow","fm":"JetBrains Mono","card":"bracket","decor":"hud","upper":true},
+    {"id":"hud-amber","name":"Amber Ops","family":"hud","mode":"dark","bg":"#0D0904","fg":"#FFF1DC","muted":"#B59A78","accent":"#FFB020","accent2":"#FF6A3D","fx":"scan","fd":"Rajdhani","fb":"Barlow","fm":"Share Tech Mono","card":"bracket","decor":"hud","upper":true},
+    {"id":"hud-cyan","name":"Cyan Bridge","family":"hud","mode":"dark","bg":"#031317","fg":"#DDFBFF","muted":"#7FA9B0","accent":"#18E0FF","accent2":"#9DFF6A","fx":"network","fd":"Oxanium","fb":"Barlow","fm":"JetBrains Mono","card":"glass","decor":"hud","upper":true},
+    {"id":"hud-crimson","name":"Red Alert","family":"hud","mode":"dark","bg":"#10050A","fg":"#FFE8EC","muted":"#B98993","accent":"#FF3B5C","accent2":"#FFC24B","fx":"hex","fd":"Saira Condensed","fb":"Barlow","fm":"JetBrains Mono","card":"bracket","decor":"hud","upper":true},
+    {"id":"hud-emerald","name":"Emerald Ops","family":"hud","mode":"dark","bg":"#03100B","fg":"#E2FFF1","muted":"#82A897","accent":"#2BFF9C","accent2":"#4CC9FF","fx":"grid","fd":"Exo 2","fb":"Barlow","fm":"JetBrains Mono","card":"glass","decor":"hud","upper":true},
+    {"id":"hud-ion","name":"Ion Drive","family":"hud","mode":"dark","bg":"#07061A","fg":"#ECEBFF","muted":"#9A98C4","accent":"#8C7CFF","accent2":"#3DF5FF","fx":"orbit","fd":"Chakra Petch","fb":"Barlow","fm":"JetBrains Mono","card":"bracket","decor":"hud","upper":true},
+    {"id":"hud-arctic","name":"Arctic HUD","family":"hud","mode":"light","bg":"#EEF3F8","fg":"#0A1626","muted":"#52657D","accent":"#0061F2","accent2":"#E8501A","fx":"orbit","fd":"Chakra Petch","fb":"Barlow","fm":"JetBrains Mono","card":"bracket","decor":"hud","upper":true},
+
+    {"id":"bp-classic","name":"Classic Blueprint","family":"blueprint","mode":"dark","bg":"#0B3A6E","fg":"#F2F7FF","muted":"#B4CBEA","accent":"#FFD23F","accent2":"#9FDBFF","fx":"blueprint","fd":"Archivo Narrow","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"blueprint","upper":true},
+    {"id":"bp-midnight","name":"Midnight Draft","family":"blueprint","mode":"dark","bg":"#0A1220","fg":"#EAF1FB","muted":"#8C9BB2","accent":"#5BC0FF","accent2":"#FF8A3D","fx":"blueprint","fd":"Archivo Narrow","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"blueprint","upper":true},
+    {"id":"bp-paper","name":"Drafting Paper","family":"blueprint","mode":"light","bg":"#F3EFE4","fg":"#1B2430","muted":"#5A616B","accent":"#1F4FD8","accent2":"#D9481F","fx":"blueprint","fd":"Archivo Narrow","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"blueprint","upper":true},
+    {"id":"bp-cad","name":"CAD Black","family":"blueprint","mode":"dark","bg":"#0E0F11","fg":"#EDEDED","muted":"#8C9096","accent":"#00D1FF","accent2":"#FFE14D","fx":"blueprint","fd":"IBM Plex Sans Condensed","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"blueprint","upper":true},
+    {"id":"bp-patent","name":"Patent Office","family":"blueprint","mode":"light","bg":"#EFE6D2","fg":"#2A2117","muted":"#6B5E4C","accent":"#8B2E16","accent2":"#2E5E8B","fx":"blueprint","fd":"Barlow Condensed","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"blueprint","upper":true},
+    {"id":"bp-graphite","name":"Graphite Spec","family":"blueprint","mode":"dark","bg":"#1C1F24","fg":"#F1F3F5","muted":"#99A1AB","accent":"#FF7A2F","accent2":"#A3E635","fx":"blueprint","fd":"IBM Plex Sans Condensed","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"blueprint","upper":true},
+
+    {"id":"twin-wireframe","name":"Wireframe Twin","family":"twin","mode":"dark","bg":"#05070D","fg":"#EAF2FF","muted":"#8592A8","accent":"#6CF0FF","accent2":"#FF5CA8","fx":"terrain","fd":"Space Grotesk","fb":"Manrope","fm":"Space Mono","card":"glass","decor":"minimal","upper":false},
+    {"id":"twin-iso","name":"Isometric Plant","family":"twin","mode":"dark","bg":"#0A0E14","fg":"#EEF2F7","muted":"#8D97A6","accent":"#FFB547","accent2":"#47D1FF","fx":"iso","fd":"Sora","fb":"Manrope","fm":"Space Mono","card":"glass","decor":"minimal","upper":false},
+    {"id":"twin-mesh","name":"Neural Mesh","family":"twin","mode":"dark","bg":"#070A12","fg":"#E9F0FF","muted":"#8A94AD","accent":"#7DF9C1","accent2":"#7AA2FF","fx":"network","fd":"Red Hat Display","fb":"Red Hat Text","fm":"Red Hat Mono","card":"glass","decor":"minimal","upper":false},
+    {"id":"twin-hologram","name":"Hologram","family":"twin","mode":"dark","bg":"#020611","fg":"#E0FAFF","muted":"#7C9AA8","accent":"#00F0FF","accent2":"#FF4FD8","fx":"terrain","fd":"Space Grotesk","fb":"Manrope","fm":"Space Mono","card":"glass","decor":"hud","upper":false},
+    {"id":"twin-titanium","name":"Titanium Twin","family":"twin","mode":"dark","bg":"#15181D","fg":"#F4F6F8","muted":"#9AA3AE","accent":"#C8FF2E","accent2":"#5AC8FA","fx":"iso","fd":"Space Grotesk","fb":"Manrope","fm":"Space Mono","card":"solid","decor":"minimal","upper":false},
+    {"id":"twin-ice","name":"Ice Twin","family":"twin","mode":"light","bg":"#F2F6FA","fg":"#0B1B2B","muted":"#4F6175","accent":"#0077D9","accent2":"#00936F","fx":"terrain","fd":"Sora","fb":"Manrope","fm":"Space Mono","card":"glass","decor":"minimal","upper":false},
+    {"id":"twin-ember","name":"Ember Twin","family":"twin","mode":"dark","bg":"#0F0806","fg":"#FFF0E6","muted":"#B0907E","accent":"#FF7A1A","accent2":"#FFD166","fx":"terrain","fd":"Sora","fb":"Manrope","fm":"Space Mono","card":"glass","decor":"minimal","upper":false},
+
+    {"id":"fac-safety","name":"Safety Yellow","family":"factory","mode":"dark","bg":"#111111","fg":"#F5F5F0","muted":"#A3A39B","accent":"#FFD400","accent2":"#FF5F1F","fx":"hex","fd":"Barlow Condensed","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+    {"id":"fac-neon","name":"Industrial Neon","family":"factory","mode":"dark","bg":"#06080B","fg":"#EAFBF0","muted":"#86A08F","accent":"#39FF88","accent2":"#00C2FF","fx":"circuit","fd":"Tomorrow","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+    {"id":"fac-steel","name":"Steel Works","family":"factory","mode":"dark","bg":"#1A1E24","fg":"#EEF1F4","muted":"#9AA3AE","accent":"#FF8C42","accent2":"#8AB4F8","fx":"iso","fd":"Bai Jamjuree","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+    {"id":"fac-andon","name":"Andon Board","family":"factory","mode":"dark","bg":"#0B0B0D","fg":"#F7F7F7","muted":"#9B9BA3","accent":"#FF3B30","accent2":"#34E37A","fx":"grid","fd":"Unbounded","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+    {"id":"fac-copper","name":"Copper Line","family":"factory","mode":"dark","bg":"#0E0B09","fg":"#F6EDE6","muted":"#A8968A","accent":"#E58E50","accent2":"#6FD3C2","fx":"circuit","fd":"Saira Condensed","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+    {"id":"fac-cleanroom","name":"Cleanroom","family":"factory","mode":"light","bg":"#F4F5F7","fg":"#111418","muted":"#555D68","accent":"#008C8C","accent2":"#E85D00","fx":"hex","fd":"Bai Jamjuree","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+    {"id":"fac-kanban","name":"Kanban Blue","family":"factory","mode":"dark","bg":"#071226","fg":"#EAF1FF","muted":"#8D9CB8","accent":"#3B8BFF","accent2":"#FFC83D","fx":"grid","fd":"Tomorrow","fb":"Barlow","fm":"Azeret Mono","card":"solid","decor":"factory","upper":true},
+
+    {"id":"term-phosphor","name":"Phosphor","family":"terminal","mode":"dark","bg":"#020702","fg":"#D2FFD8","muted":"#6FA877","accent":"#3BFF5C","accent2":"#E2FF5A","fx":"rain","fd":"Share Tech Mono","fb":"IBM Plex Sans","fm":"JetBrains Mono","card":"outline","decor":"terminal","upper":false},
+    {"id":"term-amber","name":"Amber CRT","family":"terminal","mode":"dark","bg":"#0A0602","fg":"#FFE6BC","muted":"#B39265","accent":"#FFAA00","accent2":"#FF6A45","fx":"scan","fd":"IBM Plex Mono","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"terminal","upper":false},
+    {"id":"term-mainframe","name":"Mainframe","family":"terminal","mode":"dark","bg":"#0B1020","fg":"#E8ECF7","muted":"#8D96AD","accent":"#78A9FF","accent2":"#42BE65","fx":"dots","fd":"IBM Plex Mono","fb":"IBM Plex Sans","fm":"IBM Plex Mono","card":"outline","decor":"terminal","upper":false},
+    {"id":"term-solar","name":"Solar Ops","family":"terminal","mode":"dark","bg":"#002B36","fg":"#EEE8D5","muted":"#93A1A1","accent":"#E0B000","accent2":"#2AA198","fx":"rain","fd":"JetBrains Mono","fb":"IBM Plex Sans","fm":"JetBrains Mono","card":"outline","decor":"terminal","upper":false},
+    {"id":"term-printout","name":"Printout","family":"terminal","mode":"light","bg":"#F7F7F2","fg":"#111111","muted":"#55554F","accent":"#0042EB","accent2":"#E03800","fx":"dots","fd":"Space Mono","fb":"IBM Plex Sans","fm":"Space Mono","card":"outline","decor":"terminal","upper":false},
+    {"id":"term-void","name":"Void Shell","family":"terminal","mode":"dark","bg":"#000000","fg":"#FFFFFF","muted":"#9A9A9A","accent":"#00FFA3","accent2":"#FF2E88","fx":"rain","fd":"Azeret Mono","fb":"IBM Plex Sans","fm":"Azeret Mono","card":"outline","decor":"terminal","upper":false},
+
+    {"id":"clean-swiss","name":"Swiss Tech","family":"clean","mode":"light","bg":"#F5F5F3","fg":"#0D0D0D","muted":"#5C5C5C","accent":"#E63500","accent2":"#0D0D0D","fx":"dots","fd":"Archivo","fb":"Instrument Sans","fm":"DM Mono","card":"solid","decor":"clean","upper":false},
+    {"id":"clean-graphite","name":"Graphite","family":"clean","mode":"dark","bg":"#111214","fg":"#F2F2F2","muted":"#9A9A9E","accent":"#E8FF59","accent2":"#B9B9BE","fx":"flow","fd":"Syne","fb":"Instrument Sans","fm":"DM Mono","card":"solid","decor":"clean","upper":false},
+    {"id":"clean-ocean","name":"Deep Ocean","family":"clean","mode":"dark","bg":"#04121F","fg":"#E8F4F8","muted":"#8AA4B4","accent":"#4FD1C5","accent2":"#F6AD55","fx":"flow","fd":"Sora","fb":"Manrope","fm":"DM Mono","card":"solid","decor":"clean","upper":false},
+    {"id":"clean-aurora","name":"Aurora","family":"clean","mode":"dark","bg":"#050816","fg":"#EEF2FF","muted":"#959DBA","accent":"#6EE7B7","accent2":"#93C5FD","fx":"flow","fd":"Geist","fb":"Geist","fm":"Geist Mono","card":"glass","decor":"clean","upper":false},
+    {"id":"clean-porcelain","name":"Porcelain","family":"clean","mode":"light","bg":"#FAFAF7","fg":"#14213D","muted":"#56607A","accent":"#1D4ED8","accent2":"#D35A3C","fx":"flow","fd":"Michroma","fb":"Manrope","fm":"DM Mono","card":"solid","decor":"clean","upper":false,"weight":400,"titleScale":0.78},
+    {"id":"clean-desert","name":"Desert Lab","family":"clean","mode":"light","bg":"#F1ECE3","fg":"#1E1B16","muted":"#625B50","accent":"#B93C0A","accent2":"#0F766E","fx":"dots","fd":"Space Grotesk","fb":"Manrope","fm":"DM Mono","card":"solid","decor":"clean","upper":false},
+    {"id":"clean-merahputih","name":"Merah Putih Tech","family":"clean","mode":"dark","bg":"#0C0C0E","fg":"#FFFFFF","muted":"#A1A1A8","accent":"#FF2D20","accent2":"#F5F5F5","fx":"flow","fd":"Sora","fb":"Manrope","fm":"DM Mono","card":"solid","decor":"clean","upper":false}
+  ]
+}

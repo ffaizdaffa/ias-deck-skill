@@ -1,0 +1,13 @@
+{
+  "title": "Galeri Tema",
+  "code": "GALLERY",
+  "speaker": { "name": "Nama Pembicara", "role": "Jabatan" },
+  "event": "Nama Acara · Kota",
+  "slides": [
+    { "layout": "cover", "kicker": "Lean · Industri 4.0", "title": "Smart **Factory** 2030", "subtitle": "Contoh tampilan sampul untuk setiap tema." },
+    { "layout": "kpi", "kicker": "Data ilustrasi", "title": "Dampak program", "items": [
+      { "value": "+18", "unit": "%", "label": "OEE", "delta": "▲ 61% → 79%" },
+      { "value": "-42", "unit": "%", "label": "Changeover", "delta": "▲ SMED" },
+      { "value": "3,1", "unit": "hr", "label": "Lead time", "delta": "▲ dari 7,4 hr" } ] }
+  ]
+}

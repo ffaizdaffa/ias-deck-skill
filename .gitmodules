@@ -1,0 +1,12 @@
+[submodule "vendor/html-ppt-skill"]
+	path = vendor/html-ppt-skill
+	url = https://github.com/lewislulu/html-ppt-skill.git
+	shallow = true
+[submodule "vendor/frontend-slides"]
+	path = vendor/frontend-slides
+	url = https://github.com/zarazhangrui/frontend-slides.git
+	shallow = true
+[submodule "vendor/ppt-master"]
+	path = vendor/ppt-master
+	url = https://github.com/hugohe3/ppt-master.git
+	shallow = true
