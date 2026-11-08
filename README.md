@@ -17,7 +17,7 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 - **Design Picker**: satu halaman untuk klik tema + gambar, lalu salin pilihan ke chat AI
 - **Gambar AI khusus per slide** lewat GPT Image (Codex, login akun ChatGPT): `render.mjs deck.json --imagine`
 - **Slide sinematik yang tetap editable**: `scene` (foto AI + angka di panel kaca mengambang) dan `infographic` (ilustrasi 3D AI + kartu penjelasan)
-- **Mode poster (default)**: `--poster` merender tiap slide utuh dengan GPT Image — paling memukau, teks tidak bisa diedit
+- **Mode poster (default)**: outline → 3 opsi gaya desain (`--options`) → pilih → `--poster` merender tiap slide utuh dengan GPT Image, detail sesuai materi. Keluaran **PDF + PPTX** (+ pemutar HTML)
 - **Review visual otomatis**: `--review` membuat lembar pratinjau semua slide + rubrik penilaian, AI memperbaiki slide yang lemah
 - Angka penting otomatis tampil besar, slide pernyataan/kutipan/agenda otomatis diberi panel foto (tidak ada ruang kosong)
 - Pola dari referensi: kesimpulan per slide, sumber data, panel insight berangka besar, pita sorotan `==frasa==`

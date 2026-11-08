@@ -6,6 +6,7 @@
 //        node render.mjs --picker [--out DIR]       (halaman pilih tema + gambar)
 //        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
 //        node render.mjs <deck.json> --review       (lembar pratinjau semua slide + rubrik penilaian visual)
+//        node render.mjs <deck.json> --options      (3 opsi gaya desain: sampul + 1 slide isi, untuk dipilih dulu)
 //        node render.mjs <deck.json> --poster       (MODE POSTER: tiap slide dirender utuh oleh GPT Image)
 import fs from 'node:fs';
 import path from 'node:path';
@@ -14,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderSlide, LAYOUTS, esc } from './layouts.mjs';
 import { buildPicker } from './picker.mjs';
 import { imagine } from './imagine.mjs';
-import { poster } from './poster.mjs';
+import { poster, posterOptions } from './poster.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const TH = JSON.parse(fs.readFileSync(path.join(HERE, 'themes.json'), 'utf8'));
@@ -118,6 +119,8 @@ function validate(deck, file) {
   if (!deck || !Array.isArray(deck.slides) || !deck.slides.length) die(`${file}: butuh "slides" (array, minimal 1).`);
   if (deck.theme && !TH.themes.some((t) => t.id === deck.theme)) die(`Tema "${deck.theme}" tidak ada. Jalankan: node render.mjs --list`);
   deck.slides.forEach((s, i) => { if (!LAYOUTS.includes(s.layout)) die(`Slide ${i + 1}: layout "${s.layout}" tidak dikenal. Pilihan: ${LAYOUTS.join(', ')}`); });
+  const wf = deck.slides.filter((s) => s.chart && s.chart.type === 'waterfall').length;
+  if (wf > 1) console.warn(`⚠ Deck memakai ${wf} grafik waterfall — maksimal 1 (hanya untuk bridge dua total). Ganti sisanya dengan bar/hbar/line/donut sesuai makna data.`);
   deck.slides.forEach((s, i) => {
     const max = ['cover', 'closing', 'section'].includes(s.layout) ? 45 : 60, t = String(s.title || '').replace(/\*\*/g, '');
     if (t.length > max) console.warn(`⚠ Slide ${i + 1}: judul ${t.length} karakter (saran ≤ ${max}) — persingkat agar tidak 2–3 baris.`);
@@ -275,6 +278,7 @@ async function main() {
   let deck; try { deck = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { die(`${file}: JSON tidak valid — ${e.message}`); }
   validate(deck, file);
   if (flag('--imagine')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force') }); validate(deck, file); }
+  if (flag('--options')) { await posterOptions(file, deck, outDir, { styles: opt('--styles') }); return; }
   if (flag('--poster')) {
     const h = await poster(file, deck, outDir, { only: opt('--slides'), force: flag('--force') });
     await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).then(() => console.log(`✔ PDF   ${h.replace(/\.html$/, '.pdf')}`)).catch((e) => console.warn(`⚠ PDF poster gagal: ${e.message}`));

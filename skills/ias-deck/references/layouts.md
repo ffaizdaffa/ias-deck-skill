@@ -54,7 +54,8 @@ Field `kicker` = label kecil di atas judul (kategori / konteks). Field `notes` m
 ## Aturan visual (wajib)
 - **Setiap slide punya satu visual utama**: grafik, diagram, gambar hero, angka besar, atau ikon. Hindari slide yang isinya hanya teks.
 - **Teks isi ≤ 40 kata per slide** (di luar judul). Kalau lebih, pecah slide atau pindahkan detail ke `notes`.
-- Data → pilih grafik yang pas: tren `line`, perbandingan `bar` + `highlight`, peringkat/Pareto `hbar`, komposisi perubahan `waterfall`, porsi `donut`, satu angka penting `number`/`kpi`.
+- Data → pilih grafik dari MAKNA datanya, bukan kebiasaan: tren waktu `line` · bandingkan beberapa nilai `bar` + `highlight` · peringkat/Pareto `hbar` · porsi dari total `donut` · satu angka penting `number`/`kpi` · alur/proses `infographic`/`process` · sebelum–sesudah `beforeafter`.
+- `waterfall` HANYA untuk menjelaskan selisih antara dua total (bridge, mis. OEE 61% → 79%) dan **maksimal 1 per deck**. Variasikan jenis visual antar slide.
 - Tutup slide data dengan `takeaway` (satu kalimat "jadi apa") dan isi `source` bila ada angka.
 
 ## Batas isi supaya tidak meluber

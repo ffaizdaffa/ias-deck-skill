@@ -18,11 +18,11 @@ function brief(s, deck) {
   let v = '';
   switch (s.layout) {
     case 'cover': add(s.title); add(s.subtitle); add([deck.speaker?.name, deck.speaker?.role].filter(Boolean).join(' · ')); add(deck.event);
-      v = 'cinematic title slide: one powerful hero image of the topic filling the frame, the title huge and bold on the left over a soft bright gradient, subtitle smaller below, speaker line small at the bottom'; break;
+      v = 'cinematic title slide: one powerful hero image of the topic filling the frame, the title large and elegant on the left over a soft bright gradient, subtitle smaller below, speaker line small at the bottom'; break;
     case 'section': add(s.number); add(s.title); add(s.subtitle);
       v = 'chapter divider: giant section number, bold chapter title, a striking image that sets the mood of this chapter'; break;
     case 'statement': case 'quote': add(s.text || s.title); add(s.author || s.source);
-      v = 'one big bold statement as the centerpiece typography, key phrase highlighted in the accent color, supported by an atmospheric image'; break;
+      v = 'one large elegant statement as the centerpiece typography, key phrase highlighted in the accent color, supported by an atmospheric image'; break;
     case 'kpi': case 'number': add(s.title); (s.items || []).forEach((k) => add(`${plain(k.value)}${plain(k.unit)} ${plain(k.label)}`)); if (s.value) add(`${plain(s.value)}${plain(s.unit)}`);
       v = 'the key numbers shown HUGE inside floating frosted-glass panels integrated into a realistic scene of the topic (like holographic AR cards with icons), each number with its short label'; break;
     case 'chart': { const c = s.chart || {}; add(s.title); (c.labels || []).forEach((l, i) => add(`${plain(l)}: ${plain(((c.values || c.series?.[0]?.data || [])[i]))}${plain(c.unit)}`)); add(s.insightValue);
@@ -35,12 +35,67 @@ function brief(s, deck) {
     case 'scene': add(s.title); arr(s.callouts).forEach((c) => add(`${plain(c.value)} ${plain(c.label)}`));
       v = 'immersive photoreal scene with the numbers shown inside glowing frosted-glass AR panels placed in the scene, thin leader lines pointing to the relevant objects'; break;
     case 'closing': add(s.title); add(s.subtitle); arr(s.contact).forEach(add);
-      v = 'closing slide: inspiring wide image, the closing words large and confident'; break;
+      v = 'closing slide: inspiring wide image, the closing words large and elegant'; break;
     default: add(s.title); arr(s.points || s.items).slice(0, 4).forEach((x) => add(nm(x)));
       v = 'a visual-first slide: strong image or illustration with the title and a few short labeled callouts with icons';
   }
   if (s.imagine && typeof s.imagine === 'string') v += `. Scene/imagery: ${plain(s.imagine)}`;
-  return { text: T.filter((t) => t !== '""'), visual: v };
+  // isi lengkap materi sebagai petunjuk visual (TIDAK ditulis sebagai teks) agar gambar spesifik terhadap materi
+  const det = [];
+  arr(s.items || s.steps || s.layers || s.points || s.callouts).forEach((x) => { if (typeof x !== 'string') { const d = [plain(nm(x)), plain(x.desc), arr(x.items).map(plain).join(', ')].filter(Boolean).join(' — '); if (d) det.push(d); } });
+  [s.subtitle, s.text, s.insight, s.takeaway, (s.left || s.before || {}).points && `before/left: ${arr((s.left || s.before).points).map(plain).join('; ')}`, (s.right || s.after || {}).points && `after/right: ${arr((s.right || s.after).points).map(plain).join('; ')}`, s.notes && plain(s.notes).slice(0, 240)].filter(Boolean).forEach((x) => det.push(plain(x)));
+  return { text: T.filter((t) => t !== '""'), visual: v, detail: det.join(' | ') };
+}
+
+// Preset gaya poster — ditawarkan sebagai pilihan desain sebelum deck penuh dibuat.
+export const STYLES = {
+  glass: { name: 'Glass Tech', desc: 'Cerah putih-biru, foto pabrik realistis, panel kaca hologram berangka, ikon 3D',
+    text: 'bright high-key premium futuristic technology look; white and pale sky-blue base; photoreal factory imagery mixed with clean 3D glass/holographic panels and 3D icons; refined modern geometric sans-serif typography' },
+  editorial: { name: 'Editorial Nasional', desc: 'Gaya poster institusi: navy & hijau, kolase foto bersudut/heksagon, judul tebal, deret ikon bulat',
+    text: 'bold national-institution editorial poster look; white base with deep navy and fresh green accents; angled and hexagonal photo collage panels with thin white gaps; confident semibold headline typography with a colored highlight band behind the key phrase; row of round solid icons with short labels' },
+  isometric: { name: 'Isometric 3D', desc: 'Ilustrasi dunia 3D isometrik yang bersih, pastel, minim foto',
+    text: 'clean premium 3D isometric illustration world (not photos) on a soft white/pastel background; glossy toy-like miniature factories, robots, data blocks and people; soft shadows; friendly rounded modern sans-serif typography in medium weight' },
+  cinematic: { name: 'Cinematic Sunrise', desc: 'Fotografi sinematik cahaya pagi keemasan, hangat & megah, teks putih tebal',
+    text: 'cinematic photographic look with warm golden sunrise light and lens glow; wide dramatic industrial scenes; deep navy translucent title band with elegant semibold white and gold typography; premium documentary feel' },
+};
+function styleText(key, th) {
+  const st = STYLES[key] || STYLES.glass;
+  return `ONE CONSISTENT DECK STYLE for every slide: 16:9 presentation slide; ${st.text}; accent color ${th.accent}, secondary ${th.accent2}, dark text ${th.fg}; TYPOGRAPHY: elegant and light — headlines in SEMIBOLD or MEDIUM weight (never black/heavy/ultra-bold, never chunky), clean geometric sans like Inter / SF Pro Display / Manrope, slightly open letter spacing; labels and captions in REGULAR weight; big numbers may be semibold; hierarchy through size and color, not thickness; purposeful layout with no empty areas and no clutter; RICH, SPECIFIC DETAIL: every slide must visualize its own subject matter concretely — show each listed element as a specific, recognizable object, machine, person action or data visual relevant to the topic (never generic stock imagery), with supporting micro-details such as gauges, sensors, data overlays, arrows and realistic factory context; Indonesian industrial context, Southeast Asian people where people appear. Render ONLY the quoted texts, spelled EXACTLY as given (Indonesian), no other words, no fake text, no logos, no watermark, no slide numbers.`;
+}
+function runCodex(jobs, dir, STYLE, log) {
+  const list = jobs.map((j) => `- ${j.file}\n  Layout & visual: ${j.b.visual}\n  Texts to render exactly: ${j.b.text.join(' | ') || '(none)'}${j.b.detail ? `\n  Content to VISUALIZE in detail (do NOT write these words): ${j.b.detail}` : ''}`).join('\n');
+  const prompt = `Use your image generation tool to create the following presentation slides, one image per item, saved in the current directory with the given filename (16:9 landscape, highest quality). Keep the visual style IDENTICAL across all of them so they look like one designed deck.\n${STYLE}\n${list}\nWhen all are saved, list the filenames.`;
+  return new Promise((res) => {
+    const child = execFile('codex', ['exec', '--skip-git-repo-check', '-s', 'workspace-write', '-C', dir, prompt], { cwd: dir, timeout: (jobs.length * 150 + 180) * 1000, maxBuffer: 64 << 20 }, (err, so, se) => {
+      fs.writeFileSync(path.join(dir, `${log}.txt`), `${so || ''}\n${se || ''}`); if (err) console.warn(`⚠ Codex berhenti: ${err.message.split('\n')[0]}`); res(); });
+    child.stdin.end();
+  });
+}
+function codexOk() {
+  const st = spawnSync('codex', ['login', 'status'], { encoding: 'utf8' });
+  if (!/logged in/i.test(`${st.stdout || ''}${st.stderr || ''}`)) throw new Error('Mode poster butuh Codex yang sudah login: jalankan  codex login  (Sign in with ChatGPT)');
+}
+
+// OPSI DESAIN: sampul + 1 slide isi dalam beberapa gaya, untuk dipilih user sebelum deck penuh dibuat.
+export async function posterOptions(file, deck, outDir, { styles } = {}) {
+  codexOk();
+  const name = path.basename(file, '.json'), base = path.join(outDir, `${name}-opsi`);
+  const TH = JSON.parse(fs.readFileSync(new URL('./themes.json', import.meta.url), 'utf8'));
+  const th = TH.themes.find((t) => t.id === deck.theme) || TH.themes[0];
+  const keys = (styles ? String(styles).split(',') : ['glass', 'editorial', 'isometric']).filter((k) => STYLES[k]);
+  const content = deck.slides.findIndex((s, i) => i > 0 && ['kpi', 'scene', 'process', 'infographic', 'pillars', 'chart', 'grid', 'number'].includes(s.layout));
+  const idx = [0, content > 0 ? content : Math.min(1, deck.slides.length - 1)];
+  console.log(`… Opsi desain: ${keys.length} gaya × ${idx.length} slide, paralel`);
+  await Promise.all(keys.map((k) => { const dir = path.join(base, k); fs.mkdirSync(dir, { recursive: true });
+    const jobs = idx.map((i) => ({ i, file: `opsi-${k}-${i + 1}.png`, b: brief(deck.slides[i], deck) })).filter((j) => !fs.existsSync(path.join(dir, j.file)));
+    return jobs.length ? runCodex(jobs, dir, styleText(k, th), 'log') : null; }));
+  const cards = keys.map((k, n) => `<section><h2>Gaya ${String.fromCharCode(65 + n)} — ${STYLES[k].name} <code>${k}</code></h2><p>${STYLES[k].desc}</p><div class="g">${idx.map((i) => `<img src="${name}-opsi/${k}/opsi-${k}-${i + 1}.png" alt="">`).join('')}</div></section>`).join('');
+  const html = `<!doctype html><meta charset="utf-8"><title>Pilih gaya desain — ${plain(deck.title)}</title><style>body{margin:0;padding:30px 40px;background:#f3f6fb;color:#0b1a33;font:16px system-ui}h1{margin:0 0 6px}section{background:#fff;border-radius:16px;padding:20px 24px;margin:22px 0;box-shadow:0 10px 30px -20px #1f5bff66}h2{margin:0 0 4px}code{font-size:13px;color:#1f5bff;background:#eef3ff;padding:2px 8px;border-radius:6px}p{color:#5a6785;margin:4px 0 14px}.g{display:grid;grid-template-columns:1fr 1fr;gap:14px}img{width:100%;border-radius:10px;display:block;background:#e8edf5;aspect-ratio:16/9;object-fit:cover}</style>
+<h1>Pilih gaya desain</h1><p>Balas ke AI dengan huruf gaya yang dipilih, misalnya: <b>"Pakai Gaya B"</b>. Setelah itu seluruh slide dibuat dengan gaya tersebut.</p>${cards}`;
+  const f = path.join(outDir, `${name}-opsi.html`); fs.writeFileSync(f, html);
+  keys.forEach((k, n) => idx.forEach((i) => { if (!fs.existsSync(path.join(base, k, `opsi-${k}-${i + 1}.png`))) console.warn(`⚠ Opsi ${k} slide ${i + 1} tidak terbentuk`); }));
+  console.log(`✔ Opsi desain ${f}\n  ${keys.map((k, n) => `Gaya ${String.fromCharCode(65 + n)} = ${STYLES[k].name} (posterStyle: "${k}")`).join('\n  ')}\n  Setelah dipilih: isi "posterStyle" di deck JSON lalu jalankan --poster.`);
+  return f;
 }
 
 export async function poster(file, deck, outDir, { only, force } = {}) {
@@ -49,24 +104,20 @@ export async function poster(file, deck, outDir, { only, force } = {}) {
   const TH = JSON.parse(fs.readFileSync(new URL('./themes.json', import.meta.url), 'utf8'));
   const th = TH.themes.find((t) => t.id === deck.theme) || TH.themes[0];
   const pick = only ? new Set(String(only).split(',').map((n) => parseInt(n, 10) - 1)) : null;
-  const STYLE = `ONE CONSISTENT DECK STYLE for every slide: 16:9 presentation slide, bright high-key premium futuristic technology look like a world-class keynote; white and pale sky-blue base, accent color ${th.accent}, secondary ${th.accent2}, dark text ${th.fg}; photoreal imagery mixed with clean 3D glass/isometric elements; bold modern geometric sans-serif typography with strong hierarchy (huge headline, short labels); generous but purposeful layout, no empty areas, no clutter; Indonesian industrial context, Southeast Asian people where people appear. Render ONLY the quoted texts, spelled EXACTLY as given (Indonesian), no other words, no fake text, no logos, no watermark, no slide numbers.`;
+  const STYLE = styleText(deck.posterStyle || 'glass', th);
   const jobs = deck.slides.map((s, i) => ({ s, i })).filter(({ i }) => !pick || pick.has(i)).map(({ s, i }) => {
-    const b = brief(s, deck), key = createHash('sha1').update(JSON.stringify([b, th.id])).digest('hex').slice(0, 6);
+    const b = brief(s, deck), key = createHash('sha1').update(JSON.stringify([b, th.id, deck.posterStyle || 'glass'])).digest('hex').slice(0, 6);
     return { i, file: `slide-${String(i + 1).padStart(2, '0')}-${key}.png`, b };
   }).filter((j) => force || !fs.existsSync(path.join(dir, j.file)));
+  if (jobs.length) codexOk();
   if (jobs.length) {
-    const st = spawnSync('codex', ['login', 'status'], { encoding: 'utf8' });
-    if (!/logged in/i.test(`${st.stdout || ''}${st.stderr || ''}`)) throw new Error('Mode poster butuh Codex yang sudah login: jalankan  codex login  (Sign in with ChatGPT)');
-    const list = jobs.map((j) => `- ${j.file}\n  Layout & visual: ${j.b.visual}\n  Texts to render exactly: ${j.b.text.join(' | ') || '(none)'}`).join('\n');
-    const prompt = `Use your image generation tool to create the following presentation slides, one image per item, saved in the current directory with the given filename (16:9 landscape, highest quality). Generate them in order and keep the visual style IDENTICAL across all of them so they look like one designed deck.\n${STYLE}\n${list}\nWhen all are saved, list the filenames.`;
-    console.log(`… Mode poster: merender ${jobs.length} slide lewat GPT Image (Codex), ±1 menit per slide`);
-    await new Promise((res) => {
-      const child = execFile('codex', ['exec', '--skip-git-repo-check', '-s', 'workspace-write', '-C', dir, prompt], { cwd: dir, timeout: (jobs.length * 150 + 180) * 1000, maxBuffer: 64 << 20 }, (err, so, se) => {
-        fs.writeFileSync(path.join(dir, 'codex-log.txt'), `${so || ''}\n${se || ''}`); if (err) console.warn(`⚠ Codex berhenti: ${err.message.split('\n')[0]}`); res(); });
-      child.stdin.end();
-      const tick = setInterval(() => process.stdout.write(`\r  ${jobs.filter((j) => fs.existsSync(path.join(dir, j.file))).length}/${jobs.length} slide selesai`), 5000);
-      child.on('exit', () => { clearInterval(tick); process.stdout.write('\n'); });
-    });
+    // dipecah ke beberapa sesi Codex paralel (±3 slide per sesi, maks 4 sesi) supaya cepat
+    const per = Math.max(1, Math.ceil(jobs.length / 4)), chunks = [];
+    for (let k = 0; k < jobs.length; k += per) chunks.push(jobs.slice(k, k + per));
+    console.log(`… Mode poster (${STYLES[deck.posterStyle || 'glass']?.name || 'Glass Tech'}): ${jobs.length} slide, ${chunks.length} sesi GPT Image paralel`);
+    const tick = setInterval(() => process.stdout.write(`\r  ${jobs.filter((j) => fs.existsSync(path.join(dir, j.file))).length}/${jobs.length} slide selesai`), 5000);
+    await Promise.all(chunks.map((c, k) => runCodex(c, dir, STYLE, `log-${k}`)));
+    clearInterval(tick); process.stdout.write('\n');
   }
   // kumpulkan slide terbaru per nomor
   const files = deck.slides.map((s, i) => { const pre = `slide-${String(i + 1).padStart(2, '0')}-`; const f = fs.readdirSync(dir).filter((x) => x.startsWith(pre) && x.endsWith('.png')).map((x) => ({ x, t: fs.statSync(path.join(dir, x)).mtimeMs })).sort((a, b) => b.t - a.t)[0]; return f ? f.x : null; });

@@ -54,6 +54,7 @@ Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layo
   - `infographic` — ilustrasi 3D isometrik buatan AI (tanpa teks) di kanan + kartu penjelasan berikon di kiri (`items[{icon, value, title, desc}]`). Dibuat otomatis oleh `--imagine`.
   - Pakai 1–3 slide jenis ini per deck untuk momen penting; sisanya grafik & layout data.
 - **Jangan ada ruang kosong**: slide statement/quote/agenda otomatis diberi panel foto; pilih layout visual sebelum `bullets`.
+- **Visual sesuai konteks**: jenis grafik/visual dipilih dari makna datanya (lihat "Aturan visual" di `references/layouts.md`); `waterfall` maksimal 1 per deck, hanya untuk bridge dua total. Jangan mengulang jenis visual yang sama berturut-turut.
 - **Banyak visual, sedikit teks**: setiap slide wajib punya visual utama (grafik, diagram, hero, angka besar, ikon) dan teks isi ≤ 40 kata. Slide data ditutup `takeaway` satu kalimat + `source`. Ikon: `references/icons.md`. Detail aturan: bagian "Aturan visual" di `references/layouts.md`.
 
 ### 5. Render
@@ -72,11 +73,17 @@ Butuh: Node 18+, Google Chrome, Python 3 + `python-pptx` (untuk PPTX), internet 
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1920,1080 --virtual-time-budget=6000 --screenshot=out/s3.png "file://$PWD/out/acara.html?export=3"`
 - Pastikan tidak ada teks terpotong, tumpang tindih, atau kontras buruk.
 
-### 6a. Dua mode keluaran — MODE POSTER ADALAH DEFAULT
-- **Mode poster (default, gaya utama IAS Deck)**: setiap slide dirender UTUH oleh GPT Image — judul, angka, infografis, dan foto menjadi satu komposisi poster sinematik yang cerah. Paling memukau untuk tampil di panggung & dibagikan.
-  `node SKILL_DIR/engine/render.mjs deck.json --poster --out ./out` → `out/<nama>-poster.html` (pemutar), `.pdf`, `.pptx` (gambar per slide + catatan). Butuh `codex login` (akun ChatGPT). ±1 menit per slide.
-  Teks per slide SANGAT singkat (judul ≤ 8 kata, label ≤ 4 kata, ≤ 4 angka) agar ejaan akurat. Teks di gambar tidak bisa diedit: periksa SETIAP slide (ejaan, angka) dan render ulang yang salah dengan `--poster --slides N --force`.
-- **Mode editable**: HTML + PDF + PPTX dengan teks & grafik yang bisa diedit. Pakai bila user/panitia perlu mengubah isi, atau Codex belum login. Buat juga bersama poster bila user butuh file yang bisa diedit.
+### 6a. ALUR MODE POSTER (default) — outline → opsi desain → pilih → generate
+1. **Outline dulu**: tampilkan tabel alur slide (nomor, layout, judul, isi singkat) dan minta persetujuan user. Jangan generate gambar sebelum outline disetujui.
+2. **Opsi desain**: `node SKILL_DIR/engine/render.mjs deck.json --options --out ./out` → membuat sampul + 1 slide isi dalam 3 gaya (paralel, ±3 menit):
+   Gaya A `glass` (Glass Tech, cerah putih-biru, panel kaca) · Gaya B `editorial` (poster institusi navy-hijau, kolase foto) · Gaya C `isometric` (dunia 3D isometrik). Gaya lain: `cinematic` (cahaya pagi sinematik) — pilih dengan `--styles glass,editorial,cinematic`.
+   Buka `out/<nama>-opsi.html`, tunjukkan ke user (kirim gambarnya), lalu **tunggu user memilih**.
+3. **Generate penuh**: isi `"posterStyle": "<gaya terpilih>"` di akar deck JSON, lalu `node SKILL_DIR/engine/render.mjs deck.json --poster --out ./out` (dipecah ke 4 sesi GPT Image paralel; ±1–2 menit per 3 slide).
+4. **Keluaran**: `out/<nama>-poster.pdf` dan `out/<nama>-poster.pptx` (gambar per slide + catatan pembicara), plus `out/<nama>-poster.html` untuk presentasi di browser.
+5. **Cek setiap slide** (ejaan, angka, detail visual sesuai materi); render ulang yang salah: `--poster --slides N --force`.
+- Isi per slide harus singkat (judul ≤ 8 kata, label ≤ 4 kata, ≤ 4 angka) tetapi **isi `desc`, `text`, dan `notes` selengkap mungkin**: semuanya dipakai sebagai petunjuk visual sehingga gambar menggambarkan materi secara detail (tidak ditulis sebagai teks).
+- Butuh Codex yang sudah login akun ChatGPT (`codex login`). Bila tidak tersedia, pakai mode editable.
+- **Mode editable** (opsional): render biasa tanpa `--poster` → HTML + PDF + PPTX dengan teks & grafik yang bisa diedit. Buat bila user/panitia perlu mengubah isi.
 
 ### 6b. Review visual wajib (agen menilai hasil render)
 Jalankan `node SKILL_DIR/engine/render.mjs deck.json --review` → buka gambar `out/<nama>-review.png` (lembar pratinjau semua slide bernomor) dan nilai setiap slide dengan rubrik yang tercetak. Perbaiki slide yang gagal (ganti layout, tambah visual, perbesar angka, pangkas teks), render & review ulang. Maksimal 2 putaran.

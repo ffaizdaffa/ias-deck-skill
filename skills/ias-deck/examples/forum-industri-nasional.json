@@ -147,39 +147,32 @@
   },
   {
    "layout": "chart",
-   "kicker": "Peta jalan (ilustrasi)",
-   "title": "Kontribusi tiap inisiatif ke target",
+   "kicker": "Kontribusi (ilustrasi)",
+   "title": "Lean menyumbang **porsi terbesar**",
    "chart": {
-    "type": "waterfall",
+    "type": "hbar",
     "labels": [
-     "Saat ini",
      "Lean",
      "Otomasi",
      "Data & AI",
-     "SDM",
-     "Target"
+     "SDM"
     ],
-    "values": [
-     100,
-     12,
-     8,
-     6,
-     4,
-     130
-    ],
-    "unit": "",
-    "highlight": 5,
-    "groups": [
+    "series": [
      {
-      "from": 1,
-      "to": 4,
-      "label": "Empat inisiatif"
+      "name": "Poin produktivitas",
+      "data": [
+       12,
+       8,
+       6,
+       4
+      ]
      }
-    ]
+    ],
+    "unit": " poin"
    },
    "insightValue": "+30",
-   "insightLabel": "Indeks produktivitas",
-   "insight": "Lean memberi porsi terbesar dengan biaya paling kecil.",
+   "insightLabel": "Total indeks produktivitas",
+   "insight": "Lean memberi kenaikan terbesar dengan biaya paling kecil.",
    "source": "Data ilustrasi"
   },
   {
