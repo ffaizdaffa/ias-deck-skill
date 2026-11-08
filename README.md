@@ -16,6 +16,8 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 - **102 ikon** (Lucide), dipasang otomatis sesuai kata kunci di kartu, poin, agenda, proses, roadmap
 - **Design Picker**: satu halaman untuk klik tema + gambar, lalu salin pilihan ke chat AI
 - **Gambar AI khusus per slide** lewat GPT Image (Codex, login akun ChatGPT): `render.mjs deck.json --imagine`
+- **Slide gaya Genspark & NotebookLM yang tetap editable**: `scene` (foto AI + angka di panel kaca mengambang) dan `infographic` (ilustrasi 3D AI + kartu penjelasan)
+- **Review visual otomatis**: `--review` membuat lembar pratinjau semua slide + rubrik penilaian, AI memperbaiki slide yang lemah
 - Angka penting otomatis tampil besar, slide pernyataan/kutipan/agenda otomatis diberi panel foto (tidak ada ruang kosong)
 - Pola dari referensi: kesimpulan per slide, sumber data, panel insight berangka besar, pita sorotan `==frasa==`
 - Layout dasar: KPI, value stream map, siklus PDCA, 8 waste (TIMWOODS), sebelum–sesudah, roadmap, arsitektur berlapis, grafik, tabel, dan lainnya
@@ -39,7 +41,7 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 **Tanpa ruang kosong — panel foto otomatis, proses berikon, penutup**
 ![Tanpa ruang kosong](docs/showcase/05-tanpa-ruang-kosong.jpg)
 
-**Gambar AI khusus per slide (GPT Image via Codex)**
+**Gambar AI khusus per slide (GPT Image via Codex) — termasuk slide `infographic` dan `scene` gaya Genspark**
 ![Gambar AI per slide](docs/showcase/06-gambar-ai-per-slide.jpg)
 
 **Design Picker — klik tema + gambar, salin ke chat**

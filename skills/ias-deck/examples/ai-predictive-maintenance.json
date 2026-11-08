@@ -16,6 +16,36 @@
    "hero": "images/ai-pm-s01.jpg"
   },
   {
+   "layout": "infographic",
+   "kicker": "Cara kerja",
+   "title": "Dari getaran mesin menjadi **keputusan**",
+   "items": [
+    {
+     "icon": "radio-tower",
+     "title": "Sensor getaran",
+     "desc": "Dipasang di motor & bearing"
+    },
+    {
+     "icon": "cloud",
+     "title": "Data ke edge & cloud",
+     "desc": "Dikirim tiap detik"
+    },
+    {
+     "icon": "brain-circuit",
+     "value": "7 hari",
+     "title": "AI memprediksi",
+     "desc": "Sebelum kerusakan terjadi"
+    },
+    {
+     "icon": "wrench",
+     "title": "Teknisi bertindak",
+     "desc": "Perawatan terjadwal"
+    }
+   ],
+   "takeaway": "Kerusakan dicegah, bukan ditunggu.",
+   "visual": "images/ai-predictive-maintenance-s02.jpg"
+  },
+  {
    "layout": "split",
    "kicker": "Cara kerja",
    "title": "Sensor getaran jadi sinyal dini",
@@ -26,6 +56,51 @@
     "Notifikasi teknisi"
    ],
    "hero": "images/ai-pm-s02.jpg"
+  },
+  {
+   "layout": "scene",
+   "kicker": "Hasil pilot (data ilustrasi)",
+   "title": "Lini yang **memberi kabar** sebelum berhenti",
+   "imagine": "Bright modern Indonesian car factory hall seen from a mezzanine, white robotic arms on an assembly line, a technician with a tablet looking at a motor, open bright air space above the line and on both sides",
+   "callouts": [
+    {
+     "icon": "timer",
+     "value": "-45%",
+     "label": "Downtime tak terduga",
+     "x": 30,
+     "y": 64,
+     "px": 40,
+     "py": 80
+    },
+    {
+     "icon": "coins",
+     "value": "-20%",
+     "label": "Biaya suku cadang",
+     "x": 60,
+     "y": 46
+    },
+    {
+     "icon": "brain-circuit",
+     "value": "7 hari",
+     "label": "Peringatan dini",
+     "x": 82,
+     "y": 72,
+     "px": 72,
+     "py": 84
+    }
+   ],
+   "hero": "images/ai-predictive-maintenance-s04.jpg"
+  },
+  {
+   "layout": "closing",
+   "kicker": "Terima kasih",
+   "title": "Mulai dari **satu mesin kritis**",
+   "subtitle": "Diskusi & tanya jawab",
+   "contact": [
+    "Irfan A. Shidiq",
+    "General Manager IT"
+   ],
+   "hero": "images/ai-predictive-maintenance-s05-1a59f5.jpg"
   }
  ]
 }

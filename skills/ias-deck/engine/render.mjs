@@ -5,6 +5,7 @@
 //        node render.mjs --list                     (daftar tema & layout)
 //        node render.mjs --picker [--out DIR]       (halaman pilih tema + gambar)
 //        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
+//        node render.mjs <deck.json> --review       (lembar pratinjau semua slide + rubrik penilaian visual)
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
@@ -135,7 +136,7 @@ function pickHero(deck, s, i, baseDir, used) {
   if (s.hero === false || deck.autoHero === false) return '';
   if (typeof s.hero === 'string') { used.add(s.hero); return heroSrc(s.hero, baseDir); }
   if (s.layout === 'image') return s.image ? heroSrc(s.image, baseDir) : '';
-  if (!['cover', 'section', 'closing', 'statement', 'quote', 'agenda'].includes(s.layout) || !HEROES.length) return '';
+  if (!['cover', 'section', 'closing', 'statement', 'quote', 'agenda', 'scene'].includes(s.layout) || !HEROES.length) return '';
   const pref = (deck.heroes || []).find((id) => !used.has(id));
   if (pref) { used.add(pref); return heroSrc(pref, baseDir); }
   const words = `${deck.title || ''} ${deck.topic || ''} ${s.title || ''} ${s.kicker || ''} ${s.subtitle || ''}`.toLowerCase().replace(/\*\*/g, '').split(/[^a-z0-9.]+/);
@@ -188,6 +189,26 @@ function chromePath() {
 const chrome = (extra, url) => new Promise((res, rej) => execFile(chromePath(), ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check', '--force-device-scale-factor=1', '--window-size=1920,1080', '--virtual-time-budget=8000', '--run-all-compositor-stages-before-draw', ...extra, url], { maxBuffer: 64 << 20, timeout: 120000 }, (e, out) => (e ? rej(e) : res(out))));
 async function pool(items, n, fn) { const q = [...items]; await Promise.all(Array.from({ length: n }, async () => { while (q.length) await fn(q.shift()); })); }
 
+async function review(htmlFile, outDir, name, n) {
+  const dir = path.join(outDir, '.build', 'review'); fs.mkdirSync(dir, { recursive: true });
+  const url = pathToFileURL(htmlFile).href;
+  await pool([...Array(n).keys()], 4, (i) => chrome([`--user-data-dir=${path.join(dir, `ud-${i}`)}`, `--screenshot=${path.join(dir, `s${i + 1}.png`)}`], `${url}?export=${i + 1}`));
+  fs.readdirSync(dir).filter((f) => f.startsWith('ud-')).forEach((f) => fs.rmSync(path.join(dir, f), { recursive: true, force: true }));
+  const cols = n > 12 ? 4 : 3, cw = 640, ch = 360, rows = Math.ceil(n / cols), W = cols * cw + (cols + 1) * 16, H = rows * (ch + 34) + (rows + 1) * 16;
+  const cells = [...Array(n).keys()].map((i) => `<figure><img src="s${i + 1}.png"><figcaption>${i + 1}</figcaption></figure>`).join('');
+  fs.writeFileSync(path.join(dir, 'sheet.html'), `<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#1d2230;padding:16px;display:grid;grid-template-columns:repeat(${cols},${cw}px);gap:16px;font:600 18px system-ui;color:#fff}figure{margin:0}img{width:${cw}px;height:${ch}px;display:block;border-radius:6px}figcaption{padding:6px 2px}</style>${cells}`);
+  const out = path.join(outDir, `${name}-review.png`);
+  await chrome([`--user-data-dir=${path.join(dir, 'ud-sheet')}`, `--window-size=${W},${H}`, `--screenshot=${out}`], pathToFileURL(path.join(dir, 'sheet.html')).href);
+  fs.rmSync(path.join(dir, 'ud-sheet'), { recursive: true, force: true });
+  console.log(`✔ Review ${out}
+  Nilai tiap slide (lihat gambar di atas) dengan rubrik, perbaiki yang gagal, render ulang:
+   1. Ada SATU visual utama yang kuat (grafik / ilustrasi / foto / angka besar / ikon) — bukan sekadar teks
+   2. Tidak ada ruang kosong besar; isi mengisi area dengan seimbang
+   3. Hierarki jelas: judul = kesimpulan, angka penting besar, ≤ 40 kata isi
+   4. Konsisten dengan slide lain (tema, ikon, gaya gambar); tidak ada teks terpotong/bertumpuk
+   5. Variasi layout: tidak ada 3 slide berturut-turut yang tampilannya sama`);
+}
+
 async function toPdf(htmlFile, pdfFile) {
   await chrome([`--print-to-pdf=${pdfFile}`, '--no-pdf-header-footer'], pathToFileURL(htmlFile).href + '?print=1');
   console.log(`✔ PDF   ${pdfFile}`);
@@ -207,7 +228,7 @@ async function toPptx(htmlFile, outFile, deck, built, meas) {
   const work = path.join(path.dirname(outFile), '.build'); fs.mkdirSync(work, { recursive: true });
   const url = pathToFileURL(htmlFile).href;
   const n = deck.slides.length;
-  await pool([...Array(n).keys()], 4, (i) => chrome([`--screenshot=${path.join(work, `bg-${i + 1}.png`)}`], `${url}?export=${i + 1}&bg=1`));
+  await pool([...Array(n).keys()], 4, (i) => chrome([`--user-data-dir=${path.join(work, `ud-${i}`)}`, `--screenshot=${path.join(work, `bg-${i + 1}.png`)}`], `${url}?export=${i + 1}&bg=1`).finally(() => fs.rmSync(path.join(work, `ud-${i}`), { recursive: true, force: true })));
   meas.slides.forEach((s, i) => { s.bg = path.join(work, `bg-${i + 1}.png`); s.charts.forEach((c) => (c.spec = built.charts[c.k])); });
   const spec = path.join(work, 'export.json');
   fs.writeFileSync(spec, JSON.stringify({ title: deck.title || 'IAS Deck', ...meas }));
@@ -259,6 +280,7 @@ async function main() {
   console.log(`✔ HTML  ${htmlFile}  (tema ${built.theme.id}, ${deck.slides.length} slide)`);
   const wantPptx = flag('--pptx') || flag('--all');
   const meas = wantPptx || flag('--check') ? await measureDeck(htmlFile) : null;
+  if (flag('--review')) await review(htmlFile, outDir, name, deck.slides.length);
   if (flag('--pdf') || flag('--all')) await toPdf(htmlFile, path.join(outDir, `${name}.pdf`));
   if (wantPptx) await toPptx(htmlFile, path.join(outDir, `${name}.pptx`), deck, built, meas);
 }

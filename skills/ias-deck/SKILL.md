@@ -49,6 +49,10 @@ Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layo
 - Variasikan layout — jangan 5 slide `bullets` berturut-turut.
 - **Tanpa tanda seru** di teks slide. Hal penting dibuat besar dengan menebalkan angka: `**0,05%**` otomatis tampil besar. Teks non-angka yang ditebalkan jadi warna aksen; `==frasa==` jadi pita sorotan.
 - **Ikon otomatis**: kartu, poin, agenda, proses, roadmap, lapisan diberi ikon sesuai kata kunci teks; pakai `icon` untuk memilih sendiri (`references/icons.md`).
+- **Slide paling memukau (gaya NotebookLM/Genspark, tetap editable):**
+  - `scene` — foto AI penuh + panel kaca berisi angka yang mengambang di dalam adegan (`callouts[{icon, value, label, x, y, px, py}]`, x/y dalam % posisi panel, px/py titik yang ditunjuk). Isi `"imagine": "deskripsi adegan"` agar fotonya dibuat khusus.
+  - `infographic` — ilustrasi 3D isometrik buatan AI (tanpa teks) di kanan + kartu penjelasan berikon di kiri (`items[{icon, value, title, desc}]`). Dibuat otomatis oleh `--imagine`.
+  - Pakai 1–3 slide jenis ini per deck untuk momen penting; sisanya grafik & layout data.
 - **Jangan ada ruang kosong**: slide statement/quote/agenda otomatis diberi panel foto; pilih layout visual sebelum `bullets`.
 - **Banyak visual, sedikit teks**: setiap slide wajib punya visual utama (grafik, diagram, hero, angka besar, ikon) dan teks isi ≤ 40 kata. Slide data ditutup `takeaway` satu kalimat + `source`. Ikon: `references/icons.md`. Detail aturan: bagian "Aturan visual" di `references/layouts.md`.
 
@@ -67,6 +71,9 @@ Butuh: Node 18+, Google Chrome, Python 3 + `python-pptx` (untuk PPTX), internet 
 - Lihat hasilnya: buat screenshot beberapa slide, lalu periksa secara visual:
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1920,1080 --virtual-time-budget=6000 --screenshot=out/s3.png "file://$PWD/out/acara.html?export=3"`
 - Pastikan tidak ada teks terpotong, tumpang tindih, atau kontras buruk.
+
+### 6b. Review visual wajib (gaya Genspark: agen menilai hasil render)
+Jalankan `node SKILL_DIR/engine/render.mjs deck.json --review` → buka gambar `out/<nama>-review.png` (lembar pratinjau semua slide bernomor) dan nilai setiap slide dengan rubrik yang tercetak. Perbaiki slide yang gagal (ganti layout, tambah visual, perbesar angka, pangkas teks), render & review ulang. Maksimal 2 putaran.
 
 ### 7. Serahkan
 Nama file keluaran mengikuti nama JSON (`deck/acara.json` → `out/acara.html|pdf|pptx`). Beri path file + cara pakai singkat:

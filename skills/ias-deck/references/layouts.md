@@ -42,6 +42,8 @@ Field `kicker` = label kecil di atas judul (kategori / konteks). Field `notes` m
 | `table` | tabel ≤ 6 baris | `kicker`, `title`, `columns[]`, `rows[][]` (kolom pertama ditebalkan), `bar` (indeks kolom angka → bar mini) |
 | `pillars` | deret 3–6 pilar berikon + strip foto | `kicker`, `title`, `items[{icon, title, desc}]`, `photos[id…]` (≤ 3, strip miring) |
 | `showcase` | strip foto miring + panel daftar berikon | `kicker`, `title`, `photos[id…]` (3), `items[{icon, title, desc}]` (≤ 5) |
+| `scene` | foto AI penuh + angka di panel kaca mengambang (gaya Genspark) | `kicker`, `title`, `subtitle`, `imagine` (deskripsi adegan) atau `hero`, `callouts[{icon, value, label, x, y, px, py}]` (≤ 4) |
+| `infographic` | ilustrasi 3D AI + kartu penjelasan (gaya NotebookLM) | `kicker`, `title`, `items[{icon, value, title, desc}]` (3–4), `visual` (path; diisi otomatis oleh `--imagine`) |
 | `number` | satu angka raksasa + konteks | `kicker`, `value`, `unit`, `title`, `text`, `items[{value, label}]` (≤ 4 angka pendukung) |
 | `quote` | kutipan | `text`, `author`, `role` |
 | `speaker` | profil pembicara | `kicker`, `name`, `role`, `photo`, `points[]` (default dari `speaker` akar) |

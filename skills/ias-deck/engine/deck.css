@@ -508,3 +508,42 @@ h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: cal
 .chev { align-items: stretch; } .cv { height: auto; min-height: 560px; padding-top: 70px; padding-bottom: 60px; }
 .cv .ix { font-size: 84px; } .cv .it { font-size: 34px; } .cv .ds { font-size: 24px; } .cv .ichip.sm { width: 72px; height: 72px; padding: 17px; margin-bottom: 22px; }
 .L-quote:has(> .photo) .q { font-size: calc(72px * var(--ts)); } .L-quote .qm { font-size: 380px; height: 170px; }
+
+/* ================= infografis AI (gaya NotebookLM, tetap editable) ================= */
+.L-infographic .frame { right: auto; width: 760px; }
+.L-infographic .ig-l { display: flex; flex-direction: column; height: 100%; }
+.L-infographic h2.title { font-size: calc(62px * var(--ts)); }
+.L-infographic .ig-c { display: flex; flex-direction: column; gap: 16px; margin-top: 36px; flex: 1; justify-content: center; }
+.L-infographic .co { display: flex; align-items: center; gap: 22px; padding: 22px 26px; }
+.L-infographic .co .ichip { width: 64px; height: 64px; padding: 15px; }
+.L-infographic .cx { display: flex; flex-direction: column; }
+.L-infographic .cv2 { font-family: var(--fd); font-weight: 800; font-size: 46px; line-height: 1; color: var(--a); margin-bottom: 4px; letter-spacing: -.02em; }
+.L-infographic .it { font-size: 27px; } .L-infographic .ds { font-size: 21px; margin-top: 2px; }
+.L-infographic .ig-r { position: absolute; z-index: 3; left: 930px; right: 110px; top: 120px; bottom: 120px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 40px 90px -40px color-mix(in srgb, var(--a) 45%, rgba(10,30,70,.4)); }
+.L-infographic .ig-r img { width: 100%; height: 100%; object-fit: cover; }
+.L-infographic .ig-ph { height: 100%; display: grid; place-content: center; justify-items: center; gap: 14px; color: var(--m); background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--a) 4%, #fff) 0 14px, #fff 14px 28px); }
+.L-infographic .ig-ph .ico { width: 64px; height: 64px; color: var(--a); }
+.L-infographic .ig-r { position: absolute; }
+.L-infographic .ig-r { left: 798px; top: -12px; width: 880px; height: 840px; right: auto; bottom: auto; }
+.L-infographic .ig-r { top: 70px; height: 600px; display: grid; place-items: center; }
+.L-infographic .ig-r img { object-fit: contain; }
+.L-infographic .ig-c { gap: 12px; margin-top: 26px; } .L-infographic .co { padding: 16px 22px; }
+.L-infographic .frame:has(.take) .cv2 { font-size: 40px; }
+
+/* ================= scene: foto penuh + callout kaca mengambang (gaya Genspark) ================= */
+.L-scene .hero::after { background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 80%, transparent) 0%, transparent 34%), linear-gradient(90deg, color-mix(in srgb, var(--bg) 55%, transparent), transparent 45%); }
+.L-scene .frame { inset: 0; }
+.L-scene .sc-t { position: absolute; left: 132px; top: 120px; max-width: 980px; padding: 30px 38px; border-radius: 20px; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(150%); box-shadow: 0 30px 60px -30px rgba(10,30,70,.35), inset 0 1px 0 #fff; }
+.L-scene .sc-t .kicker { margin-bottom: 14px; } .L-scene .sc-t h2.title { font-size: calc(58px * var(--ts)); } .L-scene .sc-t .lead { font-size: 26px; margin-top: 10px; }
+.L-scene .sc-c { position: absolute; z-index: 3; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 18px; padding: 20px 26px 20px 20px; border-radius: 18px; color: #fff;
+  background: linear-gradient(140deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); border: 1.5px solid rgba(255,255,255,.75); backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--a) 40%, transparent), 0 20px 50px -18px rgba(5,20,50,.55), 0 0 40px -6px color-mix(in srgb, var(--a) 60%, transparent); text-shadow: 0 2px 12px rgba(0,0,0,.35); }
+.L-scene .sc-c .ichip { background: rgba(255,255,255,.2); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.7); width: 64px; height: 64px; padding: 15px; }
+.L-scene .sc-c .v { font-family: var(--fd); font-weight: 800; font-size: 60px; line-height: .95; letter-spacing: -.02em; }
+.L-scene .sc-c .lb { font-size: 21px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+.L-scene .sc-l { position: absolute; z-index: 2; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; }
+.L-scene .sc-l line { stroke: #fff; stroke-width: 2; stroke-dasharray: 6 6; filter: drop-shadow(0 0 6px var(--a)); } .L-scene .sc-l circle { fill: var(--a); stroke: #fff; stroke-width: 3; }
+.L-scene .foot, .L-scene .d-bl { display: none; }
+.L-scene .sc-c { background: linear-gradient(140deg, color-mix(in srgb, var(--f) 55%, transparent), color-mix(in srgb, var(--a) 35%, transparent)); padding: 24px 32px 24px 24px; }
+.L-scene .sc-c .v { font-size: 76px; } .L-scene .sc-c .lb { font-size: 22px; }
+.L-scene .sc-l line { stroke: var(--a); stroke-width: 3; stroke-dasharray: none; } .L-scene .sc-l { z-index: 3; }

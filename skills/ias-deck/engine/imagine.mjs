@@ -7,14 +7,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFile, execFileSync, spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
-const AUTO = ['cover', 'section', 'closing', 'split', 'image'];
+const AUTO = ['cover', 'section', 'closing', 'split', 'image', 'infographic', 'scene'];
 const ROLE = {
   cover: 'presentation cover key visual; main subject in the right 60 percent, the left 40 percent is calm empty bright space for a large title',
   section: 'editorial photo for a section divider panel; strong single subject centered so it can be cropped to a near-square panel',
   split: 'supporting photo beside text; clear single subject centered, uncluttered background',
   closing: 'closing slide full-bleed visual, optimistic and wide; left half calm and empty for the closing words',
   image: 'full-bleed storytelling photo; keep the lower-left area calm for a caption',
+  scene: 'immersive wide photoreal scene that tells the story of the slide; leave several calm open areas (sky, walls, floor) where floating glass data panels will be placed; top band calm for a title',
+  infographic: 'clean premium 3D isometric INFOGRAPHIC ILLUSTRATION (not a photo) on a pure white background, soft shadows, glossy white and light-blue materials with the accent color; depict each listed element as a distinct, clearly separated visual object connected by subtle flow arrows or lines, like a NotebookLM / Apple keynote explainer graphic; centered composition filling the frame, generous but not empty; absolutely no words or numbers',
 };
 const STYLE = 'Bright high-key, airy, optimistic premium futuristic technology look; predominantly white, pale grey and light sky tones with clean accents in the color HEX; soft natural daylight or soft studio light; photoreal unless stated otherwise; Indonesian context and Southeast Asian people where people appear. Absolutely no text, letters, numbers, logos, emblems, watermarks or readable UI labels.';
 
@@ -39,10 +42,12 @@ export async function imagine(file, deck, { only, force } = {}) {
     const manual = typeof s.imagine === 'string' && s.imagine.trim();
     const auto = deck.imagine && AUTO.includes(s.layout) && s.imagine !== false && !Array.isArray(s.collage);
     if (!manual && !auto) return;
-    const name = `${base}-s${String(i + 1).padStart(2, '0')}.png`;
-    if (!force && s.hero === `images/${name.replace(/\.png$/, '.jpg')}` && fs.existsSync(path.join(imgDir, name.replace(/\.png$/, '.jpg')))) return;
-    if (!force && !manual && (s.hero || s.image)) return;
-    const what = manual || `${plain(s.title)}${s.subtitle || s.text ? ' — ' + plain(s.subtitle || s.text) : ''} (presentation about: ${topic})`;
+    const key = createHash('sha1').update(`${s.layout}|${s.imagine || ''}|${s.title || ''}`).digest('hex').slice(0, 6);
+    const name = `${base}-s${String(i + 1).padStart(2, '0')}-${key}.png`; // nama unik: slide bisa digeser tanpa menimpa gambar lain
+    if (!force && (s.hero || s.visual) === `images/${name.replace(/\.png$/, '.jpg')}` && fs.existsSync(path.join(imgDir, name.replace(/\.png$/, '.jpg')))) return;
+    if (!force && !manual && (s.hero || s.image || s.visual)) return;
+    const parts = (s.items || s.steps || s.layers || []).map((x) => plain(typeof x === 'string' ? x : x.title || x.name)).filter(Boolean);
+    const what = manual || `${plain(s.title)}${s.subtitle || s.text ? ' — ' + plain(s.subtitle || s.text) : ''}${parts.length ? `. Visual elements to show: ${parts.join('; ')}` : ''} (presentation about: ${topic})`;
     jobs.push({ i, name, prompt: `${what}. Purpose: ${ROLE[s.layout] || ROLE.split}.` });
   });
   if (!jobs.length) { console.log('✔ Imagine: tidak ada slide yang perlu dibuatkan gambar (isi "imagine" di slide atau "imagine": true di akar deck).'); return deck; }
@@ -69,7 +74,7 @@ export async function imagine(file, deck, { only, force } = {}) {
     if (!fs.existsSync(png)) { console.warn(`⚠ Gambar slide ${j.i + 1} tidak terbentuk`); continue; }
     const jpg = png.replace(/\.png$/, '.jpg');
     try { execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '82', png, '--out', jpg], { stdio: 'ignore' }); fs.rmSync(png); } catch { /* bukan Mac: pakai PNG apa adanya */ }
-    next.slides[j.i].hero = `images/${path.basename(fs.existsSync(jpg) ? jpg : png)}`;
+    next.slides[j.i][next.slides[j.i].layout === 'infographic' ? 'visual' : 'hero'] = `images/${path.basename(fs.existsSync(jpg) ? jpg : png)}`;
     ok++;
   }
   fs.writeFileSync(path.resolve(file), JSON.stringify(next, null, 1));

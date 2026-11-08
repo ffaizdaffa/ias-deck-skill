@@ -113,6 +113,21 @@ const L = {
     return `<div class="scl">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}<div class="strip">${ph.map((id) => `<div class="sp ${rv()}"><img src="${ctx.hero(id)}" alt=""></div>`).join('')}</div></div>
     <div class="scr ${rv()}">${it.map((x) => `<div class="li"><span class="ichip round">${ctx.icon(x.icon || 'check-circle-2')}</span><div>${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div></div>`).join('')}</div>`;
   },
+  scene(s, ctx) {
+    // foto penuh + panel kaca berisi angka yang "mengambang" di dalam adegan (gaya Genspark Creative, tetap editable)
+    const it = arr(s.callouts), pos = [[58, 30], [80, 52], [62, 70], [84, 22], [44, 56]];
+    return `<div class="sc-t ${rv()}">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'lead', s.subtitle)}</div>${it.map((c, i) => {
+      const [x, y] = [c.x ?? pos[i % 5][0], c.y ?? pos[i % 5][1]];
+      const pin = c.px !== undefined ? `<svg class="sc-l" style="left:0;top:0"><line x1="${x}%" y1="${y}%" x2="${c.px}%" y2="${c.py}%"/><circle cx="${c.px}%" cy="${c.py}%" r="7"/></svg>` : '';
+      return `${pin}<div class="sc-c rv" style="--d:${RV++};left:${x}%;top:${y}%">${c.icon || ctx.autoIcon(`${c.label || ''} ${c.title || ''}`) ? `<span class="ichip">${ctx.icon(c.icon || ctx.autoIcon(`${c.label || ''} ${c.title || ''}`))}</span>` : ''}<div>${T('div', 'v', c.value)}${T('div', 'lb', c.label || c.title)}</div></div>`;
+    }).join('')}`;
+  },
+  infographic(s, ctx) {
+    const it = arr(s.items).map(item);
+    const pic = s.visual ? ctx.hero(s.visual) : s.hero ? ctx.hero(s.hero) : '';
+    return `<div class="ig-l">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}<div class="ig-c">${it.map((x, i) => `<div class="card co ${rv()}">${ico(ctx, x) || `<span class="ichip">${ctx.icon('target')}</span>`}<div class="cx">${x.value ? T('div', 'cv2', x.value) : ''}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div></div>`).join('')}</div></div>
+    <div class="ig-r ${rv()}">${pic ? `<img src="${pic}" alt="">` : `<div class="ig-ph">${ctx.icon('sparkles')}<span>Ilustrasi dibuat dengan --imagine</span></div>`}</div>`;
+  },
   number(s) {
     const it = arr(s.items);
     return `${T('div', 'kicker', s.kicker)}<div class="nb"><div class="nv ${rv()}">${T('span', 'v', s.value)}${T('span', 'u', s.unit)}</div><div class="nt">${T('h2', 'title', s.title)}${T('p', 'lead', s.text)}</div></div>${it.length ? `<div class="ns">${it.map((k) => `<div class="card ${rv()}">${T('div', 'v', k.value)}${T('div', 'lb', k.label)}</div>`).join('')}</div>` : ''}`;
@@ -153,7 +168,7 @@ export function renderSlide(s, i, total, ctx) {
   const heroSrc = Array.isArray(s.collage) ? '' : ctx.heroFor(s, i);
   const mosaic = Array.isArray(s.collage) ? `<div class="mosaic m${Math.min(4, s.collage.length)}">${s.collage.slice(0, 4).map((id, k) => `<div class="mt t${k + 1}"><img src="${ctx.hero(id)}" alt=""></div>`).join('')}</div>` : '';
   const band = s.band ? `<div class="band2"><span class="bl">${brand.logo ? `<img src="${ctx.asset(brand.logo)}" alt="">` : ''}<b data-t>${esc(brand.name || ctx.deck.event || '')}</b></span><i></i><span class="bt" data-t>${rich(s.band)}</span></div>` : '';
-  const full = ['cover', 'closing', 'image'].includes(s.layout);
+  const full = ['cover', 'closing', 'image', 'scene'].includes(s.layout);
   const hero = !heroSrc ? '' : full
     ? `<div class="hero ${ctx.tint}"><img src="${heroSrc}" alt=""></div>${s.layout === 'cover' ? `<div class="reticle"><i></i><span>Target lock · ${esc(ctx.code)}</span></div>` : ''}`
     : `<div class="photo"><div class="pf"><img src="${heroSrc}" alt=""></div></div>`;
