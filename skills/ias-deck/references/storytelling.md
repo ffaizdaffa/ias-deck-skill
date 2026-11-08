@@ -11,6 +11,9 @@
 8. **Pilihan & risiko** — `compare` atau `table`.
 9. **Penutup** — satu ajakan konkret (`closing`), opsional `quote`.
 
+## Versi pendek 10–15 menit (6–9 slide)
+`cover` → hook (`statement`/`kpi`) → masalah (`compare`/`grid`) → kerangka (`layers`/`cycle`) → cara kerja (`process`) → bukti/target (`kpi`/`chart`) → `closing` berisi satu ajakan. Lewati `agenda` dan `section`.
+
 ## Aturan menulis
 - Judul slide = kesimpulan yang bisa dibaca dalam 3 detik.
 - Satu slide satu pesan. Kalau butuh dua pesan, pecah jadi dua slide.

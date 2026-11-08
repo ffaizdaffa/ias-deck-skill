@@ -59,7 +59,7 @@ Butuh: Node 18+, Google Chrome, Python 3 + `python-pptx` (untuk PPTX), internet 
 - Pastikan tidak ada teks terpotong, tumpang tindih, atau kontras buruk.
 
 ### 7. Serahkan
-Beri path file + cara pakai singkat:
+Nama file keluaran mengikuti nama JSON (`deck/acara.json` → `out/acara.html|pdf|pptx`). Beri path file + cara pakai singkat:
 - Buka `out/<nama>.html` di Chrome → `F` layar penuh, `→/←` pindah, `P` presenter mode (catatan + timer), `G` ikhtisar, `T` ganti tema, `B` layar gelap.
 - `out/<nama>.pptx` untuk panitia / edit di PowerPoint/Keynote. Untuk tampilan font yang sama persis, font tema perlu terpasang (`install.sh` sudah memasangnya).
 

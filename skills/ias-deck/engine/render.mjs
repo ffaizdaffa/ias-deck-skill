@@ -53,6 +53,10 @@ function validate(deck, file) {
   if (!deck || !Array.isArray(deck.slides) || !deck.slides.length) die(`${file}: butuh "slides" (array, minimal 1).`);
   if (deck.theme && !TH.themes.some((t) => t.id === deck.theme)) die(`Tema "${deck.theme}" tidak ada. Jalankan: node render.mjs --list`);
   deck.slides.forEach((s, i) => { if (!LAYOUTS.includes(s.layout)) die(`Slide ${i + 1}: layout "${s.layout}" tidak dikenal. Pilihan: ${LAYOUTS.join(', ')}`); });
+  deck.slides.forEach((s, i) => {
+    const max = ['cover', 'closing', 'section'].includes(s.layout) ? 45 : 60, t = String(s.title || '').replace(/\*\*/g, '');
+    if (t.length > max) console.warn(`⚠ Slide ${i + 1}: judul ${t.length} karakter (saran ≤ ${max}) — persingkat agar tidak 2–3 baris.`);
+  });
 }
 
 /* ---------- bangun HTML ---------- */

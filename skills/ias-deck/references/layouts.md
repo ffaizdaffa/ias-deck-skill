@@ -8,7 +8,7 @@
   "theme": "hud-cobalt",                    // id dari references/themes.md
   "speaker": { "name": "Nama", "role": "Jabatan", "photo": "foto.jpg" },
   "event": "Nama acara · Kota · Tanggal",
-  "brand": { "name": "Teks footer", "logo": "logo.png", "accent": "#0057B8" },  // accent opsional: ganti warna aksen tema
+  "brand": { "name": "Teks footer kiri bawah (mis. nama instansi/acara)", "logo": "logo.png", "accent": "#0057B8" },  // accent opsional
   "slides": [ { "layout": "...", "notes": "catatan pembicara", "align": "center" } ]
 }
 ```
@@ -21,9 +21,9 @@ Field `kicker` = label kecil di atas judul (kategori / konteks). Field `notes` m
 |---|---|---|
 | `cover` | sampul | `kicker`, `title`, `subtitle` (+ `speaker`, `event` dari akar) |
 | `agenda` | daftar isi | `kicker`, `title`, `items[]` (string atau `{title, desc}`, 3–6) |
-| `section` | pembatas bagian | `number` ("01"), `kicker`, `title`, `subtitle` |
+| `section` | pembatas bagian | `number` ("01"), `kicker` (mis. "Bagian dua"), `title`, `subtitle` |
 | `statement` | satu kalimat kunci besar | `kicker`, `text`, `source` |
-| `kpi` | 1–4 angka besar | `kicker`, `title`, `subtitle`, `items[{value, unit, label, delta}]` (delta diawali `-` = warna netral) |
+| `kpi` | 1–4 angka besar | `kicker`, `title`, `subtitle`, `items[{value, unit, label, delta}]` — `delta` = keterangan kecil di bawah (mis. "▲ dari 61%"); kalau diawali `-` diberi warna netral |
 | `bullets` | poin-poin (≤ 4 = 1 kolom, 5–8 = 2 kolom) | `kicker`, `title`, `subtitle`, `points[]` (string atau `{title, desc}`) |
 | `split` | teks + visual | `kicker`, `title`, `text`, `points[]`, `image` **atau** `visualValue` + `visualLabel`, `side`: `"left"` (visual di kiri) |
 | `compare` | dua opsi berdampingan | `kicker`, `title`, `left{label, title, points[]}`, `right{...}`, `vs` |
@@ -45,7 +45,7 @@ Field `kicker` = label kecil di atas judul (kategori / konteks). Field `notes` m
 ## Batas isi supaya tidak meluber
 - Judul ≤ 60 karakter (cover ≤ 40). Lead/subtitle ≤ 140 karakter.
 - `desc` ≤ 70 karakter. `bullets` ≤ 8 poin, `grid` ≤ 8, `timeline`/`process` ≤ 6, `table` ≤ 6 baris × 5 kolom.
-- Selalu jalankan `render.mjs --check`; perbaiki semua peringatan.
+- Selalu jalankan `render.mjs --check`; perbaiki semua peringatan. Render juga memperingatkan judul yang terlalu panjang. `--check` mendeteksi teks meluber, tetapi tidak menilai kepadatan, jadi tetap lihat screenshot.
 
 ## Contoh singkat
 ```json
