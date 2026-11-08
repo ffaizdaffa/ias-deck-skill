@@ -1,0 +1,426 @@
+Saved in the current directory:
+
+- `ai-quality-inspection-s01-6e240f.png`
+- `ai-quality-inspection-s02-75811d.png`
+
+Reading additional input from stdin...
+2026-11-08T14:35:11.048390Z ERROR codex_skills_extension::loader::host: skills scan reached its traversal limit (root: file:///Users/faizceo/.agents/skills)
+2026-11-08T14:35:11.181035Z ERROR codex_core::session::session: failed to load skill /Users/faizceo/.agents/skills/conversion-funnel-analysis/SKILL.md: missing YAML frontmatter delimited by ---
+2026-11-08T14:35:11.181050Z ERROR codex_core::session::session: failed to load skill /Users/faizceo/.agents/skills/id8labs-agent-suite/today/SKILL.md: missing YAML frontmatter delimited by ---
+OpenAI Codex v0.153.2
+--------
+workdir: /Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: ultra
+reasoning summaries: none
+session id: 01a1bb95-ab29-7d22-8080-6428d90d13dc
+--------
+user
+Use your image generation tool to create the following images, one image per line, and save each one in the current directory under the given filename (16:9 landscape, highest quality). Shared style for EVERY image: Bright high-key, airy, optimistic premium technology look; predominantly white, pale grey and light sky tones with restrained accents in #1F5BFF; soft natural daylight or soft studio light; photoreal unless stated otherwise; Indonesian industrial context and Southeast Asian people with natural faces and poses where people appear. Anti-AI-slop: one clear focal point, realistic proportions and materials, no decorative glow or lens flare, no floating random icons, no fake UI, no purple gradients. Absolutely no text, letters, numbers, logos, emblems, watermarks or readable UI labels.
+- ai-quality-inspection-s01-6e240f.png : Kamera yang tidak pernah lelah — Computer vision untuk inspeksi kualitas di lini komponen otomotif. Context: Kamera industri memeriksa setiap komponen di konveyor, operator memantau di tablet. (presentation about: inspeksi kualitas otomatis dengan computer vision di pabrik komponen otomotif). Purpose: presentation cover key visual; main subject in the right 60 percent, the left 40 percent calm empty bright space for a large title.
+- ai-quality-inspection-s02-75811d.png : Enam bulan setelah kamera AI terpasang. Subject matter to depict (visually, no words): Cacat lolos ke pelanggan; Komponen diperiksa; Waktu inspeksi per part (presentation about: inspeksi kualitas otomatis dengan computer vision di pabrik komponen otomotif). Purpose: wide atmospheric BACKGROUND scene that will be shown softly faded behind charts and data cards: low contrast, calm, bright, subject toward the edges and corners, the large central area simple and uniform (floor, sky, wall); evokes the slide topic without competing with data.
+When all are saved, list the filenames.
+2026-11-08T14:35:11.793851Z ERROR codex_skills_extension::loader::host: skills scan reached its traversal limit (root: file:///Users/faizceo/.agents/skills)
+2026-11-08T14:35:11.837813Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.facebook.com/.well-known/oauth-protected-resource/ads\", scope=\"ads_management ads_read catalog_management business_management pages_show_list pages_manage_ads facebook_branded_content_ads_brand instagram_basic instagram_branded_content_ads_brand ads_mcp_management\"" })
+2026-11-08T14:35:11.862008Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.facebook.com/.well-known/oauth-protected-resource/ads\", scope=\"ads_management ads_read catalog_management business_management pages_show_list pages_manage_ads facebook_branded_content_ads_brand instagram_basic instagram_branded_content_ads_brand ads_mcp_management\"" })
+2026-11-08T14:35:11.868974Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer error=\"invalid_token\", error_description=\"No authorization provided\", resource_metadata=\"https://mcp.vercel.com/.well-known/oauth-protected-resource\"" })
+2026-11-08T14:35:11.944314Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://api.anthropic.com/v1/design/.well-known/oauth-protected-resource\", scope=\"user:design:read user:design:write\"" })
+2026-11-08T14:35:12.035045Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 403: <!doctype html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=robots content=\"noindex, nofollow\"><meta content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui\" name=viewport><title>携程旅行网</title><style type=text/css>blockquote,body,button,code,dd,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,h5,h6,html,input,legend,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0}body{font-size:12px;font-family:Simsun,sans-serif;color:#333}fieldset,img{border:0 none}input,textarea{font-size:12px}textarea{resize:none}table{border-collapse:collapse;border-spacing:0}a{color:#003d7e;text-decoration:none}a:hover{text-decoration:underline}h1,h2,h3,h4,h5,h6{font-family:\"Times New Roman\",Simsun}li,ol,ul{list-style:none outside none}dfn{font-style:normal}@media screen and (min-width:751px){#footer,.content,.errorinfo{width:800px}.wrap{background:#016eca;width:100%;min-width:1200px;overflow:hidden}.content{position:relative;z-index:1;height:480px;margin:0 auto;padding-top:100px}.logo{position:relative;z-index:5;width:144px;height:54px;margin:0 auto;overflow:hidden;text-indent:-500px;background-position:0 0}.errorinfo{color:#fff;display:block;font-family:\"microsoft yahei\",simhei,sans-serif;font-size:24px;font-weight:400;text-align:center;margin:30px auto;padding:0}a.goback{display:block;position:relative;z-index:4;width:112px;margin:20px auto;padding:8px 0;color:#fff;font-family:\"microsoft yahei\",simhei,sans-serif;font-size:16px;text-align:center;text-decoration:none;background-color:#0f4dc5}a.goback:hover{background-color:#3f92f0}.tower{position:absolute;transform:translateZ(300px);z-index:2;top:143px;left:291px;width:116px;height:264px;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/tower.png) no-repeat}.beam{position:absolute;z-index:1;left:-10px;top:0;width:749px;height:359px;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/light.png) no-repeat;-webkit-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;-moz-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam}.wave1{position:absolute;z-index:99;top:400px;height:180px;width:1200px;left:0;right:0;margin:auto;opacity:0;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenxxpc;-moz-animation:50s linear 0s none infinite tweenxxpc;animation:50s linear 0s none infinite tweenxxpc}.wave{position:absolute;z-index:100;top:400px;height:180px;width:1200px;left:0;right:0;margin:auto;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenxpc;-moz-animation:50s linear 0s none infinite tweenxpc;animation:50s linear 0s none infinite tweenxpc}#footer{margin:0 auto;text-align:center;color:#0053aa;font-family:arial;line-height:1.6;padding:8px 0 0 0;width:1200px}#footer a{color:#0053aa}.copyright{color:#333}.star1{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:164px;left:592px;height:60px;width:60px;opacity:0;-webkit-animation:2s linear 0s none infinite staracta;-moz-animation:2s linear 0s none infinite staracta;animation:2s linear 0s none infinite staracta}.star2{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:234px;left:245px;height:60px;width:60px;opacity:.8;-webkit-animation:2s linear 0s none infinite staract;-moz-animation:2s linear 0s none infinite staract;animation:2s linear 0s none infinite staract}.star3{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:252px;left:644px;height:60px;width:60px;opacity:.8;-webkit-animation:2s linear 0s none infinite staract;-moz-animation:2s linear 0s none infinite staract;animation:2s linear 0s none infinite staract}.star4{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:268px;left:264px;height:60px;width:60px;opacity:0;-webkit-animation:2s linear 0s none infinite staracta;-moz-animation:2s linear 0s none infinite staracta;animation:2s linear 0s none infinite staracta}.top{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/top.png);background-repeat:no-repeat;position:absolute;top:0;left:0;width:1200px;height:580px;z-index:999;right:0;margin:auto}.bg{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/404_PC_bg.png) no-repeat center bottom;position:absolute;z-index:0;width:1200px;height:580px;min-width:1200px;left:0;right:0;margin:auto;overflow:hidden}.adv_t{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/PC_btA.png);background-repeat:no-repeat;position:relative;top:350px;left:470px;width:262px;height:28px;z-index:10000;cursor:pointer;display:none}.back_t{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/PC_btB.png);background-repeat:no-repeat;position:relative;top:433px;left:551px;width:98px;height:38px;z-index:10000;cursor:pointer}}@media screen and (max-width:750px){body html{overflow-x:hidden}.top{position:absolute;top:0;left:0;max-width:750px;width:100%;height:755px;z-index:999;right:0;margin:auto;min-width:350px}.mengceng{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/h5_top_1.png);height:755px;background-size:auto 910px;background-repeat:no-repeat;width:415px;position:relative;margin:0 auto}.wrap{background:#016eca;width:100%;min-width:400px}.bg{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/404_H5_bg.png);background-repeat:no-repeat;margin:0 auto;background-size:contain;height:755px;width:350px;overflow:hidden}.bg:before{content:\"\";display:block;padding-top:180%}#footer{margin:0 auto;text-align:center;color:#0053aa;font-family:arial;line-height:1.6;padding:8px 0 0 0}#footer a{color:#0053aa}.copyright{color:#333}.wave1{position:absolute;z-index:99;top:444px;height:180px;width:350px;left:0;right:0;margin:auto;opacity:0;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenxx;-moz-animation:50s linear 0s none infinite tweenxx;animation:50s linear 0s none infinite tweenxx}.wave{position:absolute;z-index:100;top:444px;height:180px;width:350px;left:0;right:0;margin:auto;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenx;-moz-animation:50s linear 0s none infinite tweenx;animation:50s linear 0s none infinite tweenx}@-webkit-keyframes tweenx{0%{background-position:100vw 0}50%{opacity:0}100%{background-position:0 0;opacity:1}}@-moz-keyframes tweenx{0%{background-position:100vw 0}50%{opacity:0}100%{background-position:0 0;opacity:1}}@keyframes tweenx{0%{background-position:100vw 0}50%{opacity:0}100%{background-position:0 0;opacity:1}}@keyframes tweenxx{0%{background-position:0 0;opacity:0}50%{opacity:1}100%{background-position:-100vw 0;opacity:0}}.tower{position:relative;transform:translateZ(300px);z-index:2;top:-370px;left:-53px;width:180px;height:180px;background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/tower_h5.png);background-repeat:no-repeat;background-size:contain}.beam{position:relative;z-index:1;left:-176px;top:-640px;width:484px;height:232px;background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/light.png);background-repeat:no-repeat;background-size:contain;-webkit-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;-moz-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam}.star1{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png)... (truncated 6027 bytes)")
+warning: Under-development features enabled: chronicle. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/faizceo/.codex/config.toml.
+2026-11-08T14:35:12.305941Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer scope=\"create delete\", resource_metadata=\"https://mcp.windsor.ai/.well-known/oauth-protected-resource\"" })
+2026-11-08T14:35:12.551107Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.context7.com/.well-known/oauth-protected-resource/mcp\"" })
+warning: Exceeded skills context budget. All skill descriptions were removed and 900 additional skills were not included in the model-visible skills list.
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+Saya pakai skill imagegen untuk membuat dua visual 16:9 sesuai arahan, lalu menyimpannya dengan nama file yang diminta.
+exec
+/bin/zsh -lc 'cat /Users/faizceo/.codex/skills/.system/imagegen/SKILL.md' in /Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images
+ succeeded in 0ms:
+---
+name: "imagegen"
+description: "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas."
+---
+
+# Image Generation Skill
+
+Generates or edits images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, or infographics).
+
+## Top-level modes and rules
+
+This skill has exactly two top-level modes:
+
+- **Default built-in tool mode (preferred):** built-in `image_gen` tool for image generation, editing, and transparent-image requests. Does not require `OPENAI_API_KEY`.
+- **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for or confirms the CLI/API/model path. Requires `OPENAI_API_KEY`.
+
+Within CLI fallback, the CLI exposes three subcommands:
+
+- `generate`
+- `edit`
+- `generate-batch`
+
+Rules:
+- Use the built-in `image_gen` tool by default for normal image generation and editing requests.
+- Do not switch to CLI fallback for ordinary quality, size, or file-path control.
+- For transparent images, ask built-in `image_gen` for a transparent background and preserve the generated alpha.
+- Never silently switch from built-in `image_gen` or CLI `gpt-image-2` to CLI `gpt-image-1.5`; ask the user first unless they explicitly requested `gpt-image-1.5`.
+- The word `batch` by itself does not mean CLI fallback. If the user asks for many assets or says to batch-generate assets without explicitly asking for CLI/API/model controls, stay on the built-in path and issue one built-in call per requested asset or variant.
+- If the built-in tool fails or is unavailable, tell the user the CLI fallback exists and that it requires `OPENAI_API_KEY`. Proceed only if the user explicitly asks for that fallback.
+- If the user explicitly asks for CLI mode, use the bundled `scripts/image_gen.py` workflow. Do not create one-off SDK runners.
+- Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
+
+Built-in save-path policy:
+- In built-in tool mode, Codex saves generated images under `$CODEX_HOME/*` by default.
+- Do not describe or rely on OS temp as the default built-in destination.
+- Do not describe or rely on a destination-path argument (if any) on the built-in `image_gen` tool. If a specific location is needed, generate first and then move or copy the selected output from `$CODEX_HOME/generated_images/...`.
+- Save-path precedence in built-in mode:
+  1. If the user names a destination, move or copy the selected output there.
+  2. If the image is meant for the current project, move or copy the final selected image into the workspace before finishing.
+  3. If the image is only for preview or brainstorming, render it inline; the underlying file can remain at the default `$CODEX_HOME/*` path.
+- Never leave a project-referenced asset only at the default `$CODEX_HOME/*` path.
+- Do not overwrite an existing asset unless the user explicitly asked for replacement; otherwise create a sibling versioned filename such as `hero-v2.png` or `item-icon-edited.png`.
+
+Shared prompt guidance for both modes lives in `references/prompting.md` and `references/sample-prompts.md`.
+
+Fallback-only docs/resources for CLI mode:
+- `references/cli.md`
+- `references/image-api.md`
+- `references/codex-network.md`
+- `scripts/image_gen.py`
+
+## When to use
+- Generate a new image (concept art, product shot, cover, website hero)
+- Generate a new image using one or more reference images for style, composition, or mood
+- Edit an existing image (inpainting, lighting or weather transformations, background replacement, object removal, compositing, transparent background)
+- Produce many assets or variants for one task
+
+## When not to use
+- Extending or matching an existing SVG/vector icon set, logo system, or illustration library inside the repo
+- Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
+- Making a small project-local asset edit when the source file already exists in an editable native format
+- Any task where the user clearly wants deterministic code-native output instead of a generated bitmap
+
+## Decision tree
+
+Think about two separate questions:
+
+1. **Intent:** is this a new image or an edit of an existing image?
+2. **Execution strategy:** is this one asset or many assets/variants?
+
+Intent:
+- If the user wants to modify an existing image while preserving parts of it, treat the request as **edit**.
+- If the user provides images only as references for style, composition, mood, or subject guidance, treat the request as **generate**.
+- If the user provides no images, treat the request as **generate**.
+
+Built-in edit semantics:
+- Built-in edit mode is for images already visible in the conversation context, such as attached images or images generated earlier in the thread.
+- If the user wants to edit a local image file with the built-in tool, first load it with built-in `view_image` tool so the image is visible in the conversation context, then proceed with the built-in edit flow.
+- Do not promise arbitrary filesystem-path editing through the built-in tool.
+- If a local file still needs direct file-path control, masks, or other explicit CLI-only parameters, use the explicit CLI fallback only when the user asks for it.
+- For edits, preserve invariants aggressively and save non-destructively by default.
+
+Execution strategy:
+- In the built-in default path, produce many assets or variants by issuing one `image_gen` call per requested asset or variant.
+- In the CLI fallback path, use the CLI `generate-batch` subcommand only when the user explicitly chose CLI mode and needs many prompts/assets.
+- For many distinct assets, do not use `n` as a substitute for separate prompts. `n` is for variants of one prompt; distinct assets need distinct built-in calls or distinct CLI `generate-batch` jobs.
+
+Assume the user wants a new image unless they clearly ask to change an existing one.
+
+## Workflow
+1. Decide the top-level mode: built-in by default, including transparent-output requests; fallback CLI only if explicitly requested or confirmed.
+2. Decide the intent: `generate` or `edit`.
+3. Decide whether the output is preview-only or meant to be consumed by the current project.
+4. Decide the execution strategy: single asset vs repeated built-in calls vs CLI `generate-batch`.
+5. Collect inputs up front: prompt(s), exact text (verbatim), constraints/avoid list, and any input images.
+6. For every input image, label its role explicitly:
+   - reference image
+   - edit target
+   - supporting insert/style/compositing input
+7. If the edit target is only on the local filesystem and you are staying on the built-in path, inspect it with `view_image` first so the image is available in conversation context.
+8. If the user asked for a photo, illustration, sprite, product image, banner, or other explicitly raster-style asset, use `image_gen` rather than substituting SVG/HTML/CSS placeholders. If the request is for an icon, logo, or UI graphic that should match existing repo-native SVG/vector/code assets, prefer editing those directly instead.
+9. Augment the prompt based on specificity:
+   - If the user's prompt is already specific and detailed, normalize it into a clear spec without adding creative requirements.
+   - If the user's prompt is generic, add tasteful augmentation only when it materially improves output quality.
+10. Use the built-in `image_gen` tool by default.
+11. For transparent-output requests, ask built-in `image_gen` for a transparent background and preserve the generated alpha channel.
+12. Inspect outputs and validate: subject, style, composition, text accuracy, and invariants/avoid items.
+13. Iterate with a single targeted change, then re-check.
+14. For preview-only work, render the image inline; the underlying file may remain at the default `$CODEX_HOME/generated_images/...` path.
+15. For project-bound work, move or copy the selected artifact into the workspace and update any consuming code or references. Never leave a project-referenced asset only at the default `$CODEX_HOME/generated_images/...` path.
+16. For batches or multi-asset requests, persist every requested deliverable final in the workspace unless the user explicitly asked to keep outputs preview-only. Discarded variants do not need to be kept unless requested.
+17. If the user explicitly chooses or confirms the CLI fallback, then use the fallback-only docs for model, quality, size, `input_fidelity`, masks, output format, output paths, and network setup.
+18. Always report the final saved path(s) for any workspace-bound asset(s), plus the final prompt or prompt set and whether the built-in tool or fallback CLI mode was used.
+
+## Transparent image requests
+
+Ask built-in `image_gen` for a genuinely transparent background and preserve its alpha.
+
+## Prompt augmentation
+
+Reformat user prompts into a structured, production-oriented spec. Make the user's goal clearer and more actionable, but do not blindly add detail.
+
+Treat this as prompt-shaping guidance, not a closed schema. Use only the lines that help, and add a short extra labeled line when it materially improves clarity.
+
+### Specificity policy
+
+Use the user's prompt specificity to decide how much augmentation is appropriate:
+
+- If the prompt is already specific and detailed, preserve that specificity and only normalize/structure it.
+- If the prompt is generic, you may add tasteful augmentation when it will materially improve the result.
+
+Allowed augmentations:
+- composition or framing hints
+- polish level or intended-use hints
+- practical layout guidance
+- reasonable scene concreteness that supports the stated request
+
+Not allowed augmentations:
+- extra characters or objects that are not implied by the request
+- brand names, slogans, palettes, or narrative beats that are not implied
+- arbitrary side-specific placement unless the surrounding layout supports it
+
+## Use-case taxonomy (exact slugs)
+
+Classify each request into one of these buckets and keep the slug consistent across prompts and references.
+
+Generate:
+- photorealistic-natural — candid/editorial lifestyle scenes with real texture and natural lighting.
+- product-mockup — product/packaging shots, catalog imagery, merch concepts.
+- ui-mockup — app/web interface mockups and wireframes; specify the desired fidelity.
+- infographic-diagram — diagrams/infographics with structured layout and text.
+- scientific-educational — classroom explainers, scientific diagrams, and learning visuals with required labels and accuracy constraints.
+- ads-marketing — campaign concepts and ad creatives with audience, brand position, scene, and exact tagline/copy.
+- productivity-visual — slide, chart, workflow, and data-heavy business visuals.
+- logo-brand — logo/mark exploration, vector-friendly.
+- illustration-story — comics, children’s book art, narrative scenes.
+- stylized-concept — style-driven concept art, 3D/stylized renders.
+- historical-scene — period-accurate/world-knowledge scenes.
+
+Edit:
+- text-localization — translate/replace in-image text, preserve layout.
+- identity-preserve — try-on, person-in-scene; lock face/body/pose.
+- precise-object-edit — remove/replace a specific element (including interior swaps).
+- lighting-weather — time-of-day/season/atmosphere changes only.
+- background-extraction — transparent background / clean cutout. Ask built-in `image_gen` for actual transparency.
+- style-transfer — apply reference style while changing subject/scene.
+- compositing — multi-image insert/merge with matched lighting/perspective.
+- sketch-to-render — drawing/line art to photoreal render.
+
+## Shared prompt schema
+
+Use the following labeled spec as shared prompt scaffolding for both top-level modes:
+
+```text
+Use case: <taxonomy slug>
+Asset type: <where the asset will be used>
+Primary request: <user's main prompt>
+Input images: <Image 1: role; Image 2: role> (optional)
+Scene/backdrop: <environment>
+Subject: <main subject>
+Style/medium: <photo/illustration/3D/etc>
+Composition/framing: <wide/close/top-down; placement>
+Lighting/mood: <lighting + mood>
+Color palette: <palette notes>
+Materials/textures: <surface details>
+Text (verbatim): "<exact text>"
+Constraints: <must keep/must avoid>
+Avoid: <negative constraints>
+```
+
+Notes:
+- `Asset type` and `Input images` are prompt scaffolding, not dedicated CLI flags.
+- `Scene/backdrop` refers to the visual setting. It is not the same as the fallback CLI `background` parameter, which controls output transparency behavior.
+- Fallback-only execution notes such as `Quality:`, `Input fidelity:`, masks, output format, and output paths belong in the CLI path only. Do not treat them as built-in `image_gen` tool arguments.
+
+Augmentation rules:
+- Keep it short.
+- Add only the details needed to improve the prompt materially.
+- For edits, explicitly list invariants (`change only X; keep Y unchanged`).
+- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+
+## Examples
+
+### Generation example (hero image)
+```text
+Use case: product-mockup
+Asset type: landing page hero
+Primary request: a minimal hero image of a ceramic coffee mug
+Style/medium: clean product photography
+Composition/framing: wide composition with usable negative space for page copy if needed
+Lighting/mood: soft studio lighting
+Constraints: no logos, no text, no watermark
+```
+
+### Edit example (invariants)
+```text
+Use case: precise-object-edit
+Asset type: product photo background replacement
+Primary request: replace only the background with a warm sunset gradient
+Constraints: change only the background; keep the product and its edges unchanged; no text; no watermark
+```
+
+## Prompting best practices
+- Structure prompt as scene/backdrop -> subject -> details -> constraints.
+- Include intended use (ad, UI mock, infographic) to set the mode and polish level.
+- Use camera/composition language for photorealism.
+- Only use SVG/vector stand-ins when the user explicitly asked for vector output or a non-image placeholder.
+- Quote exact text and specify typography + placement.
+- For tricky words, spell them letter-by-letter and require verbatim rendering.
+- For multi-image inputs, reference images by index and describe how they should be used.
+- For edits, repeat invariants every iteration to reduce drift.
+- Iterate with single-change follow-ups.
+- If the prompt is generic, add only the extra detail that will materially help.
+- If the prompt is already detailed, normalize it instead of expanding it.
+- For CLI fallback only, see `references/cli.md` and `references/image-api.md` for model, `quality`, `input_fidelity`, masks, output format, and output-path guidance.
+- For transparent images, ask built-in `image_gen` for actual transparency and preserve its alpha.
+
+More principles shared by both modes: `references/prompting.md`.
+Copy/paste specs shared by both modes: `references/sample-prompts.md`.
+
+## Guidance by asset type
+Asset-type templates (website assets, game assets, wireframes, logo) are consolidated in `references/sample-prompts.md`.
+
+## gpt-image-2 guidance for CLI fallback
+
+The fallback CLI defaults to `gpt-image-2`.
+
+- Use `gpt-image-2` for new CLI/API workflows unless the user confirms a different model.
+- CLI `gpt-image-2` does not support `background=transparent`; ask before using `gpt-image-1.5` unless the user explicitly requested that model.
+- `gpt-image-2` always uses high fidelity for image inputs; do not set `input_fidelity` with this model.
+- `gpt-image-2` supports `quality` values `low`, `medium`, `high`, and `auto`.
+- Use `quality low` for fast drafts, thumbnails, and quick iterations. Use `medium`, `high`, or `auto` for final assets, dense text, diagrams, identity-sensitive edits, or high-resolution outputs.
+- Square images are typically fastest to generate. Use `1024x1024` for fast square drafts.
+- If the user asks for 4K-style output, use `3840x2160` for landscape or `2160x3840` for portrait.
+- `gpt-image-2` size may be `auto` or `WIDTHxHEIGHT` if all constraints hold: max edge `<= 3840px`, both edges multiples of `16px`, long-to-short ratio `<= 3:1`, total pixels between `655,360` and `8,294,400`.
+
+Popular `gpt-image-2` sizes:
+- `1024x1024` square
+- `1536x1024` landscape
+- `1024x1536` portrait
+- `2048x2048` 2K square
+- `2048x1152` 2K landscape
+- `3840x2160` 4K landscape
+- `2160x3840` 4K portrait
+- `auto`
+
+## Fallback CLI mode only
+
+### Temp and output conventions
+These conventions apply only to the CLI fallback. They do not describe built-in `image_gen` output behavior.
+- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
+- Write final artifacts under `output/imagegen/`.
+- Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
+
+### Dependencies
+Prefer `uv` for dependency management in this repo.
+
+Required Python package:
+```bash
+uv pip install openai
+```
+
+Optional for image inspection and downscaling:
+```bash
+uv pip install pillow
+```
+
+Portability note:
+- If you are using the installed skill outside this repo, install dependencies into that environment with its package manager.
+- In uv-managed environments, `uv pip install ...` remains the preferred path.
+
+### Environment
+- `OPENAI_API_KEY` must be set for live API calls.
+- Do not ask the user for `OPENAI_API_KEY` when using the built-in `image_gen` tool.
+- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
+
+If the key is missing, give the user these steps:
+1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
+2. Set `OPENAI_API_KEY` as an environment variable in their system.
+3. Offer to guide them through setting the environment variable for their OS/shell if needed.
+
+If installation is not possible in this environment, tell the user which dependency is missing and how to install it into their active environment.
+
+### Script-mode notes
+- CLI commands + examples: `references/cli.md`
+- API parameter quick reference: `references/image-api.md`
+- Network approvals / sandbox settings for CLI mode: `references/codex-network.md`
+
+## Reference map
+- `references/prompting.md`: shared prompting principles for both modes.
+- `references/sample-prompts.md`: shared copy/paste prompt recipes for both modes.
+- `references/cli.md`: fallback-only CLI usage via `scripts/image_gen.py`.
+- `references/image-api.md`: fallback-only API/CLI parameter reference.
+- `references/codex-network.md`: fallback-only network/sandbox troubleshooting for CLI mode.
+- `scripts/image_gen.py`: fallback-only CLI implementation. Use only when the user explicitly chooses or confirms CLI mode.
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+exec
+/bin/zsh -lc 'pwd && ls -l ai-quality-inspection-s01-6e240f.png ai-quality-inspection-s02-75811d.png 2>/dev/null || true' in /Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images
+ succeeded in 0ms:
+/Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+2026-11-08T14:35:36.393894Z ERROR codex_core::session::session: failed to load skill /Users/faizceo/.agents/skills/conversion-funnel-analysis/SKILL.md: missing YAML frontmatter delimited by ---
+2026-11-08T14:35:36.393926Z ERROR codex_core::session::session: failed to load skill /Users/faizceo/.agents/skills/id8labs-agent-suite/today/SKILL.md: missing YAML frontmatter delimited by ---
+2026-11-08T14:35:36.677601Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.facebook.com/.well-known/oauth-protected-resource/ads\", scope=\"ads_management ads_read catalog_management business_management pages_show_list pages_manage_ads facebook_branded_content_ads_brand instagram_basic instagram_branded_content_ads_brand ads_mcp_management\"" })
+2026-11-08T14:35:36.680278Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.facebook.com/.well-known/oauth-protected-resource/ads\", scope=\"ads_management ads_read catalog_management business_management pages_show_list pages_manage_ads facebook_branded_content_ads_brand instagram_basic instagram_branded_content_ads_brand ads_mcp_management\"" })
+2026-11-08T14:35:36.688790Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://api.anthropic.com/v1/design/.well-known/oauth-protected-resource\", scope=\"user:design:read user:design:write\"" })
+2026-11-08T14:35:36.712649Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 403: <!doctype html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=robots content=\"noindex, nofollow\"><meta content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui\" name=viewport><title>携程旅行网</title><style type=text/css>blockquote,body,button,code,dd,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,h5,h6,html,input,legend,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0}body{font-size:12px;font-family:Simsun,sans-serif;color:#333}fieldset,img{border:0 none}input,textarea{font-size:12px}textarea{resize:none}table{border-collapse:collapse;border-spacing:0}a{color:#003d7e;text-decoration:none}a:hover{text-decoration:underline}h1,h2,h3,h4,h5,h6{font-family:\"Times New Roman\",Simsun}li,ol,ul{list-style:none outside none}dfn{font-style:normal}@media screen and (min-width:751px){#footer,.content,.errorinfo{width:800px}.wrap{background:#016eca;width:100%;min-width:1200px;overflow:hidden}.content{position:relative;z-index:1;height:480px;margin:0 auto;padding-top:100px}.logo{position:relative;z-index:5;width:144px;height:54px;margin:0 auto;overflow:hidden;text-indent:-500px;background-position:0 0}.errorinfo{color:#fff;display:block;font-family:\"microsoft yahei\",simhei,sans-serif;font-size:24px;font-weight:400;text-align:center;margin:30px auto;padding:0}a.goback{display:block;position:relative;z-index:4;width:112px;margin:20px auto;padding:8px 0;color:#fff;font-family:\"microsoft yahei\",simhei,sans-serif;font-size:16px;text-align:center;text-decoration:none;background-color:#0f4dc5}a.goback:hover{background-color:#3f92f0}.tower{position:absolute;transform:translateZ(300px);z-index:2;top:143px;left:291px;width:116px;height:264px;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/tower.png) no-repeat}.beam{position:absolute;z-index:1;left:-10px;top:0;width:749px;height:359px;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/light.png) no-repeat;-webkit-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;-moz-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam}.wave1{position:absolute;z-index:99;top:400px;height:180px;width:1200px;left:0;right:0;margin:auto;opacity:0;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenxxpc;-moz-animation:50s linear 0s none infinite tweenxxpc;animation:50s linear 0s none infinite tweenxxpc}.wave{position:absolute;z-index:100;top:400px;height:180px;width:1200px;left:0;right:0;margin:auto;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenxpc;-moz-animation:50s linear 0s none infinite tweenxpc;animation:50s linear 0s none infinite tweenxpc}#footer{margin:0 auto;text-align:center;color:#0053aa;font-family:arial;line-height:1.6;padding:8px 0 0 0;width:1200px}#footer a{color:#0053aa}.copyright{color:#333}.star1{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:164px;left:592px;height:60px;width:60px;opacity:0;-webkit-animation:2s linear 0s none infinite staracta;-moz-animation:2s linear 0s none infinite staracta;animation:2s linear 0s none infinite staracta}.star2{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:234px;left:245px;height:60px;width:60px;opacity:.8;-webkit-animation:2s linear 0s none infinite staract;-moz-animation:2s linear 0s none infinite staract;animation:2s linear 0s none infinite staract}.star3{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:252px;left:644px;height:60px;width:60px;opacity:.8;-webkit-animation:2s linear 0s none infinite staract;-moz-animation:2s linear 0s none infinite staract;animation:2s linear 0s none infinite staract}.star4{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png) no-repeat;position:relative;top:268px;left:264px;height:60px;width:60px;opacity:0;-webkit-animation:2s linear 0s none infinite staracta;-moz-animation:2s linear 0s none infinite staracta;animation:2s linear 0s none infinite staracta}.top{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/top.png);background-repeat:no-repeat;position:absolute;top:0;left:0;width:1200px;height:580px;z-index:999;right:0;margin:auto}.bg{background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/404_PC_bg.png) no-repeat center bottom;position:absolute;z-index:0;width:1200px;height:580px;min-width:1200px;left:0;right:0;margin:auto;overflow:hidden}.adv_t{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/PC_btA.png);background-repeat:no-repeat;position:relative;top:350px;left:470px;width:262px;height:28px;z-index:10000;cursor:pointer;display:none}.back_t{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/PC_btB.png);background-repeat:no-repeat;position:relative;top:433px;left:551px;width:98px;height:38px;z-index:10000;cursor:pointer}}@media screen and (max-width:750px){body html{overflow-x:hidden}.top{position:absolute;top:0;left:0;max-width:750px;width:100%;height:755px;z-index:999;right:0;margin:auto;min-width:350px}.mengceng{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/h5_top_1.png);height:755px;background-size:auto 910px;background-repeat:no-repeat;width:415px;position:relative;margin:0 auto}.wrap{background:#016eca;width:100%;min-width:400px}.bg{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/404_H5_bg.png);background-repeat:no-repeat;margin:0 auto;background-size:contain;height:755px;width:350px;overflow:hidden}.bg:before{content:\"\";display:block;padding-top:180%}#footer{margin:0 auto;text-align:center;color:#0053aa;font-family:arial;line-height:1.6;padding:8px 0 0 0}#footer a{color:#0053aa}.copyright{color:#333}.wave1{position:absolute;z-index:99;top:444px;height:180px;width:350px;left:0;right:0;margin:auto;opacity:0;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenxx;-moz-animation:50s linear 0s none infinite tweenxx;animation:50s linear 0s none infinite tweenxx}.wave{position:absolute;z-index:100;top:444px;height:180px;width:350px;left:0;right:0;margin:auto;background:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/wave.png) repeat-x 0 0;-webkit-animation:50s linear 0s none infinite tweenx;-moz-animation:50s linear 0s none infinite tweenx;animation:50s linear 0s none infinite tweenx}@-webkit-keyframes tweenx{0%{background-position:100vw 0}50%{opacity:0}100%{background-position:0 0;opacity:1}}@-moz-keyframes tweenx{0%{background-position:100vw 0}50%{opacity:0}100%{background-position:0 0;opacity:1}}@keyframes tweenx{0%{background-position:100vw 0}50%{opacity:0}100%{background-position:0 0;opacity:1}}@keyframes tweenxx{0%{background-position:0 0;opacity:0}50%{opacity:1}100%{background-position:-100vw 0;opacity:0}}.tower{position:relative;transform:translateZ(300px);z-index:2;top:-370px;left:-53px;width:180px;height:180px;background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/tower_h5.png);background-repeat:no-repeat;background-size:contain}.beam{position:relative;z-index:1;left:-176px;top:-640px;width:484px;height:232px;background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/light.png);background-repeat:no-repeat;background-size:contain;-webkit-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;-moz-animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam;animation:6s cubic-bezier(.25,0,.75,1) 0s none infinite beam}.star1{background-image:url(https://webresource.c-ctrip.com/ares2/nfes/pc-home/*/default/others/star.png)... (truncated 6027 bytes)")
+2026-11-08T14:35:36.803757Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer error=\"invalid_token\", error_description=\"No authorization provided\", resource_metadata=\"https://mcp.vercel.com/.well-known/oauth-protected-resource\"" })
+2026-11-08T14:35:37.247361Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer scope=\"create delete\", resource_metadata=\"https://mcp.windsor.ai/.well-known/oauth-protected-resource\"" })
+2026-11-08T14:35:37.489949Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://mcp.context7.com/.well-known/oauth-protected-resource/mcp\"" })
+exec
+/bin/zsh -lc "cp '/Users/faizceo/.codex/generated_images/01a1bb95-ab29-7d22-8080-6428d90d13dc/exec-4640545a-f0fe-4c31-a479-1ee1ab28a0a3.png' '/Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images/ai-quality-inspection-s01-6e240f.png' && sips -g pixelWidth -g pixelHeight '/Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images/ai-quality-inspection-s01-6e240f.png'" in /Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images
+ succeeded in 0ms:
+/Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images/ai-quality-inspection-s01-6e240f.png
+  pixelWidth: 1672
+  pixelHeight: 941
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+exec
+/bin/zsh -lc 'ls -lh ai-quality-inspection-s01-6e240f.png ai-quality-inspection-s02-75811d.png' in /Users/faizceo/Claude CEO/ias-deck-skill/skills/ias-deck/examples/images
+ succeeded in 0ms:
+-rw-r--r--@ 1 faizceo  staff   1.8M Nov  8 21:36 ai-quality-inspection-s01-6e240f.png
+-rw-r--r--@ 1 faizceo  staff   1.6M Nov  8 21:36 ai-quality-inspection-s02-75811d.png
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Saved in the current directory:
+
+- `ai-quality-inspection-s01-6e240f.png`
+- `ai-quality-inspection-s02-75811d.png`
+hook: Stop
+hook: Stop Failed
+tokens used
+30.647

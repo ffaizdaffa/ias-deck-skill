@@ -554,3 +554,24 @@ h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: cal
 [data-chrome="clean"] .d-tl { opacity: .7; }
 [data-chrome="clean"][data-decor="hud"] .d-cn { opacity: .55; }
 [data-chrome="clean"] .slide::before { opacity: .04; }
+
+/* ================= MODE HYBRID: visual GPT Image di belakang data (backdrop) & panel ================= */
+.hero.bd img { filter: saturate(.95); }
+.hero.bd::after { background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 90%, transparent) 0%, color-mix(in srgb, var(--bg) 66%, transparent) 42%, color-mix(in srgb, var(--bg) 74%, transparent) 72%, color-mix(in srgb, var(--bg) 92%, transparent) 100%) !important; }
+.slide:has(.hero.bd) .fx { opacity: .35; }
+.slide:has(.hero.bd) .card { backdrop-filter: blur(16px) saturate(150%); }
+[data-card="solid"] .slide:has(.hero.bd) .card, .slide:has(.hero.bd) .tbw { background: rgba(255,255,255,.86); }
+.L-bullets > .photo { position: absolute; z-index: 2; right: 120px; top: 150px; bottom: 150px; width: 600px; margin: 0; }
+.L-bullets:has(> .photo) .frame { right: 780px; }
+.L-bullets:has(> .photo) .pts.two { grid-template-columns: 1fr; gap: 16px; }
+.L-bullets:has(> .photo) .pt { padding: 18px 24px; }
+/* hybrid: latar lebih terlihat, panel kaca semi-transparan */
+.hero.bd::after { background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 88%, transparent) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 26%, color-mix(in srgb, var(--bg) 18%, transparent) 60%, color-mix(in srgb, var(--bg) 30%, transparent) 100%) !important; }
+.slide:has(.hero.bd) .card, .slide:has(.hero.bd) .tbw { background: linear-gradient(140deg, rgba(255,255,255,.82), rgba(255,255,255,.62)) !important; backdrop-filter: blur(18px) saturate(160%); }
+.slide:has(.hero.bd) .cv { background: color-mix(in srgb, #fff 62%, transparent) !important; backdrop-filter: blur(14px); }
+.slide:has(.hero.bd) .cv:nth-child(even) { background: color-mix(in srgb, var(--a) 22%, rgba(255,255,255,.6)) !important; }
+.slide:has(.hero.bd) .tl .rail { box-shadow: none; }
+.slide:has(.hero.bd) .hd .title { text-shadow: 0 2px 18px rgba(255,255,255,.9); }
+/* tipografi lebih ringan (semi-bold) */
+.L-kpi .v, .duo .mt .v, .L-split .bigv, .tile .tg, .L-number .nv .v, .ins .iv, .L-vsm .sum .v, .L-scene .sc-c .v, .L-infographic .cv2, .cv .ix, .tl .wh { font-weight: 600 !important; }
+.L-section .num { font-weight: 600; }

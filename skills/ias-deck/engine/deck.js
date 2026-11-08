@@ -21,7 +21,7 @@
     const t = D.themes.find(x => x.id === id) || D.themes[0];
     theme = { ...t, accent: (D.brand && D.brand.accent) || t.accent };
     const v = { '--bg': theme.bg, '--f': theme.fg, '--m': theme.muted, '--a': theme.accent, '--a2': theme.accent2,
-      '--fd': `"${theme.fd}"`, '--fb': `"${theme.fb}"`, '--fm': `"${theme.fm}"`, '--tw': theme.weight || 700,
+      '--fd': `"${theme.fd}"`, '--fb': `"${theme.fb}"`, '--fm': `"${theme.fm}"`, '--tw': theme.weight || 600,
       '--tu': theme.upper ? 'uppercase' : 'none', '--tt': theme.upper ? '.01em' : '-.015em', '--title-scale': theme.titleScale || (theme.upper ? .92 : 1) };
     Object.entries(v).forEach(([k, val]) => root.style.setProperty(k, val));
     Object.assign(root.dataset, { theme: theme.id, family: theme.family, card: theme.card, decor: theme.decor, mode: theme.mode, chrome: D.chrome || 'clean' });

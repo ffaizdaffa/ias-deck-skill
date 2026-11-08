@@ -168,9 +168,11 @@ export function renderSlide(s, i, total, ctx) {
   const heroSrc = Array.isArray(s.collage) ? '' : ctx.heroFor(s, i);
   const mosaic = Array.isArray(s.collage) ? `<div class="mosaic m${Math.min(4, s.collage.length)}">${s.collage.slice(0, 4).map((id, k) => `<div class="mt t${k + 1}"><img src="${ctx.hero(id)}" alt=""></div>`).join('')}</div>` : '';
   const band = s.band ? `<div class="band2"><span class="bl">${brand.logo ? `<img src="${ctx.asset(brand.logo)}" alt="">` : ''}<b data-t>${esc(brand.name || ctx.deck.event || '')}</b></span><i></i><span class="bt" data-t>${rich(s.band)}</span></div>` : '';
-  const full = ['cover', 'closing', 'image', 'scene'].includes(s.layout);
+  const BACKDROP = ['kpi', 'number', 'chart', 'grid', 'process', 'timeline', 'layers', 'cycle', 'compare', 'beforeafter', 'vsm', 'table', 'pillars', 'showcase'];
+  const bd = BACKDROP.includes(s.layout);
+  const full = bd || ['cover', 'closing', 'image', 'scene'].includes(s.layout);
   const hero = !heroSrc ? '' : full
-    ? `<div class="hero ${ctx.tint}"><img src="${heroSrc}" alt=""></div>${s.layout === 'cover' ? `<div class="reticle"><i></i><span>Target lock · ${esc(ctx.code)}</span></div>` : ''}`
+    ? `<div class="hero ${bd ? 'bd' : ''}"><img src="${heroSrc}" alt=""></div>${s.layout === 'cover' ? `<div class="reticle"><i></i><span>Target lock · ${esc(ctx.code)}</span></div>` : ''}`
     : `<div class="photo"><div class="pf"><img src="${heroSrc}" alt=""></div></div>`;
   const ghost = s.ghost !== false && ['cover', 'section', 'closing', 'agenda'].includes(s.layout) ? `<div class="ghost">${esc(s.ghost || (s.layout === 'section' ? s.kicker || s.title : ctx.code).split(/\s+/)[0])}</div>` : '';
   return `<section class="slide L-${s.layout === 'before-after' ? 'beforeafter' : s.layout}${s.align ? ' al-' + esc(s.align) : ''}" data-i="${i}">

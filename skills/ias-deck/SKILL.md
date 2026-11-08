@@ -1,6 +1,6 @@
 ---
 name: ias-deck
-description: Bikin presentasi/deck/PPT/slide futuristik berkelas dunia bergaya CERAH — default MODE POSTER: setiap slide dirender utuh oleh GPT Image (Codex) jadi poster sinematik penuh visual (cinematic tech, panel kaca putih, HUD tipis, gradien aurora) — 40 tema (HUD, blueprint, digital twin, smart factory, data terminal, clean future), 100 gambar hero AI (manufaktur, AI, robotik, IT, Indonesia/Kemenperin) & 21 layout industri (KPI, value stream map, PDCA, TIMWOODS, roadmap, arsitektur, grafik). Keluaran HTML live beranimasi + PDF + PPTX yang bisa diedit. Pakai saat diminta "buat deck/PPT/slide/presentasi/materi pembicara/keynote", terutama topik lean manufacturing, industri 4.0, transformasi digital, IT.
+description: Bikin presentasi/deck/PPT/slide futuristik berkelas dunia bergaya CERAH — default MODE HYBRID: visual GPT Image (Codex) di setiap slide + teks, angka, grafik, ikon yang akurat & editable (cinematic tech, panel kaca putih, HUD tipis, gradien aurora) — 40 tema (HUD, blueprint, digital twin, smart factory, data terminal, clean future), 100 gambar hero AI (manufaktur, AI, robotik, IT, Indonesia/Kemenperin) & 21 layout industri (KPI, value stream map, PDCA, TIMWOODS, roadmap, arsitektur, grafik). Keluaran HTML live beranimasi + PDF + PPTX yang bisa diedit. Pakai saat diminta "buat deck/PPT/slide/presentasi/materi pembicara/keynote", terutama topik lean manufacturing, industri 4.0, transformasi digital, IT.
 ---
 
 # IAS Deck
@@ -74,17 +74,20 @@ Butuh: Node 18+, Google Chrome, Python 3 + `python-pptx` (untuk PPTX), internet 
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1920,1080 --virtual-time-budget=6000 --screenshot=out/s3.png "file://$PWD/out/acara.html?export=3"`
 - Pastikan tidak ada teks terpotong, tumpang tindih, atau kontras buruk.
 
-### 6a. ALUR MODE POSTER (default) — outline → opsi desain → pilih → generate
-1. **Outline dulu**: tampilkan tabel alur slide (nomor, layout, judul, isi singkat) dan minta persetujuan user. Jangan generate gambar sebelum outline disetujui.
-2. **Opsi desain**: `node SKILL_DIR/engine/render.mjs deck.json --options --out ./out` → membuat sampul + 1 slide isi dalam 3 gaya (paralel, ±3 menit):
-   Gaya A `glass` (Glass Tech, cerah putih-biru, panel kaca) · Gaya B `editorial` (poster institusi navy-hijau, kolase foto) · Gaya C `isometric` (dunia 3D isometrik). Gaya lain: `cinematic` (cahaya pagi sinematik) — pilih dengan `--styles glass,editorial,cinematic`.
-   Buka `out/<nama>-opsi.html`, tunjukkan ke user (kirim gambarnya), lalu **tunggu user memilih**.
-3. **Generate penuh**: isi `"posterStyle": "<gaya terpilih>"` di akar deck JSON, lalu `node SKILL_DIR/engine/render.mjs deck.json --poster --out ./out` (dipecah ke 4 sesi GPT Image paralel; ±1–2 menit per 3 slide).
-4. **Keluaran**: `out/<nama>-poster.pdf` dan `out/<nama>-poster.pptx` (gambar per slide + catatan pembicara), plus `out/<nama>-poster.html` untuk presentasi di browser.
-5. **Cek setiap slide** (ejaan, angka, detail visual sesuai materi); render ulang yang salah: `--poster --slides N --force`.
-- Isi per slide harus singkat (judul ≤ 8 kata, label ≤ 4 kata, ≤ 4 angka) tetapi **isi `desc`, `text`, dan `notes` selengkap mungkin**: semuanya dipakai sebagai petunjuk visual sehingga gambar menggambarkan materi secara detail (tidak ditulis sebagai teks).
-- Butuh Codex yang sudah login akun ChatGPT (`codex login`). Bila tidak tersedia, pakai mode editable.
-- **Mode editable** (opsional): render biasa tanpa `--poster` → HTML + PDF + PPTX dengan teks & grafik yang bisa diedit. Buat bila user/panitia perlu mengubah isi.
+### 6a. ALUR UTAMA — MODE HYBRID (default): outline → opsi desain → pilih → generate
+Mode hybrid = dalam SATU slide ada dua lapisan: **visual dari GPT Image** (foto adegan / ilustrasi 3D, tanpa teks) + **lapisan informasi dari engine** (judul, angka, grafik akurat, ikon, panel kaca — teks asli, bisa diedit, tanpa salah ketik).
+1. **Outline dulu**: tampilkan tabel alur slide (nomor, layout, judul, isi singkat) → minta persetujuan. Jangan generate sebelum disetujui.
+2. **Opsi desain**: `node SKILL_DIR/engine/render.mjs deck.json --options --out ./out` → visual AI sampul + 1 slide isi dibuat sekali, ditampilkan dalam 3 tema berbeda (`--themes a,b,c` untuk memilih sendiri). Kirim gambar `out/<nama>-opsi/` ke user dan **tunggu pilihannya**.
+3. **Generate penuh**: set `"theme"` sesuai pilihan, lalu `node SKILL_DIR/engine/render.mjs deck.json --hybrid --all --review --out ./out` → setiap slide diberi visual GPT Image yang sesuai perannya (foto penuh untuk sampul/penutup, latar redup di belakang data untuk KPI/grafik/proses, panel foto di samping untuk poin/pernyataan, ilustrasi 3D untuk infographic), dibuat dalam 4 sesi paralel.
+4. **Keluaran**: `out/<nama>.pptx` (teks & grafik editable, visual sebagai gambar) + `out/<nama>.pdf` + `out/<nama>.html` (presentasi di browser).
+5. **Review** `out/<nama>-review.png` dengan rubrik; ganti visual yang lemah: hapus field `hero` slide itu lalu `--hybrid --slides N`.
+- Tulis `desc`, `text`, `notes` selengkap mungkin — dipakai sebagai petunjuk visual agar gambar spesifik terhadap materi.
+- **Materi apa pun, bukan hanya pabrik**: isi `"topic"` di akar deck (mis. "strategi digital grup Astra", "AI untuk layanan keuangan", "budaya kerja kantor hybrid"). Latar visual mengikuti topik & isi tiap slide: kantor/ruang rapat, data center, kota pintar, tambang/perkebunan/lapangan, logistik, gedung pemerintahan, kampus, atau pabrik bila memang manufaktur. Bila perlu, arahkan per slide dengan `"imagine": "deskripsi adegan"`.
+- Nama perusahaan (mis. Astra) boleh di teks slide, tetapi visual AI tidak memuat logo/merek; logo resmi dipasang lewat `brand.logo`.
+- Butuh `codex login` (akun ChatGPT). Tanpa Codex: visual diambil otomatis dari pustaka 100 gambar hero.
+
+### 6a-2. Mode poster (opsional)
+Setiap slide dirender utuh oleh GPT Image (teks ikut digambar, tidak bisa diedit, bisa salah ketik). Pakai bila user secara khusus minta poster / gambar untuk dibagikan: `--options --poster` (opsi gaya) lalu `--poster` (isi `"posterStyle"`). Keluaran `<nama>-poster.pdf/.pptx/.html`.
 
 ### 6b. Review visual wajib (agen menilai hasil render)
 Jalankan `node SKILL_DIR/engine/render.mjs deck.json --review` → buka gambar `out/<nama>-review.png` (lembar pratinjau semua slide bernomor) dan nilai setiap slide dengan rubrik yang tercetak. Perbaiki slide yang gagal (ganti layout, tambah visual, perbesar angka, pangkas teks), render & review ulang. Maksimal 2 putaran.

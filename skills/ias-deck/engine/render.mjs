@@ -4,6 +4,7 @@
 //        node render.mjs --gallery [--out DIR]      (galeri 40 tema)
 //        node render.mjs --list                     (daftar tema & layout)
 //        node render.mjs --picker [--out DIR]       (halaman pilih tema + gambar)
+//        node render.mjs <deck.json> --hybrid --all (MODE HYBRID, default: visual GPT Image tiap slide + teks/angka/grafik editable)
 //        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
 //        node render.mjs <deck.json> --review       (lembar pratinjau semua slide + rubrik penilaian visual)
 //        node render.mjs <deck.json> --options      (3 opsi gaya desain: sampul + 1 slide isi, untuk dipilih dulu)
@@ -146,7 +147,7 @@ function pickHero(deck, s, i, baseDir, used) {
   if (pref) { used.add(pref); return heroSrc(pref, baseDir); }
   const words = `${deck.title || ''} ${deck.topic || ''} ${s.title || ''} ${s.kicker || ''} ${s.subtitle || ''}`.toLowerCase().replace(/\*\*/g, '').split(/[^a-z0-9.]+/);
   const tags = new Set(words.flatMap((w) => [w, KW[w]]).filter(Boolean));
-  const catBonus = { cover: { mfg: 2, rob: 2, ai: 1, id: 1 }, section: { mfg: 1, lean: 1, abs: 1, it: 1, ai: 1, rob: 1 }, closing: { id: 2, abs: 2 } }[s.layout] || {};
+  const catBonus = { closing: { id: 1, abs: 1 } }[s.layout] || {}; // tanpa bias ke pabrik: gambar dipilih dari kata kunci materi
   const fam = (TH.themes.find((t) => t.id === deck.theme) || {}).family;
   const famBonus = { hud: { ai: 2.5, rob: 2.5, it: 1 }, blueprint: { mfg: 2.5, abs: 1.5 }, twin: { mfg: 2, abs: 2, ai: 1.5 }, factory: { mfg: 2.5, lean: 2.5, rob: 1 }, terminal: { it: 3, ai: 2 }, clean: { id: 2.5, abs: 2.5 } }[fam] || {};
   let seed = [...`${deck.title}${i}`].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
@@ -214,6 +215,24 @@ async function review(htmlFile, outDir, name, n) {
    5. Variasi layout: tidak ada 3 slide berturut-turut yang tampilannya sama`);
 }
 
+// OPSI DESAIN mode hybrid: visual AI untuk sampul + 1 slide isi dibuat SEKALI, lalu ditampilkan dalam 3 tema berbeda (cepat).
+async function hybridOptions(file, deck, outDir, themes) {
+  const content = deck.slides.findIndex((s, i) => i > 0 && ['kpi', 'chart', 'process', 'number', 'scene', 'infographic', 'pillars', 'grid'].includes(s.layout));
+  const idx = [0, content > 0 ? content : Math.min(1, deck.slides.length - 1)];
+  deck = await imagine(file, deck, { only: idx.map((i) => i + 1).join(','), hybrid: true });
+  const fam = (id) => (TH.themes.find((t) => t.id === id) || {}).family;
+  const list = (themes ? themes.split(',') : [deck.theme || 'hud-cobalt', 'clean-nusantara', 'bp-classic', 'twin-iso', 'clean-swiss']).filter((id, k, a) => TH.themes.some((t) => t.id === id) && a.findIndex((x) => fam(x) === fam(id)) === k).slice(0, 3);
+  const name = path.basename(file, '.json'), dir = path.join(outDir, `${name}-opsi`); fs.mkdirSync(dir, { recursive: true });
+  for (const th of list) {
+    const html = path.join(dir, `${th}.html`); fs.writeFileSync(html, buildHtml(deck, path.dirname(path.resolve(file)), th).html);
+    await pool(idx, 2, (i) => chrome([`--user-data-dir=${path.join(dir, `ud-${th}-${i}`)}`, `--screenshot=${path.join(dir, `${th}-${i + 1}.png`)}`], `${pathToFileURL(html).href}?export=${i + 1}&theme=${th}`).finally(() => fs.rmSync(path.join(dir, `ud-${th}-${i}`), { recursive: true, force: true })));
+  }
+  const cards = list.map((th, n) => { const t = TH.themes.find((x) => x.id === th); return `<section><h2>Gaya ${String.fromCharCode(65 + n)} — ${esc(t.name)} <code>${th}</code></h2><p>${esc(TH.families[t.family])}</p><div class="g">${idx.map((i) => `<img src="${name}-opsi/${th}-${i + 1}.png">`).join('')}</div></section>`; }).join('');
+  const f = path.join(outDir, `${name}-opsi.html`);
+  fs.writeFileSync(f, `<!doctype html><meta charset="utf-8"><title>Pilih gaya desain</title><style>body{margin:0;padding:30px 40px;background:#f3f6fb;color:#0b1a33;font:16px system-ui}section{background:#fff;border-radius:16px;padding:20px 24px;margin:22px 0;box-shadow:0 10px 30px -20px #1f5bff66}h2{margin:0 0 4px}code{font-size:13px;color:#1f5bff;background:#eef3ff;padding:2px 8px;border-radius:6px}p{color:#5a6785;margin:4px 0 14px}.g{display:grid;grid-template-columns:1fr 1fr;gap:14px}img{width:100%;border-radius:10px;display:block}</style><h1>Pilih gaya desain</h1><p>Balas ke AI, misalnya: <b>"Pakai Gaya B"</b>. Visual AI-nya sama, yang berbeda tema warna, tipografi, dan gaya panel.</p>${cards}`);
+  console.log(`✔ Opsi desain ${f}\n  ${list.map((th, n) => `Gaya ${String.fromCharCode(65 + n)} = ${th}`).join('\n  ')}\n  Setelah dipilih: isi "theme" di deck JSON lalu jalankan --hybrid --all.`);
+}
+
 async function toPdf(htmlFile, pdfFile) {
   await chrome([`--print-to-pdf=${pdfFile}`, '--no-pdf-header-footer'], pathToFileURL(htmlFile).href + '?print=1');
   console.log(`✔ PDF   ${pdfFile}`);
@@ -277,8 +296,9 @@ async function main() {
   if (!file) die('Pakai: node render.mjs <deck.json> [--theme ID] [--pdf] [--pptx] [--all] [--out DIR]');
   let deck; try { deck = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { die(`${file}: JSON tidak valid — ${e.message}`); }
   validate(deck, file);
-  if (flag('--imagine')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force') }); validate(deck, file); }
-  if (flag('--options')) { await posterOptions(file, deck, outDir, { styles: opt('--styles') }); return; }
+  if (flag('--imagine') || flag('--hybrid')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force'), hybrid: flag('--hybrid') }); validate(deck, file); }
+  if (flag('--options') && (flag('--poster') || deck.mode === 'poster')) { await posterOptions(file, deck, outDir, { styles: opt('--styles') }); return; }
+  if (flag('--options')) { await hybridOptions(file, deck, outDir, opt('--themes')); return; }
   if (flag('--poster')) {
     const h = await poster(file, deck, outDir, { only: opt('--slides'), force: flag('--force') });
     await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).then(() => console.log(`✔ PDF   ${h.replace(/\.html$/, '.pdf')}`)).catch((e) => console.warn(`⚠ PDF poster gagal: ${e.message}`));

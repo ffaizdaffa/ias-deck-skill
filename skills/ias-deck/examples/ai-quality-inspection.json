@@ -1,0 +1,160 @@
+{
+ "title": "AI Quality Inspection",
+ "topic": "inspeksi kualitas otomatis dengan computer vision di pabrik komponen otomotif",
+ "theme": "hud-cobalt",
+ "speaker": {
+  "name": "Irfan A. Shidiq",
+  "role": "General Manager IT"
+ },
+ "event": "Forum Industri 4.0 · Kementerian Perindustrian",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "Keynote · Industri 4.0",
+   "title": "Kamera yang **tidak pernah lelah**",
+   "subtitle": "Computer vision untuk inspeksi kualitas di lini komponen otomotif",
+   "notes": "Kamera industri memeriksa setiap komponen di konveyor, operator memantau di tablet.",
+   "hero": "images/ai-quality-inspection-s01-6e240f.jpg"
+  },
+  {
+   "layout": "kpi",
+   "kicker": "Hasil pilot (data ilustrasi)",
+   "title": "Enam bulan setelah kamera AI terpasang",
+   "items": [
+    {
+     "value": "-63",
+     "unit": "%",
+     "label": "Cacat lolos ke pelanggan",
+     "icon": "check-circle-2"
+    },
+    {
+     "value": "100",
+     "unit": "%",
+     "label": "Komponen diperiksa",
+     "icon": "scan-eye"
+    },
+    {
+     "value": "0,8",
+     "unit": "dtk",
+     "label": "Waktu inspeksi per part",
+     "icon": "timer"
+    }
+   ],
+   "takeaway": "Inspeksi **100%** tanpa memperlambat lini.",
+   "hero": "images/ai-quality-inspection-s02-75811d.jpg"
+  },
+  {
+   "layout": "process",
+   "kicker": "Cara kerja",
+   "title": "Dari foto komponen sampai keputusan",
+   "steps": [
+    {
+     "title": "Tangkap",
+     "desc": "Kamera & lampu di konveyor"
+    },
+    {
+     "title": "Deteksi",
+     "desc": "Model AI mengenali goresan, retak, dimensi"
+    },
+    {
+     "title": "Putuskan",
+     "desc": "OK lanjut, NG dipisahkan otomatis"
+    },
+    {
+     "title": "Pelajari",
+     "desc": "Data cacat masuk ke kaizen mingguan"
+    }
+   ],
+   "hero": "images/ai-quality-inspection-s03-061297.jpg"
+  },
+  {
+   "layout": "chart",
+   "kicker": "Jenis cacat (data ilustrasi)",
+   "title": "Goresan paling sering terdeteksi",
+   "chart": {
+    "type": "hbar",
+    "labels": [
+     "Goresan",
+     "Penyok",
+     "Retak",
+     "Dimensi",
+     "Lain-lain"
+    ],
+    "series": [
+     {
+      "name": "Kasus/bulan",
+      "data": [
+       142,
+       86,
+       41,
+       33,
+       12
+      ]
+     }
+    ]
+   },
+   "insightValue": "45%",
+   "insightLabel": "Dari goresan",
+   "insight": "Perbaikan **handling material** jadi prioritas kaizen.",
+   "source": "Data ilustrasi",
+   "hero": "images/ai-quality-inspection-s04-17e839.jpg"
+  },
+  {
+   "layout": "beforeafter",
+   "kicker": "Sebelum & sesudah",
+   "title": "Inspeksi manual vs kamera AI",
+   "before": {
+    "title": "Manual sampling",
+    "points": [
+     "Sampel 5% per shift",
+     "Tergantung kelelahan inspektor",
+     "Data di kertas"
+    ],
+    "metric": "5%",
+    "metricLabel": "diperiksa"
+   },
+   "after": {
+    "title": "Kamera AI",
+    "points": [
+     "Semua part diperiksa",
+     "Konsisten 24 jam",
+     "Data real-time"
+    ],
+    "metric": "100%",
+    "metricLabel": "diperiksa"
+   },
+   "hero": "images/ai-quality-inspection-s05-11d08f.jpg"
+  },
+  {
+   "layout": "bullets",
+   "kicker": "Kunci sukses",
+   "title": "Tiga syarat sebelum memasang kamera",
+   "points": [
+    {
+     "title": "Pencahayaan stabil",
+     "desc": "Hasil deteksi bergantung pada cahaya"
+    },
+    {
+     "title": "Contoh cacat cukup",
+     "desc": "Ratusan foto per jenis cacat"
+    },
+    {
+     "title": "Operator dilibatkan",
+     "desc": "Mereka yang memvalidasi hasil AI"
+    }
+   ],
+   "hero": "images/ai-quality-inspection-s06-0ae20d.jpg"
+  },
+  {
+   "layout": "closing",
+   "kicker": "Terima kasih",
+   "title": "Mulai dari **satu titik inspeksi**",
+   "subtitle": "Diskusi & tanya jawab",
+   "contact": [
+    "Irfan A. Shidiq",
+    "General Manager IT"
+   ],
+   "hero": "images/ai-quality-inspection-s07-31b378.jpg"
+  }
+ ]
+}

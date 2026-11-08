@@ -17,7 +17,8 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 - **Design Picker**: satu halaman untuk klik tema + gambar, lalu salin pilihan ke chat AI
 - **Gambar AI khusus per slide** lewat GPT Image (Codex, login akun ChatGPT): `render.mjs deck.json --imagine`
 - **Slide sinematik yang tetap editable**: `scene` (foto AI + angka di panel kaca mengambang) dan `infographic` (ilustrasi 3D AI + kartu penjelasan)
-- **Mode poster (default)**: outline → 3 opsi gaya desain (`--options`) → pilih → `--poster` merender tiap slide utuh dengan GPT Image, detail sesuai materi. Keluaran **PDF + PPTX** (+ pemutar HTML)
+- **Mode hybrid (default)**: setiap slide = visual GPT Image (tanpa teks) + judul, angka, grafik, ikon dari engine yang akurat & bisa diedit. Alur: outline → `--options` (3 tema) → pilih → `--hybrid --all`
+- **Mode poster (opsional)**: outline → 3 opsi gaya desain (`--options`) → pilih → `--poster` merender tiap slide utuh dengan GPT Image, detail sesuai materi. Keluaran **PDF + PPTX** (+ pemutar HTML)
 - **Review visual otomatis**: `--review` membuat lembar pratinjau semua slide + rubrik penilaian, AI memperbaiki slide yang lemah
 - Angka penting otomatis tampil besar, slide pernyataan/kutipan/agenda otomatis diberi panel foto (tidak ada ruang kosong)
 - Pola dari referensi: kesimpulan per slide, sumber data, panel insight berangka besar, pita sorotan `==frasa==`
@@ -27,7 +28,11 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 
 ## Contoh hasil desain
 
-Semua slide di bawah dibuat otomatis oleh IAS Deck dalam **mode poster**: setiap slide dirender utuh oleh GPT Image — judul, angka, infografis, dan foto jadi satu komposisi.
+### Mode hybrid (default) — AI Quality Inspection
+Visual setiap slide dibuat GPT Image; judul, angka, grafik, dan ikon digambar engine sehingga akurat dan bisa diedit di PPTX.
+![Mode hybrid](docs/showcase/00-mode-hybrid.jpg)
+
+### Mode poster — setiap slide dirender utuh oleh GPT Image
 
 ### Lean Digital Factory
 ![Sampul Lean Digital Factory](docs/showcase/01-lean-digital-factory-sampul.jpg)
