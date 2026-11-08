@@ -8,6 +8,7 @@
 //        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
 //        node render.mjs <deck.json> --review       (lembar pratinjau semua slide + rubrik penilaian visual)
 //        node render.mjs <deck.json> --options      (3 opsi gaya desain: sampul + 1 slide isi, untuk dipilih dulu)
+//        node render.mjs <deck.json> --fix 4 "ganti 45% jadi 50%"  (perbaiki satu slide poster, sisanya tetap)
 //        node render.mjs <deck.json> --poster       (MODE POSTER: tiap slide dirender utuh oleh GPT Image)
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,7 +17,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderSlide, LAYOUTS, esc } from './layouts.mjs';
 import { buildPicker } from './picker.mjs';
 import { imagine } from './imagine.mjs';
-import { poster, posterOptions } from './poster.mjs';
+import { poster, posterOptions, posterFix } from './poster.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const TH = JSON.parse(fs.readFileSync(path.join(HERE, 'themes.json'), 'utf8'));
@@ -175,7 +176,7 @@ function buildHtml(deck, baseDir, themeId) {
   };
   const theme = TH.themes.find((t) => t.id === (themeId || deck.theme)) || TH.themes[0];
   const html = deck.slides.map((s, i) => renderSlide(s, i, deck.slides.length, ctx)).join('\n');
-  const data = { themes: TH.themes, families: TH.families, fonts: TH.fonts, theme: theme.id, brand: deck.brand || {}, charts, chrome: deck.chrome || 'clean' };
+  const data = { themes: TH.themes, families: TH.families, fonts: TH.fonts, theme: theme.id, brand: deck.brand || {}, charts, chrome: deck.chrome || 'clean', hybrid: !!deck.hybrid };
   const fontLinks = [theme.fd, theme.fb, theme.fm].filter((f, i, a) => a.indexOf(f) === i && TH.fonts[f])
     .map((f) => `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}:wght@${TH.fonts[f]}&display=swap">`).join('');
   const read = (f) => fs.readFileSync(path.join(HERE, f), 'utf8');
@@ -296,9 +297,17 @@ async function main() {
   if (!file) die('Pakai: node render.mjs <deck.json> [--theme ID] [--pdf] [--pptx] [--all] [--out DIR]');
   let deck; try { deck = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { die(`${file}: JSON tidak valid — ${e.message}`); }
   validate(deck, file);
+  if (flag('--hybrid')) deck.hybrid = true;
   if (flag('--imagine') || flag('--hybrid')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force'), hybrid: flag('--hybrid') }); validate(deck, file); }
-  if (flag('--options') && (flag('--poster') || deck.mode === 'poster')) { await posterOptions(file, deck, outDir, { styles: opt('--styles') }); return; }
-  if (flag('--options')) { await hybridOptions(file, deck, outDir, opt('--themes')); return; }
+  if (flag('--fix')) {
+    const n = parseInt(opt('--fix'), 10), instr = args[args.indexOf('--fix') + 2];
+    if (!n || !instr) die('Pakai: node render.mjs deck.json --fix <nomor slide> "instruksi perubahan"');
+    const h = await posterFix(file, deck, outDir, n, instr);
+    await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).catch(() => {});
+    return;
+  }
+  if (flag('--options') && (flag('--hybrid') || deck.hybrid)) { await hybridOptions(file, deck, outDir, opt('--themes')); return; }
+  if (flag('--options')) { await posterOptions(file, deck, outDir, { styles: opt('--styles') }); return; } // default: opsi gaya poster
   if (flag('--poster')) {
     const h = await poster(file, deck, outDir, { only: opt('--slides'), force: flag('--force') });
     await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).then(() => console.log(`✔ PDF   ${h.replace(/\.html$/, '.pdf')}`)).catch((e) => console.warn(`⚠ PDF poster gagal: ${e.message}`));

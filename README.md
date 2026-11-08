@@ -1,38 +1,16 @@
 # IAS Deck Skill
 
-**Skill pembuat presentasi futuristik bergaya cerah untuk Claude Code & Codex.**
-Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperin tentang lean digital factory"* — dan AI akan menyusun alur cerita, memilih layout, lalu menghasilkan:
+**Skill presentasi untuk Claude Code & Codex yang menghasilkan deck bergaya poster sinematik — cerah, penuh visual, dan detail sesuai materi.**
 
-| Keluaran | Untuk apa |
-|---|---|
-| **HTML live** | Tampil di panggung: animasi masuk, efek latar bergerak (HUD, blueprint, wireframe 3D, sirkuit…), presenter mode dengan catatan & timer, ganti tema seketika dengan tombol `T` |
-| **PDF** | Dibagikan ke peserta |
-| **PPTX** | Dikirim ke panitia / diedit di PowerPoint atau Keynote — teks & grafik asli, efek futuristik ikut sebagai latar |
+Cukup minta dalam bahasa biasa:
 
-- **Gaya cinematic tech yang cerah**: latar putih/pucat dengan gradien aurora, panel kaca putih, garis HUD tipis, tipografi display besar
-- **41 tema** dalam 6 keluarga: HUD / Command Center · Blueprint / Engineering · Digital Twin · Smart Factory · Data Terminal · Clean Future
-- **100 gambar hero render AI** (manufaktur, Industri 4.0, AI, robotik, IT, lean, Indonesia/Kemenperin, latar 3D abstrak), dipilih otomatis sesuai judul slide. Galeri: `skills/ias-deck/assets/heroes/index.html`
-- **25 layout** khusus materi industri (termasuk waterfall/bridge, Pareto, angka raksasa, deret pilar berikon, kolase foto gaya poster Kemenperin)
-- **102 ikon** (Lucide), dipasang otomatis sesuai kata kunci di kartu, poin, agenda, proses, roadmap
-- **Design Picker**: satu halaman untuk klik tema + gambar, lalu salin pilihan ke chat AI
-- **Gambar AI khusus per slide** lewat GPT Image (Codex, login akun ChatGPT): `render.mjs deck.json --imagine`
-- **Slide sinematik yang tetap editable**: `scene` (foto AI + angka di panel kaca mengambang) dan `infographic` (ilustrasi 3D AI + kartu penjelasan)
-- **Mode hybrid (default)**: setiap slide = visual GPT Image (tanpa teks) + judul, angka, grafik, ikon dari engine yang akurat & bisa diedit. Alur: outline → `--options` (3 tema) → pilih → `--hybrid --all`
-- **Mode poster (opsional)**: outline → 3 opsi gaya desain (`--options`) → pilih → `--poster` merender tiap slide utuh dengan GPT Image, detail sesuai materi. Keluaran **PDF + PPTX** (+ pemutar HTML)
-- **Review visual otomatis**: `--review` membuat lembar pratinjau semua slide + rubrik penilaian, AI memperbaiki slide yang lemah
-- Angka penting otomatis tampil besar, slide pernyataan/kutipan/agenda otomatis diberi panel foto (tidak ada ruang kosong)
-- Pola dari referensi: kesimpulan per slide, sumber data, panel insight berangka besar, pita sorotan `==frasa==`
-- Layout dasar: KPI, value stream map, siklus PDCA, 8 waste (TIMWOODS), sebelum–sesudah, roadmap, arsitektur berlapis, grafik, tabel, dan lainnya
-- Semua tema lolos uji kontras WCAG, sehingga tetap terbaca di proyektor ruangan besar
-- Logo & warna aksen bisa diganti per acara (Astra, Kemenperin, pribadi)
+> *"Buatkan deck 12 slide untuk Forum Kemenperin tentang transformasi digital di grup otomotif. Durasi 20 menit."*
+
+AI akan menyusun alur cerita, menawarkan 3 pilihan gaya desain, lalu — setelah Anda memilih — merender setiap slide utuh dengan **GPT Image** (lewat Codex, memakai akun ChatGPT Anda). Hasil akhirnya **PDF** dan **PPTX** yang siap dipresentasikan.
+
+---
 
 ## Contoh hasil desain
-
-### Mode hybrid (default) — AI Quality Inspection
-Visual setiap slide dibuat GPT Image; judul, angka, grafik, dan ikon digambar engine sehingga akurat dan bisa diedit di PPTX.
-![Mode hybrid](docs/showcase/00-mode-hybrid.jpg)
-
-### Mode poster — setiap slide dirender utuh oleh GPT Image
 
 ### Lean Digital Factory
 ![Sampul Lean Digital Factory](docs/showcase/01-lean-digital-factory-sampul.jpg)
@@ -42,15 +20,49 @@ Visual setiap slide dibuat GPT Image; judul, angka, grafik, dan ikon digambar en
 ![Sampul Transformasi Industri](docs/showcase/02-transformasi-industri-sampul.jpg)
 ![Isi Transformasi Industri](docs/showcase/02-transformasi-industri-isi.jpg)
 
-### AI Predictive Maintenance
-![Sampul AI Predictive Maintenance](docs/showcase/03-ai-predictive-maintenance-sampul.jpg)
-![Isi AI Predictive Maintenance](docs/showcase/03-ai-predictive-maintenance-isi.jpg)
+### AI Quality Inspection
+![Sampul AI Quality Inspection](docs/showcase/03-ai-quality-inspection-sampul.jpg)
+![Isi AI Quality Inspection](docs/showcase/03-ai-quality-inspection-isi.jpg)
 
 ---
 
-## 1. Pasang (sekali saja, ±3 menit)
+## Cara kerjanya (alur standar)
 
-Butuh: Mac dengan **Google Chrome**, **Node.js 18+** (`brew install node`), **Python 3**, dan akses ke repo ini.
+| Langkah | Yang terjadi | Yang Anda lakukan |
+|---|---|---|
+| **1. Brief** | AI menanyakan maksimal 3 hal: topik & acara, durasi, nuansa. | Jawab singkat, atau langsung beri detail di permintaan. |
+| **2. Outline** | AI menampilkan tabel alur slide: nomor, jenis slide, judul, angka penting. Belum ada gambar yang dibuat. | Setujui atau minta ubah. |
+| **3. Opsi gaya** | Sampul + 1 slide isi dirender dalam **3 gaya** sekaligus (±3 menit). | Pilih: *"Pakai Gaya B"*. |
+| **4. Generate penuh** | Semua slide dirender dengan gaya pilihan — 4 proses berjalan paralel (±1–2 menit per 3 slide). | Tunggu. |
+| **5. Pemeriksaan** | AI memeriksa setiap slide: ejaan, angka, kecocokan visual dengan materi, tanda "AI slop". Slide yang bermasalah diperbaiki. | Minta perubahan bila perlu: *"slide 4 angkanya jadi 50%"*. |
+| **6. Hasil** | `nama-poster.pdf`, `nama-poster.pptx` (dengan catatan pembicara), dan `nama-poster.html` (presentasi di browser). | Presentasikan. |
+
+### Pilihan gaya
+
+| Gaya | Karakter | Cocok untuk |
+|---|---|---|
+| **A · Glass Tech** (`glass`) | Cerah putih-biru, foto realistis, panel kaca hologram berisi angka, ikon 3D | Keynote teknologi, digitalisasi, AI |
+| **B · Editorial Nasional** (`editorial`) | Poster institusi navy & hijau, kolase foto bersudut/heksagon, pita sorotan, deret ikon bulat | Forum kementerian, acara resmi, kebijakan |
+| **C · Isometric 3D** (`isometric`) | Dunia ilustrasi 3D isometrik yang bersih dan ramah | Penjelasan proses, edukasi, konsep sistem |
+| **D · Cinematic Sunrise** (`cinematic`) | Fotografi sinematik cahaya pagi, hangat dan megah | Visi, pembukaan acara, penutupan |
+
+### Materi apa saja
+Latar visual mengikuti topik — **bukan selalu pabrik**: kantor & ruang rapat (strategi, SDM, budaya kerja), data center & ruang kendali (IT, AI, keamanan siber), kota pintar & layanan (digitalisasi), tambang/perkebunan/konstruksi/logistik (operasi lapangan), gedung pemerintahan (kebijakan), kampus (pelatihan), dan pabrik bila memang membahas manufaktur.
+
+### Prinsip desain yang dijaga otomatis
+- **Satu slide, satu pesan.** Judul berupa kesimpulan, bukan topik.
+- **Teks singkat, visual detail.** Judul ≤ 8 kata, label ≤ 4 kata; isi materi lengkap dipakai sebagai petunjuk gambar sehingga setiap poin divisualkan secara spesifik.
+- **Komposisi bervariasi.** Foto utama, kartu data dalam adegan, diagram 3D, tipografi besar, perbandingan split — dua slide berurutan tidak pernah sama.
+- **Grafik sesuai makna data.** Tren → garis, perbandingan → batang, peringkat → batang horizontal, porsi → donut. Grafik *waterfall* maksimal satu per deck.
+- **Anti "AI slop".** Satu fokus visual per slide, cahaya dan proporsi realistis, tanpa glow berlebihan, ikon melayang acak, dashboard palsu, wajah plastik, atau gradien ungu.
+- **Tipografi elegan.** Judul semi-bold, label regular — tidak tebal berlebihan.
+- **Angka tidak dikarang.** Bila data belum ada, slide diberi label "(data ilustrasi)".
+
+---
+
+## 1. Pemasangan (sekali, ±3 menit)
+
+**Kebutuhan:** Mac · [Google Chrome](https://google.com/chrome) · [Node.js 18+](https://nodejs.org) (`brew install node`) · Python 3 · [Codex CLI](https://github.com/openai/codex) yang sudah login akun ChatGPT.
 
 ```bash
 git clone --recurse-submodules https://github.com/ffaizdaffa/ias-deck-skill.git
@@ -58,100 +70,116 @@ cd ias-deck-skill
 ./install.sh
 ```
 
-Installer akan:
-1. memeriksa Node, Chrome, Python, lalu memasang `python-pptx`;
-2. menyalin skill `ias-deck` ke `~/.claude/skills/` **dan** `~/.codex/skills/`;
-3. memasang 3 skill bundel (lihat bagian 5);
-4. memasang 31 keluarga font tema (Google Fonts) agar PPTX tampil persis.
-
-Opsi: `./install.sh --lite` (IAS Deck saja) · `./install.sh --no-fonts`.
-**Update:** `git pull --recurse-submodules && ./install.sh`
-
-## 2. Pakai
-
-**Alur yang disarankan:**
-1. Buka `out/picker.html` (dibuat oleh installer), klik **1 tema** dan beberapa **gambar**, tekan **Salin pilihan**.
-2. Buka sesi **baru** Claude Code atau Codex, tempel pilihan tadi, lalu tulis permintaan. Kalau tema belum dipilih, AI akan membuka Design Picker dulu.
-3. Opsional: minta *"buatkan gambar AI khusus tiap slide"* — AI menjalankan `--imagine` (butuh `codex login` dengan akun ChatGPT, ±1 menit per gambar).
-
-Contoh permintaan:
-
-> Buatkan deck 15 slide untuk keynote 25 menit di Forum Industri 4.0 Kemenperin. Topik: lean manufacturing ketemu digital — OEE, SMED, value stream, roadmap 18 bulan. Pembicara Irfan A. Shidiq, GM IT. Tema bp-classic, logo di ./logo.png.
-
-AI akan menampilkan alur cerita, menulis file `deck/*.json`, merender, mengecek teks yang meluber, lalu memberikan path filenya.
-
-Revisi cukup lewat chat: *"slide 5 jadi value stream map"*, *"ganti ke tema clean-merahputih"*, *"tambah slide sebelum–sesudah changeover"*.
-
-### Tombol saat presentasi (buka file `.html` di Chrome)
-| Tombol | Fungsi |
-|---|---|
-| `F` | layar penuh |
-| `→` `←` / klik kanan–kiri | pindah slide |
-| `P` | **presenter mode** di jendela kedua: slide sekarang & berikutnya, catatan, timer |
-| `G` / `Esc` | ikhtisar semua slide |
-| `T` / `Shift+T` | ganti tema (coba 40 tema secara langsung) |
-| `B` | layar gelap |
-| `?` | bantuan |
-
-## 3. Galeri tema
+Login Codex (sekali saja, pilih *Sign in with ChatGPT*):
 
 ```bash
-node skills/ias-deck/engine/render.mjs --gallery --out out && open out/gallery.html
+codex login
 ```
-Daftar lengkap & rekomendasi per jenis acara: [`skills/ias-deck/references/themes.md`](skills/ias-deck/references/themes.md).
 
-Rekomendasi cepat: forum resmi Kemenperin → `clean-merahputih`, `clean-porcelain`, `hud-arctic` · keynote IT/AI → `hud-cobalt`, `hud-ion`, `twin-hologram` · lean/shop-floor → `bp-classic`, `fac-safety`.
+Installer akan:
+1. memeriksa Node, Chrome, Python, dan memasang `python-pptx`;
+2. memasang skill `ias-deck` ke `~/.claude/skills/` **dan** `~/.codex/skills/`;
+3. memasang 3 skill pendukung (bagian 6);
+4. memasang font tema;
+5. menyiapkan halaman pemilih tema (`out/picker.html`) dan memeriksa Codex.
 
-Gambar hero: buka `skills/ias-deck/assets/heroes/index.html`, lalu sebut id-nya ke AI (mis. *"sampul pakai mfg-digital-twin"*).
+**Memperbarui:** `git pull --recurse-submodules && ./install.sh`
 
-## 4. Pakai manual (tanpa AI)
+---
+
+## 2. Cara memakai
+
+Buka sesi **baru** Claude Code atau Codex di folder kerja mana pun, lalu tulis permintaan. Contoh:
+
+> *Buatkan deck 10 slide, keynote 20 menit di seminar Kemenperin. Topik: AI untuk predictive maintenance di pabrik komponen otomotif. Pembicara Irfan A. Shidiq, GM IT. Data: downtime turun 45%, biaya suku cadang turun 20%.*
+
+> *Buat deck 8 slide tentang strategi digitalisasi layanan keuangan untuk rapat direksi, nuansa formal.*
+
+Selama proses, cukup jawab dengan bahasa biasa:
+- *"Outline-nya oke, lanjut."*
+- *"Pakai Gaya B."*
+- *"Slide 5 angkanya ganti jadi 52%."* → AI memperbaiki slide itu saja.
+- *"Slide 3 gambarnya kurang cocok, ulang."* → AI merender ulang slide itu.
+
+### Hasil yang Anda terima
+| File | Isi |
+|---|---|
+| `out/<nama>-poster.pdf` | Deck siap kirim / cetak |
+| `out/<nama>-poster.pptx` | Satu gambar per slide + catatan pembicara (untuk presenter view PowerPoint/Keynote) |
+| `out/<nama>-poster.html` | Presentasi di browser: `→`/`←` pindah slide, `F` layar penuh |
+
+---
+
+## 3. Mengubah isi slide
+
+Setiap slide adalah satu desain utuh dari GPT Image. Untuk mengubah isi, jangan mengedit di PowerPoint — minta saja ke AI:
+
+| Kebutuhan | Contoh permintaan | Yang terjadi |
+|---|---|---|
+| Ganti angka / kata | *"Slide 4, ganti 45% jadi 50%"* | Hanya slide 4 yang diedit; desain lain tetap sama (±1 menit) |
+| Ganti visual | *"Slide 3 gambarnya kurang cocok, tampilkan ruang rapat"* | Slide 3 dirender ulang dengan arahan baru |
+| Tambah / hapus slide | *"Tambah slide roadmap setelah slide 6"* | Outline diperbarui, slide baru dirender dengan gaya yang sama |
+| Ganti gaya seluruh deck | *"Coba gaya Editorial Nasional"* | Seluruh slide dirender ulang dengan gaya baru |
+
+Versi sebelumnya tetap tersimpan, jadi perubahan selalu bisa dibatalkan.
+
+## 4. Perintah manual (tanpa AI)
+
+Semua perintah dijalankan dari folder repo.
 
 ```bash
 E=skills/ias-deck/engine
-node $E/render.mjs skills/ias-deck/examples/lean-kemenperin.json --out out --all   # HTML + PDF + PPTX
-node $E/render.mjs deck.json --theme hud-arctic                                     # coba tema lain
-node $E/render.mjs deck.json --check                                                # cek teks meluber
-node $E/render.mjs --list                                                           # daftar tema & layout
-node $E/check-themes.mjs                                                            # uji kontras 40 tema
+node $E/render.mjs deck.json --options --out out                 # 3 opsi gaya (sampul + 1 slide isi)
+node $E/render.mjs deck.json --poster --out out                  # deck penuh mode poster → PDF + PPTX + HTML
+node $E/render.mjs deck.json --fix 4 "ganti 45% menjadi 50%"     # perbaiki satu slide, sisanya tetap
+node $E/render.mjs deck.json --poster --slides 4 --force         # render ulang satu slide dari nol
+node $E/render.mjs deck.json --all                               # cadangan tanpa Codex (template, bisa diedit)
+node $E/render.mjs --list                                        # daftar tema & jenis slide
 ```
-Format deck: [`skills/ias-deck/references/layouts.md`](skills/ias-deck/references/layouts.md).
 
-## 5. Skill bundel (lisensi MIT, dari komunitas)
+Gaya poster dipilih lewat field `"posterStyle"` di file deck (`glass`, `editorial`, `isometric`, `cinematic`); latar visual lewat `"topic"`.
+Contoh file deck ada di `skills/ias-deck/examples/`. Format lengkap: [`skills/ias-deck/references/layouts.md`](skills/ias-deck/references/layouts.md).
 
-Terpasang otomatis sebagai alternatif kalau ingin gaya lain. Bisa dipanggil langsung di Claude/Codex.
+---
 
-| Skill | Sumber | Kelebihan |
-|---|---|---|
-| `html-ppt` | [lewislulu/html-ppt-skill](https://github.com/lewislulu/html-ppt-skill) | 36 tema HTML, 47 animasi, presenter mode |
-| `frontend-slides` | [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides) | Deck HTML gaya bebas dari kemampuan frontend AI |
-| `ppt-master` | [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master) | PPTX native dari dokumen/PDF, animasi & grafik asli (butuh `pip3 install -r ~/.claude/skills/ppt-master/requirements.txt`) |
-
-Disimpan sebagai git submodule di `vendor/` dengan lisensi aslinya masing-masing. Skill AGPL ([guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill), [dashi-ppt-skill](https://github.com/chuspeeism/dashi-ppt-skill)) dan yang tanpa lisensi tidak disertakan, hanya ditautkan di sini.
-
-## 6. Struktur
+## 5. Isi repo
 
 ```
 skills/ias-deck/
-  SKILL.md                 instruksi untuk Claude/Codex
-  references/              tema, layout, panduan cerita
-  examples/                contoh deck lean (18 slide)
-  assets/heroes/           100 gambar hero + heroes.json (tag) + index.html (galeri)
+  SKILL.md                  instruksi kerja untuk Claude/Codex (alur, aturan desain, cara memeriksa)
+  references/               panduan jenis slide, tema, cerita, ikon, pustaka gambar
+  examples/                 contoh deck (lean, transformasi industri, AI predictive maintenance, AI quality inspection)
+  assets/heroes/            100 gambar pendukung + galeri (index.html)
   engine/
-    themes.json            40 tema cerah (warna, font, efek, gaya kartu)
-    layouts.mjs            21 layout
-    deck.css / deck.js     tampilan & runtime (navigasi, presenter, animasi)
-    fx.js                  12 efek latar canvas
-    render.mjs             JSON → HTML/PDF/PPTX, galeri, cek overflow
-    export_pptx.py         PPTX editable (python-pptx)
-    check-themes.mjs       uji kontras & kelengkapan tema
-    install-fonts.mjs      pemasang font
-vendor/                    3 skill MIT (submodule)
-tools/build_heroes.py      membangun ulang pustaka hero dari PNG hasil generate
-install.sh
+    render.mjs              perintah utama: poster, opsi gaya, perbaikan slide
+    poster.mjs              mode poster: gaya, arahan visual per slide, aturan anti AI slop, perbaikan slide
+    layouts.mjs, deck.css, deck.js, export_pptx.py   versi cadangan berbasis template (tanpa Codex)
+    themes.json             41 tema warna & tipografi
+docs/showcase/              gambar contoh di README
+install.sh                  pemasang satu perintah
+vendor/                     3 skill pendukung berlisensi MIT
 ```
 
-## Masalah umum
-- **Font di PPTX berbeda** → jalankan ulang `node skills/ias-deck/engine/install-fonts.mjs`, lalu tutup dan buka lagi PowerPoint/Keynote.
-- **"Chrome tidak ditemukan"** → pasang Google Chrome, atau set `CHROME=/path/ke/chrome`.
-- **Font tidak muncul di HTML** → HTML memuat font dari Google Fonts, jadi butuh internet. Kalau tampil offline, font yang sudah terpasang lewat installer tetap dipakai.
-- **Skill tidak terdeteksi** → pastikan memulai sesi Claude/Codex *baru* setelah install.
+---
+
+## 6. Skill pendukung (lisensi MIT)
+
+Terpasang otomatis sebagai alternatif: `html-ppt` (deck HTML beranimasi), `frontend-slides` (deck HTML gaya bebas), `ppt-master` (PPTX native dari dokumen). Masing-masing tetap memakai lisensi aslinya di folder `vendor/`.
+
+---
+
+## 7. Pertanyaan umum
+
+**Berapa lama membuat satu deck?** Outline ±1 menit, opsi gaya ±3 menit, deck 10 slide ±4–6 menit.
+
+**Apakah ada biaya tambahan?** Gambar dibuat lewat Codex memakai kuota akun ChatGPT Anda; tidak ada layanan lain yang ditagih.
+
+**Teks di slide salah ketik / angka keliru?** Minta perbaikan: *"slide 6, ganti 'Goresan' jadi 'Gores'"* — hanya slide itu yang diedit.
+
+**Bisa diedit di PowerPoint?** Setiap slide berupa gambar desain utuh. Perubahan isi dilakukan lewat permintaan ke AI (lihat bagian 3) — lebih cepat dan desain tetap rapi.
+
+**Bisa pakai logo perusahaan?** Ya. Visual AI sengaja tanpa logo; logo resmi ditempel di PPTX akhir (misalnya di pojok setiap slide).
+
+**Codex belum login?** Jalankan `codex login` (pilih *Sign in with ChatGPT*). Tanpa Codex, AI hanya bisa membuat versi template sederhana sebagai cadangan.
+
+**Skill tidak muncul?** Pastikan membuka sesi Claude Code/Codex **baru** setelah `./install.sh`.

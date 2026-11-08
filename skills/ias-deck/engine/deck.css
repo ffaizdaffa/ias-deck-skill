@@ -575,3 +575,26 @@ h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: cal
 /* tipografi lebih ringan (semi-bold) */
 .L-kpi .v, .duo .mt .v, .L-split .bigv, .tile .tg, .L-number .nv .v, .ins .iv, .L-vsm .sum .v, .L-scene .sc-c .v, .L-infographic .cv2, .cv .ix, .tl .wh { font-weight: 600 !important; }
 .L-section .num { font-weight: 600; }
+
+/* ================= HYBRID bergaya poster: foto hidup + data di panel kaca + tipografi poster ================= */
+[data-hybrid="on"] .decor, [data-hybrid="on"] .ghost, [data-hybrid="on"] .reticle { display: none !important; }
+[data-hybrid="on"] .slide::after { background: none; }
+[data-hybrid="on"] .title, [data-hybrid="on"] .big, [data-hybrid="on"] .duo .ct, [data-hybrid="on"] .band .nm, [data-hybrid="on"] .L-vsm .nm { text-transform: none !important; letter-spacing: -.015em !important; font-weight: 600 !important; }
+[data-hybrid="on"] h2.title { font-size: calc(70px * var(--ts)); }
+[data-hybrid="on"] .kicker::before, [data-hybrid="on"] .kicker::after { display: none; }
+[data-hybrid="on"] .kicker { letter-spacing: .14em; font-size: 20px; margin-bottom: 16px; }
+[data-hybrid="on"] .hero.bd img { filter: saturate(1.05) contrast(1.02); }
+[data-hybrid="on"] .hero.bd::after { background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 18%, transparent 38%), linear-gradient(90deg, color-mix(in srgb, var(--bg) 45%, transparent) 0%, transparent 55%) !important; }
+[data-hybrid="on"] .slide:has(.hero.bd) .fx { display: none; }
+[data-hybrid="on"] .slide:has(.hero.bd) .card, [data-hybrid="on"] .slide:has(.hero.bd) .tbw, [data-hybrid="on"] .slide:has(.hero.bd) .cv {
+  background: linear-gradient(145deg, rgba(255,255,255,.62), rgba(255,255,255,.34)) !important; border: 1.5px solid rgba(255,255,255,.85) !important; outline: none !important; border-radius: 22px !important;
+  backdrop-filter: blur(22px) saturate(170%) !important; box-shadow: 0 30px 60px -28px rgba(10,30,70,.45), inset 0 1px 0 rgba(255,255,255,.9) !important; }
+[data-hybrid="on"] .slide:has(.hero.bd) .cv { clip-path: none; margin-right: 18px; }
+[data-hybrid="on"] .slide:has(.hero.bd) .cv:nth-child(even) { background: linear-gradient(145deg, color-mix(in srgb, var(--a) 26%, rgba(255,255,255,.6)), rgba(255,255,255,.36)) !important; }
+[data-hybrid="on"] .slide:has(.hero.bd) .card::before, [data-hybrid="on"] .slide:has(.hero.bd) .card::after { display: none; }
+[data-hybrid="on"] .L-kpi .card { min-height: 360px; } [data-hybrid="on"] .L-kpi .cards { align-content: end; padding-bottom: 10px; }
+[data-hybrid="on"] .L-kpi .ch { display: none; }
+[data-hybrid="on"] .slide:has(.hero.bd) .take { background: linear-gradient(90deg, rgba(255,255,255,.78), rgba(255,255,255,.45)); backdrop-filter: blur(16px); border-left: 0; border-radius: 16px; }
+[data-hybrid="on"] .ins { background: linear-gradient(160deg, color-mix(in srgb, var(--f) 78%, transparent), color-mix(in srgb, var(--f) 92%, transparent)) !important; backdrop-filter: blur(20px); border: 1.5px solid rgba(255,255,255,.35); }
+[data-hybrid="on"] .chart .gl { opacity: .5; }
+[data-hybrid="on"] .foot { display: none; }

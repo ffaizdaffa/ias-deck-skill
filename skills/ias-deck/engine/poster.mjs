@@ -148,3 +148,19 @@ p.core_properties.title=d['title']; p.save(sys.argv[2])`, spec, path.join(outDir
   console.log(`✔ Poster ${htmlFile}  +  ${name}-poster.pptx  (${files.filter(Boolean).length} slide, gambar utuh — teks tidak bisa diedit)`);
   return htmlFile;
 }
+
+// PERBAIKI SATU SLIDE (seperti "tandai & edit"): GPT Image mengedit slide yang sudah ada sesuai instruksi,
+// bagian lain dipertahankan sama. Pakai: node render.mjs deck.json --fix 4 "ganti 45% menjadi 50%"
+export async function posterFix(file, deck, outDir, n, instr) {
+  codexOk();
+  const name = path.basename(file, '.json'), dir = path.join(outDir, `${name}-poster`), pre = `slide-${String(n).padStart(2, '0')}-`;
+  const cur = fs.existsSync(dir) && fs.readdirSync(dir).filter((x) => x.startsWith(pre) && x.endsWith('.png')).map((x) => ({ x, t: fs.statSync(path.join(dir, x)).mtimeMs })).sort((a, b) => b.t - a.t)[0];
+  if (!cur) throw new Error(`Slide ${n} belum punya gambar poster. Jalankan dulu: --poster --slides ${n}`);
+  const out = `${pre}fix${Date.now().toString(36)}.png`;
+  const prompt = `Use your image generation tool to EDIT the attached presentation slide image (${cur.x}). Instruction: ${instr}. Keep EVERYTHING else identical — same layout, composition, people, colors, typography style and all other texts exactly as they are. Spell every text exactly as specified (Indonesian). Save the edited 16:9 image in the current directory as ${out}. Then print the filename.`;
+  console.log(`… Memperbaiki slide ${n} lewat GPT Image: "${instr}"`);
+  await new Promise((res) => { const child = execFile('codex', ['exec', '--skip-git-repo-check', '-s', 'workspace-write', '-C', dir, '-i', path.join(dir, cur.x), prompt], { cwd: dir, timeout: 420000, maxBuffer: 64 << 20 }, (err, so, se) => { fs.writeFileSync(path.join(dir, `fix-log.txt`), `${so || ''}\n${se || ''}`); if (err) console.warn(`⚠ Codex berhenti: ${err.message.split('\n')[0]}`); res(); }); child.stdin.end(); });
+  if (!fs.existsSync(path.join(dir, out))) throw new Error('Perbaikan gagal dibuat — lihat fix-log.txt, atau render ulang slide: --poster --slides N --force');
+  console.log(`✔ Slide ${n} diperbaiki → ${out} (versi lama tetap disimpan)`);
+  return poster(file, deck, outDir, { only: '9999' }); // susun ulang HTML/PDF/PPTX dengan versi terbaru
+}
