@@ -72,6 +72,12 @@ Butuh: Node 18+, Google Chrome, Python 3 + `python-pptx` (untuk PPTX), internet 
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1920,1080 --virtual-time-budget=6000 --screenshot=out/s3.png "file://$PWD/out/acara.html?export=3"`
 - Pastikan tidak ada teks terpotong, tumpang tindih, atau kontras buruk.
 
+### 6a. Dua mode keluaran — tawarkan ke user
+- **Mode editable (default)**: HTML + PDF + PPTX, teks & grafik bisa diedit. Untuk dikirim ke panitia / diedit tim.
+- **Mode poster (gaya Genspark Creative / NotebookLM)**: setiap slide dirender UTUH oleh GPT Image (judul, angka, infografis, foto jadi satu gambar) — tampilan paling memukau untuk tampil di panggung & dibagikan. Teks di gambar TIDAK bisa diedit dan bisa ada salah ketik, jadi selalu periksa setiap slide; render ulang slide yang salah dengan `--poster --slides N --force`.
+  `node SKILL_DIR/engine/render.mjs deck.json --poster --out ./out` → `out/<nama>-poster.html` (pemutar), `.pdf`, `.pptx` (gambar per slide + catatan). Butuh `codex login`. ±1 menit per slide. Teks per slide harus SANGAT singkat (judul ≤ 8 kata, label ≤ 4 kata) agar ejaannya akurat.
+Kalau user minta "sebagus Genspark/NotebookLM", pakai mode poster.
+
 ### 6b. Review visual wajib (gaya Genspark: agen menilai hasil render)
 Jalankan `node SKILL_DIR/engine/render.mjs deck.json --review` → buka gambar `out/<nama>-review.png` (lembar pratinjau semua slide bernomor) dan nilai setiap slide dengan rubrik yang tercetak. Perbaiki slide yang gagal (ganti layout, tambah visual, perbesar angka, pangkas teks), render & review ulang. Maksimal 2 putaran.
 

@@ -547,3 +547,10 @@ h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: cal
 .L-scene .sc-c { background: linear-gradient(140deg, color-mix(in srgb, var(--f) 55%, transparent), color-mix(in srgb, var(--a) 35%, transparent)); padding: 24px 32px 24px 24px; }
 .L-scene .sc-c .v { font-size: 76px; } .L-scene .sc-c .lb { font-size: 22px; }
 .L-scene .sc-l line { stroke: var(--a); stroke-width: 3; stroke-dasharray: none; } .L-scene .sc-l { z-index: 3; }
+
+/* ================= default bersih: ornamen HUD kecil hanya bila "chrome": "full" ================= */
+[data-chrome="clean"] .d-rl, [data-chrome="clean"] .d-scan, [data-chrome="clean"] .d-prog, [data-chrome="clean"] .sig, [data-chrome="clean"] .clk, [data-chrome="clean"] .d-tl i, [data-chrome="clean"] .d-zn { display: none !important; }
+[data-chrome="clean"] .d-bl:not(.src) { display: none !important; }
+[data-chrome="clean"] .d-tl { opacity: .7; }
+[data-chrome="clean"][data-decor="hud"] .d-cn { opacity: .55; }
+[data-chrome="clean"] .slide::before { opacity: .04; }

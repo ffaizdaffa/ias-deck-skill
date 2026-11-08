@@ -6,6 +6,7 @@
 //        node render.mjs --picker [--out DIR]       (halaman pilih tema + gambar)
 //        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
 //        node render.mjs <deck.json> --review       (lembar pratinjau semua slide + rubrik penilaian visual)
+//        node render.mjs <deck.json> --poster       (MODE POSTER: tiap slide dirender utuh oleh GPT Image — gaya Genspark Creative)
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
@@ -13,6 +14,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderSlide, LAYOUTS, esc } from './layouts.mjs';
 import { buildPicker } from './picker.mjs';
 import { imagine } from './imagine.mjs';
+import { poster } from './poster.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const TH = JSON.parse(fs.readFileSync(path.join(HERE, 'themes.json'), 'utf8'));
@@ -169,7 +171,7 @@ function buildHtml(deck, baseDir, themeId) {
   };
   const theme = TH.themes.find((t) => t.id === (themeId || deck.theme)) || TH.themes[0];
   const html = deck.slides.map((s, i) => renderSlide(s, i, deck.slides.length, ctx)).join('\n');
-  const data = { themes: TH.themes, families: TH.families, fonts: TH.fonts, theme: theme.id, brand: deck.brand || {}, charts };
+  const data = { themes: TH.themes, families: TH.families, fonts: TH.fonts, theme: theme.id, brand: deck.brand || {}, charts, chrome: deck.chrome || 'clean' };
   const fontLinks = [theme.fd, theme.fb, theme.fm].filter((f, i, a) => a.indexOf(f) === i && TH.fonts[f])
     .map((f) => `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}:wght@${TH.fonts[f]}&display=swap">`).join('');
   const read = (f) => fs.readFileSync(path.join(HERE, f), 'utf8');
@@ -273,6 +275,11 @@ async function main() {
   let deck; try { deck = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { die(`${file}: JSON tidak valid — ${e.message}`); }
   validate(deck, file);
   if (flag('--imagine')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force') }); validate(deck, file); }
+  if (flag('--poster')) {
+    const h = await poster(file, deck, outDir, { only: opt('--slides'), force: flag('--force') });
+    await chrome([`--print-to-pdf=${h.replace(/\.html$/, '.pdf')}`, '--no-pdf-header-footer'], pathToFileURL(h).href).then(() => console.log(`✔ PDF   ${h.replace(/\.html$/, '.pdf')}`)).catch((e) => console.warn(`⚠ PDF poster gagal: ${e.message}`));
+    return;
+  }
   const name = path.basename(file, '.json');
   const built = buildHtml(deck, path.dirname(path.resolve(file)), opt('--theme'));
   const htmlFile = path.join(outDir, `${name}.html`);
