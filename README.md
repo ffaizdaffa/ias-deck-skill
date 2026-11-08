@@ -27,39 +27,19 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 
 ## Contoh hasil desain
 
-**Sampul — gambar hero AI + HUD tipis**
-![Sampul lean](docs/showcase/01-sampul-lean.jpg)
+Semua slide di bawah dibuat otomatis oleh IAS Deck dalam **mode poster**: setiap slide dirender utuh oleh GPT Image — judul, angka, infografis, dan foto jadi satu komposisi.
 
-**Sampul gaya poster Kemenperin — kolase foto, deret ikon, band navy, pita sorotan**
-![Sampul gaya Kemenperin](docs/showcase/02-sampul-gaya-kemenperin.jpg)
+### Lean Digital Factory
+![Sampul Lean Digital Factory](docs/showcase/01-lean-digital-factory-sampul.jpg)
+![Isi Lean Digital Factory](docs/showcase/01-lean-digital-factory-isi.jpg)
 
-**Visualisasi data — KPI berikon, waterfall/bridge, Pareto, angka raksasa, panel insight, sebelum–sesudah**
-![Visualisasi data](docs/showcase/03-visualisasi-data.jpg)
+### Transformasi Industri 4.0
+![Sampul Transformasi Industri](docs/showcase/02-transformasi-industri-sampul.jpg)
+![Isi Transformasi Industri](docs/showcase/02-transformasi-industri-isi.jpg)
 
-**Gaya poster — pilar berikon, strip foto miring, panel daftar, waterfall**
-![Gaya poster](docs/showcase/04-gaya-poster-kemenperin.jpg)
-
-**Tanpa ruang kosong — panel foto otomatis, proses berikon, penutup**
-![Tanpa ruang kosong](docs/showcase/05-tanpa-ruang-kosong.jpg)
-
-**Gambar AI khusus per slide (GPT Image via Codex) — termasuk slide `infographic` dan `scene`**
-![Gambar AI per slide](docs/showcase/06-gambar-ai-per-slide.jpg)
-
-**Mode poster — tiap slide dirender utuh oleh GPT Image **
-![Mode poster](docs/showcase/10-mode-poster.jpg)
-
-**Design Picker — klik tema + gambar, salin ke chat**
-![Design Picker](docs/showcase/07-design-picker.jpg)
-
-<details><summary><b>Semua tema cerah</b></summary>
-
-![Tema](docs/showcase/08-tema-cerah.jpg)
-</details>
-
-<details><summary><b>100 gambar hero</b></summary>
-
-![Gambar hero](docs/showcase/09-100-gambar-hero.jpg)
-</details>
+### AI Predictive Maintenance
+![Sampul AI Predictive Maintenance](docs/showcase/03-ai-predictive-maintenance-sampul.jpg)
+![Isi AI Predictive Maintenance](docs/showcase/03-ai-predictive-maintenance-isi.jpg)
 
 ---
 
