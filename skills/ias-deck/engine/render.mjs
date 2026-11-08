@@ -11,6 +11,17 @@ import { renderSlide, LAYOUTS, esc } from './layouts.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const TH = JSON.parse(fs.readFileSync(path.join(HERE, 'themes.json'), 'utf8'));
+const HERO_DIR = path.join(HERE, '..', 'assets', 'heroes');
+const HEROES = fs.existsSync(path.join(HERO_DIR, 'heroes.json')) ? JSON.parse(fs.readFileSync(path.join(HERO_DIR, 'heroes.json'), 'utf8')) : [];
+// kata Indonesia -> tag gambar
+const KW = { pabrik: 'factory', manufaktur: 'factory', produksi: 'factory', otomotif: 'car', mobil: 'car', baterai: 'battery', listrik: 'ev', robot: 'robot', robotik: 'robot', otomasi: 'robot',
+  kecerdasan: 'ai', ai: 'ai', data: 'data', analitik: 'data', prediktif: 'predictive', perawatan: 'maintenance', mesin: 'machine', gudang: 'warehouse', logistik: 'logistics',
+  siber: 'cyber', keamanan: 'cyber', cloud: 'cloud', jaringan: 'network', iot: 'sensor', sensor: 'sensor', kembar: 'twin', twin: 'twin', digital: 'digital',
+  lean: 'lean', kaizen: 'kaizen', kanban: 'kanban', andon: 'andon', '5s': '5s', smed: 'smed', pdca: 'pdca', mutu: 'quality', kualitas: 'quality', inspeksi: 'quality',
+  kementerian: 'gov', kemenperin: 'gov', pemerintah: 'gov', industri: 'industrial', kawasan: 'estate', pelabuhan: 'port', ekspor: 'port', indonesia: 'indonesia', nikel: 'nickel',
+  umkm: 'umkm', vokasi: 'training', pelatihan: 'training', sdm: 'workers', tenaga: 'workers', pekerja: 'workers', tim: 'team', keselamatan: 'safety', k3: 'safety',
+  semikonduktor: 'semicon', chip: 'chip', farmasi: 'pharma', makanan: 'food', tekstil: 'textile', baja: 'steel', kimia: 'chemical', energi: 'solar', surya: 'solar', hijau: 'solar',
+  '4.0': 'industry', transformasi: 'digital', erp: 'erp', '5g': '5g', kota: 'city' };
 const args = process.argv.slice(2);
 const flag = (f) => args.includes(f);
 const opt = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : undefined; };
@@ -37,12 +48,14 @@ function svgChart(c = {}) {
   let marks = '';
   if (c.type === 'line') {
     series.forEach((s, si) => { const pts = s.data.map((v, i) => `${P.l + (iw / n) * (i + 0.5)},${y(v)}`);
-      marks += `<polyline points="${pts.join(' ')}" fill="none" stroke="${cols[si % 4]}" stroke-width="4"/>` + s.data.map((v, i) => `<circle cx="${P.l + (iw / n) * (i + 0.5)}" cy="${y(v)}" r="7" fill="var(--bg)" stroke="${cols[si % 4]}" stroke-width="3"/>`).join('');
+      if (si === 0) marks += `<defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--a)" stop-opacity=".28"/><stop offset="1" stop-color="var(--a)" stop-opacity="0"/></linearGradient></defs><path d="M${pts[0].split(',')[0]},${P.t + ih} L${pts.join(' L')} L${pts[pts.length - 1].split(',')[0]},${P.t + ih}Z" fill="url(#ar)"/>`;
+      marks += `<polyline class="ln" points="${pts.join(' ')}" fill="none" stroke="${cols[si % 4]}" stroke-width="5" stroke-linejoin="round"/>` + s.data.map((v, i) => `<circle cx="${P.l + (iw / n) * (i + 0.5)}" cy="${y(v)}" r="7" fill="var(--bg)" stroke="${cols[si % 4]}" stroke-width="3"/>`).join('');
       const last = s.data.length - 1; marks += `<text class="vl" x="${P.l + (iw / n) * (last + 0.5)}" y="${y(s.data[last]) - 18}" text-anchor="middle">${esc(s.data[last])}${esc(c.unit || '')}</text>`; });
   } else {
     const bw = (iw / n) * 0.7 / series.length;
     series.forEach((s, si) => s.data.forEach((v, i) => { const x = P.l + (iw / n) * i + (iw / n) * 0.15 + si * bw;
-      marks += `<rect x="${x}" y="${y(v)}" width="${bw - 6}" height="${P.t + ih - y(v)}" fill="${cols[si % 4]}"/>`;
+      if (!marks.includes('id="bg${si}"')) marks += `<defs><linearGradient id="bg${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cols[si % 4]}"/><stop offset="1" stop-color="${cols[si % 4]}" stop-opacity=".25"/></linearGradient></defs>`;
+      marks += `<rect x="${x}" y="${y(v)}" width="${bw - 6}" height="${P.t + ih - y(v)}" rx="4" fill="url(#bg${si})"/><rect x="${x}" y="${y(v)}" width="${bw - 6}" height="4" fill="${cols[si % 4]}" class="ln"/>`;
       if (series.length === 1) marks += `<text class="vl" x="${x + (bw - 6) / 2}" y="${y(v) - 12}" text-anchor="middle">${esc(v)}${esc(c.unit || '')}</text>`; }));
   }
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><line class="ax" x1="${P.l}" x2="${W - P.r}" y1="${P.t + ih}" y2="${P.t + ih}"/>${g}${marks}</svg>`;
@@ -60,12 +73,43 @@ function validate(deck, file) {
 }
 
 /* ---------- bangun HTML ---------- */
+function heroSrc(id, baseDir) {
+  if (!id) return '';
+  const h = HEROES.find((x) => x.id === id);
+  const f = h ? path.join(HERO_DIR, h.file) : path.resolve(baseDir, id);
+  if (/^(https?:|data:)/.test(id)) return id;
+  if (!fs.existsSync(f)) { console.warn(`⚠ gambar hero tidak ditemukan: ${id}`); return ''; }
+  const ext = path.extname(f).toLowerCase();
+  return `data:image/${ext === '.png' ? 'png' : ext === '.webp' ? 'webp' : 'jpeg'};base64,${fs.readFileSync(f).toString('base64')}`;
+}
+function pickHero(deck, s, i, baseDir, used) {
+  if (s.hero === false || deck.autoHero === false) return '';
+  if (typeof s.hero === 'string') { used.add(s.hero); return heroSrc(s.hero, baseDir); }
+  if (s.layout === 'image') return s.image ? heroSrc(s.image, baseDir) : '';
+  if (!['cover', 'section', 'closing'].includes(s.layout) || !HEROES.length) return '';
+  const pref = (deck.heroes || []).find((id) => !used.has(id));
+  if (pref) { used.add(pref); return heroSrc(pref, baseDir); }
+  const words = `${deck.title || ''} ${deck.topic || ''} ${s.title || ''} ${s.kicker || ''} ${s.subtitle || ''}`.toLowerCase().replace(/\*\*/g, '').split(/[^a-z0-9.]+/);
+  const tags = new Set(words.flatMap((w) => [w, KW[w]]).filter(Boolean));
+  const catBonus = { cover: { mfg: 2, rob: 2, ai: 1, id: 1 }, section: { mfg: 1, lean: 1, abs: 1, it: 1, ai: 1, rob: 1 }, closing: { id: 2, abs: 2 } }[s.layout] || {};
+  const fam = (TH.themes.find((t) => t.id === deck.theme) || {}).family;
+  const famBonus = { hud: { ai: 2.5, rob: 2.5, it: 1 }, blueprint: { mfg: 2.5, abs: 1.5 }, twin: { mfg: 2, abs: 2, ai: 1.5 }, factory: { mfg: 2.5, lean: 2.5, rob: 1 }, terminal: { it: 3, ai: 2 }, clean: { id: 2.5, abs: 2.5 } }[fam] || {};
+  let seed = [...`${deck.title}${i}`].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const ranked = HEROES.filter((h) => !used.has(h.id)).map((h) => { seed = (seed * 1664525 + 1013904223) >>> 0;
+    return { h, sc: h.tags.filter((t) => tags.has(t)).length * 2 + (catBonus[h.cat] || 0) + (famBonus[h.cat] || 0) + (seed / 4294967296) * 2 }; }).sort((a, b) => b.sc - a.sc);
+  if (!ranked.length) return '';
+  used.add(ranked[0].h.id); return heroSrc(ranked[0].h.id, baseDir);
+}
+
 function buildHtml(deck, baseDir, themeId) {
-  const charts = [];
+  const charts = [], used = new Set();
   const mime = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.gif': 'image/gif' };
   const ctx = {
     deck, code: deck.code || (deck.title || 'DECK').replace(/[^A-Za-z0-9]+/g, '-').slice(0, 18).toUpperCase(),
     chart: (c) => (charts.push(c), charts.length - 1), svgChart,
+    clock: new Date().toTimeString().slice(0, 8), date: new Date().toISOString().slice(0, 10), tint: '',
+    hero: (id) => heroSrc(id, baseDir),
+    heroFor: (s, i) => pickHero(deck, s, i, baseDir, used),
     asset: (p) => {
       if (/^(https?:|data:)/.test(p)) return p;
       const f = path.resolve(baseDir, p);
@@ -125,9 +169,10 @@ async function toPptx(htmlFile, outFile, deck, built, meas) {
 function gallery(outDir) {
   const ex = path.join(HERE, '..', 'examples', 'gallery-sample.json');
   const deck = JSON.parse(fs.readFileSync(ex, 'utf8'));
-  const sample = path.join(outDir, 'gallery-sample.html');
-  fs.writeFileSync(sample, buildHtml(deck, path.dirname(ex)).html);
-  const cards = TH.themes.map((t) => `<figure data-f="${t.family}"><div class="sh"><iframe src="gallery-sample.html?static=1&theme=${t.id}&slide=1"></iframe></div><div class="sh"><iframe src="gallery-sample.html?static=1&theme=${t.id}&slide=2"></iframe></div>
+  Object.keys(TH.families).forEach((f) => { const first = TH.themes.find((t) => t.family === f);
+    const show = { hud: ['rob-humanoid', 'ai-chip'], blueprint: ['abs-blueprint-light', 'mfg-cnc'], twin: ['abs-isometric-city', 'mfg-digital-twin'], factory: ['mfg-car-line', 'lean-andon'], terminal: ['it-datacenter', 'it-noc'], clean: ['id-industrial-estate', 'abs-aurora'] }[f];
+    fs.writeFileSync(path.join(outDir, `gallery-${f}.html`), buildHtml({ ...deck, theme: first.id, heroes: show }, path.dirname(ex)).html); });
+  const cards = TH.themes.map((t) => `<figure data-f="${t.family}"><div class="sh"><iframe src="gallery-${t.family}.html?static=1&theme=${t.id}&slide=1"></iframe></div><div class="sh"><iframe src="gallery-${t.family}.html?static=1&theme=${t.id}&slide=2"></iframe></div>
 <figcaption><b>${esc(t.name)}</b><code>${t.id}</code><span>${esc(t.fd)} · fx ${t.fx} · ${t.mode}</span><i style="background:${t.bg}"></i><i style="background:${t.accent}"></i><i style="background:${t.accent2}"></i></figcaption></figure>`).join('');
   const fam = Object.entries(TH.families).map(([k, v]) => `<button data-k="${k}">${esc(v.split(' — ')[0])}</button>`).join('');
   fs.writeFileSync(path.join(outDir, 'gallery.html'), `<!doctype html><html lang="id"><head><meta charset="utf-8"><title>IAS Deck — Galeri 40 Tema</title>

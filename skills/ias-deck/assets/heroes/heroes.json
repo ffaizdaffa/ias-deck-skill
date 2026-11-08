@@ -1,0 +1,1056 @@
+[
+ {
+  "id": "mfg-car-line",
+  "file": "mfg-car-line.jpg",
+  "cat": "mfg",
+  "tags": [
+   "car",
+   "factory",
+   "robot",
+   "twin"
+  ],
+  "desc": "Bright modern car assembly line in daylight, white robotic arms welding a silver car body, glossy white floor, soft blue holographic measurement lines floating over the car"
+ },
+ {
+  "id": "mfg-digital-twin",
+  "file": "mfg-digital-twin.jpg",
+  "cat": "mfg",
+  "tags": [
+   "digital",
+   "engineer",
+   "factory",
+   "twin"
+  ],
+  "desc": "Engineer in a bright white control space looking at a large translucent light-blue hologram of a full factory layout floating above a white table"
+ },
+ {
+  "id": "mfg-smart-floor",
+  "file": "mfg-smart-floor.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "machine",
+   "robot"
+  ],
+  "desc": "Wide shot of a spotless smart factory hall with skylights, white machines, orange autonomous mobile robots carrying parts, light blue floor markings"
+ },
+ {
+  "id": "mfg-cnc",
+  "file": "mfg-cnc.jpg",
+  "cat": "mfg",
+  "tags": [
+   "cnc",
+   "factory",
+   "machine"
+  ],
+  "desc": "Close-up of a precision CNC machine milling an aluminium part, bright clean lighting, coolant mist, light blue machine housing, high-key"
+ },
+ {
+  "id": "mfg-electronics",
+  "file": "mfg-electronics.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "machine"
+  ],
+  "desc": "Bright electronics assembly line with SMT pick-and-place machines and green circuit boards, white environment, soft blue accent lights"
+ },
+ {
+  "id": "mfg-quality-scan",
+  "file": "mfg-quality-scan.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "machine",
+   "quality",
+   "robot"
+  ],
+  "desc": "Machine vision quality inspection in a bright factory, a robot holding a metal part under a blue laser scanning grid, white background"
+ },
+ {
+  "id": "mfg-3dprint",
+  "file": "mfg-3dprint.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "industrial"
+  ],
+  "desc": "Industrial metal 3D printer producing a complex turbine part, glass door, bright white lab, soft cyan glow inside the chamber"
+ },
+ {
+  "id": "mfg-conveyor",
+  "file": "mfg-conveyor.jpg",
+  "cat": "mfg",
+  "tags": [
+   "conveyor",
+   "factory"
+  ],
+  "desc": "Long bright conveyor line with neatly arranged white product boxes and barcode scanners, perspective view, airy daylight"
+ },
+ {
+  "id": "mfg-ev-battery",
+  "file": "mfg-ev-battery.jpg",
+  "cat": "mfg",
+  "tags": [
+   "battery",
+   "ev",
+   "factory",
+   "robot"
+  ],
+  "desc": "Bright clean EV battery module production with white robotic gantry and rows of cells, light grey and electric blue palette"
+ },
+ {
+  "id": "mfg-textile",
+  "file": "mfg-textile.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "indonesia",
+   "robot",
+   "textile"
+  ],
+  "desc": "Modern automated textile and garment factory in Indonesia, bright daylight, robotic cutting table, colorful fabric rolls, clean"
+ },
+ {
+  "id": "mfg-food",
+  "file": "mfg-food.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "food",
+   "steel"
+  ],
+  "desc": "Hygienic automated food and beverage bottling line, stainless steel, bright white light, water droplets, fresh and clean"
+ },
+ {
+  "id": "mfg-pharma",
+  "file": "mfg-pharma.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "pharma",
+   "workers"
+  ],
+  "desc": "Bright pharmaceutical cleanroom production line, workers in white suits, glass isolators, pale blue accents"
+ },
+ {
+  "id": "mfg-steel-bright",
+  "file": "mfg-steel-bright.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "industrial",
+   "steel"
+  ],
+  "desc": "Modern steel coil processing plant in daylight, polished steel coils, overhead crane, light grey and blue tones, clean industrial"
+ },
+ {
+  "id": "mfg-chemical",
+  "file": "mfg-chemical.jpg",
+  "cat": "mfg",
+  "tags": [
+   "chemical",
+   "cloud",
+   "factory"
+  ],
+  "desc": "Aerial daylight view of a modern clean chemical processing plant with white tanks and pipes, blue sky, soft clouds"
+ },
+ {
+  "id": "mfg-semicon",
+  "file": "mfg-semicon.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "robot",
+   "semicon"
+  ],
+  "desc": "Bright semiconductor fab with yellow-free white lighting, wafer handling robots, silver equipment, futuristic clean"
+ },
+ {
+  "id": "mfg-warehouse",
+  "file": "mfg-warehouse.jpg",
+  "cat": "mfg",
+  "tags": [
+   "drone",
+   "factory",
+   "robot",
+   "warehouse"
+  ],
+  "desc": "Bright automated warehouse with tall white racks, robotic shuttles and drones scanning inventory, soft daylight"
+ },
+ {
+  "id": "mfg-tablet",
+  "file": "mfg-tablet.jpg",
+  "cat": "mfg",
+  "tags": [
+   "data",
+   "factory"
+  ],
+  "desc": "Close-up of a factory supervisor's hand holding a tablet showing a colorful production dashboard, bright blurred factory behind"
+ },
+ {
+  "id": "mfg-ar-glasses",
+  "file": "mfg-ar-glasses.jpg",
+  "cat": "mfg",
+  "tags": [
+   "engineer",
+   "factory",
+   "indonesia",
+   "machine",
+   "quality",
+   "twin"
+  ],
+  "desc": "Indonesian woman engineer wearing AR smart glasses inspecting a white machine, faint blue holographic UI rings around the machine, daylight"
+ },
+ {
+  "id": "mfg-sensor",
+  "file": "mfg-sensor.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "industrial",
+   "sensor"
+  ],
+  "desc": "Macro of a small white IoT sensor mounted on a polished industrial pump, soft blue light pulse, high-key product photography"
+ },
+ {
+  "id": "mfg-solar-factory",
+  "file": "mfg-solar-factory.jpg",
+  "cat": "mfg",
+  "tags": [
+   "factory",
+   "industry",
+   "solar"
+  ],
+  "desc": "Modern factory roof covered with solar panels under a bright blue sky, green trees around, sustainable industry"
+ },
+ {
+  "id": "rob-cobot",
+  "file": "rob-cobot.jpg",
+  "cat": "rob",
+  "tags": [
+   "factory",
+   "robot",
+   "workers"
+  ],
+  "desc": "White collaborative robot arm handing a part to a smiling Southeast Asian worker on a bright assembly bench"
+ },
+ {
+  "id": "rob-arm-studio",
+  "file": "rob-arm-studio.jpg",
+  "cat": "rob",
+  "tags": [
+   "industrial",
+   "robot"
+  ],
+  "desc": "Single sleek white industrial robot arm on a seamless pale grey studio background, product shot, soft shadows, blue accent ring light"
+ },
+ {
+  "id": "rob-humanoid",
+  "file": "rob-humanoid.jpg",
+  "cat": "rob",
+  "tags": [
+   "factory",
+   "robot"
+  ],
+  "desc": "Friendly white humanoid robot standing in a bright modern factory lobby, glass walls, daylight, minimal"
+ },
+ {
+  "id": "rob-amr",
+  "file": "rob-amr.jpg",
+  "cat": "rob",
+  "tags": [
+   "robot"
+  ],
+  "desc": "Fleet of compact white autonomous mobile robots on a light grey floor with glowing blue path lines, top-down angle"
+ },
+ {
+  "id": "rob-gripper",
+  "file": "rob-gripper.jpg",
+  "cat": "rob",
+  "tags": [
+   "robot"
+  ],
+  "desc": "Close-up of a robotic gripper delicately picking a glass component, bright white background, shallow depth of field"
+ },
+ {
+  "id": "rob-drone",
+  "file": "rob-drone.jpg",
+  "cat": "rob",
+  "tags": [
+   "drone",
+   "industrial",
+   "quality",
+   "robot"
+  ],
+  "desc": "Industrial drone inspecting a white wind turbine blade against a bright blue sky, clean and optimistic"
+ },
+ {
+  "id": "rob-welding-cell",
+  "file": "rob-welding-cell.jpg",
+  "cat": "rob",
+  "tags": [
+   "factory",
+   "robot",
+   "safety"
+  ],
+  "desc": "Bright robotic welding cell behind clear safety glass, white robots, small blue sparks, clean modern"
+ },
+ {
+  "id": "rob-palletizer",
+  "file": "rob-palletizer.jpg",
+  "cat": "rob",
+  "tags": [
+   "logistics",
+   "robot"
+  ],
+  "desc": "Robot palletizing white boxes in a bright logistics center, motion blur on the arm, daylight"
+ },
+ {
+  "id": "rob-dog",
+  "file": "rob-dog.jpg",
+  "cat": "rob",
+  "tags": [
+   "factory",
+   "quality",
+   "robot"
+  ],
+  "desc": "Quadruped inspection robot walking on a bright factory walkway checking gauges, white and orange colors"
+ },
+ {
+  "id": "rob-hand",
+  "file": "rob-hand.jpg",
+  "cat": "rob",
+  "tags": [
+   "robot"
+  ],
+  "desc": "Elegant white robotic hand reaching toward a human hand, soft pale blue background, hopeful mood, studio light"
+ },
+ {
+  "id": "ai-brain",
+  "file": "ai-brain.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai"
+  ],
+  "desc": "3D render of a translucent glass brain made of light-blue circuits and glowing nodes on a soft white background"
+ },
+ {
+  "id": "ai-chip",
+  "file": "ai-chip.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai",
+   "chip"
+  ],
+  "desc": "3D render of a glossy AI processor chip floating above a white surface, iridescent blue and violet reflections"
+ },
+ {
+  "id": "ai-network",
+  "file": "ai-network.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai",
+   "network"
+  ],
+  "desc": "Bright abstract 3D network of white spheres connected by thin blue lines, airy white space, depth of field"
+ },
+ {
+  "id": "ai-predictive",
+  "file": "ai-predictive.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai",
+   "data",
+   "engineer",
+   "machine",
+   "maintenance",
+   "predictive"
+  ],
+  "desc": "Engineer looking at a big bright screen wall with AI predictive maintenance graphs and a machine model, white office, daylight"
+ },
+ {
+  "id": "ai-vision-boxes",
+  "file": "ai-vision-boxes.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai",
+   "factory",
+   "machine",
+   "workers"
+  ],
+  "desc": "Computer vision concept: a bright factory scene with soft blue bounding boxes drawn around workers' helmets and machines, no text"
+ },
+ {
+  "id": "ai-assistant",
+  "file": "ai-assistant.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai"
+  ],
+  "desc": "Friendly AI assistant concept: soft glowing light-blue orb hovering above a desk in a bright modern office, minimal"
+ },
+ {
+  "id": "ai-data-flow",
+  "file": "ai-data-flow.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai",
+   "data"
+  ],
+  "desc": "3D render of flowing streams of small light-blue cubes and particles forming waves over a white surface"
+ },
+ {
+  "id": "ai-hologram-meeting",
+  "file": "ai-hologram-meeting.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai",
+   "data",
+   "meeting",
+   "team",
+   "twin"
+  ],
+  "desc": "Diverse team in a bright glass meeting room around a table with a floating light-blue holographic 3D chart"
+ },
+ {
+  "id": "ai-glass-cubes",
+  "file": "ai-glass-cubes.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai"
+  ],
+  "desc": "3D render of stacked frosted glass cubes with glowing cyan edges on pale grey background, minimal tech"
+ },
+ {
+  "id": "ai-face-scan",
+  "file": "ai-face-scan.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai"
+  ],
+  "desc": "Abstract 3D wireframe human head made of light-blue lines and points on white, generative AI concept"
+ },
+ {
+  "id": "ai-gen-design",
+  "file": "ai-gen-design.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai"
+  ],
+  "desc": "Generative design concept: several organic lightweight metal brackets evolving from simple to complex on a white table"
+ },
+ {
+  "id": "ai-llm",
+  "file": "ai-llm.jpg",
+  "cat": "ai",
+  "tags": [
+   "ai"
+  ],
+  "desc": "Abstract 3D render of layered translucent panels with flowing light, representing a large language model, white and blue"
+ },
+ {
+  "id": "it-datacenter",
+  "file": "it-datacenter.jpg",
+  "cat": "it",
+  "tags": [
+   "data",
+   "digital",
+   "server"
+  ],
+  "desc": "Bright modern data center aisle with white server racks and blue LED strips, glossy white floor, perspective"
+ },
+ {
+  "id": "it-cloud",
+  "file": "it-cloud.jpg",
+  "cat": "it",
+  "tags": [
+   "cloud",
+   "data",
+   "digital",
+   "server"
+  ],
+  "desc": "3D render of soft white clouds with thin glowing blue data lines and small server icons as shapes, sky blue gradient"
+ },
+ {
+  "id": "it-cyber",
+  "file": "it-cyber.jpg",
+  "cat": "it",
+  "tags": [
+   "cyber",
+   "digital",
+   "network"
+  ],
+  "desc": "Cybersecurity concept: 3D glossy white shield with a glowing blue lock pattern over a light abstract network"
+ },
+ {
+  "id": "it-5g",
+  "file": "it-5g.jpg",
+  "cat": "it",
+  "tags": [
+   "5g",
+   "digital",
+   "industrial"
+  ],
+  "desc": "5G antenna tower against bright blue sky with subtle visible radio waves as thin light rings, modern industrial park below"
+ },
+ {
+  "id": "it-fiber",
+  "file": "it-fiber.jpg",
+  "cat": "it",
+  "tags": [
+   "digital"
+  ],
+  "desc": "Macro of bright fiber optic cables with blue light tips on white background, shallow depth of field"
+ },
+ {
+  "id": "it-noc",
+  "file": "it-noc.jpg",
+  "cat": "it",
+  "tags": [
+   "data",
+   "digital",
+   "network"
+  ],
+  "desc": "Bright network operations center with large white curved display wall showing maps and graphs, staff at desks, daylight"
+ },
+ {
+  "id": "it-laptop-dev",
+  "file": "it-laptop-dev.jpg",
+  "cat": "it",
+  "tags": [
+   "digital"
+  ],
+  "desc": "Developer desk by a big window in daylight, laptop with code, plants, minimal white workspace, soft blue accents"
+ },
+ {
+  "id": "it-erp",
+  "file": "it-erp.jpg",
+  "cat": "it",
+  "tags": [
+   "digital",
+   "erp",
+   "factory",
+   "warehouse"
+  ],
+  "desc": "Clean 3D isometric illustration of connected business modules (factory, warehouse, truck, office) on white with blue lines"
+ },
+ {
+  "id": "it-quantum",
+  "file": "it-quantum.jpg",
+  "cat": "it",
+  "tags": [
+   "digital",
+   "quantum"
+  ],
+  "desc": "Futuristic quantum computer golden chandelier inside a bright white lab, soft lighting"
+ },
+ {
+  "id": "it-edge",
+  "file": "it-edge.jpg",
+  "cat": "it",
+  "tags": [
+   "digital",
+   "factory",
+   "machine"
+  ],
+  "desc": "Rugged white edge computing box mounted next to a factory machine, small blue status lights, bright clean"
+ },
+ {
+  "id": "it-blockchain",
+  "file": "it-blockchain.jpg",
+  "cat": "it",
+  "tags": [
+   "blockchain",
+   "digital"
+  ],
+  "desc": "3D render of a chain of transparent glass blocks with blue glowing cores on a white background"
+ },
+ {
+  "id": "it-satellite",
+  "file": "it-satellite.jpg",
+  "cat": "it",
+  "tags": [
+   "cloud",
+   "digital",
+   "satellite"
+  ],
+  "desc": "White communication satellite over Earth's bright day side, blue oceans and clouds"
+ },
+ {
+  "id": "it-smart-city",
+  "file": "it-smart-city.jpg",
+  "cat": "it",
+  "tags": [
+   "city",
+   "digital"
+  ],
+  "desc": "Aerial daylight view of a modern green smart city with tall towers, parks, light rail, faint blue connection lines"
+ },
+ {
+  "id": "lean-gemba",
+  "file": "lean-gemba.jpg",
+  "cat": "lean",
+  "tags": [
+   "factory",
+   "gemba",
+   "lean",
+   "machine",
+   "safety",
+   "workers"
+  ],
+  "desc": "Bright factory floor gemba walk: supervisor and two workers in safety helmets discussing at a machine, natural light"
+ },
+ {
+  "id": "lean-kanban",
+  "file": "lean-kanban.jpg",
+  "cat": "lean",
+  "tags": [
+   "digital",
+   "factory",
+   "kanban",
+   "lean",
+   "workers"
+  ],
+  "desc": "Bright physical and digital kanban board in a factory with colorful cards and a large touchscreen, workers in front"
+ },
+ {
+  "id": "lean-5s",
+  "file": "lean-5s.jpg",
+  "cat": "lean",
+  "tags": [
+   "5s",
+   "lean"
+  ],
+  "desc": "Perfectly organized bright tool shadow board with labeled outlines, clean workshop, high-key"
+ },
+ {
+  "id": "lean-andon",
+  "file": "lean-andon.jpg",
+  "cat": "lean",
+  "tags": [
+   "andon",
+   "factory",
+   "lean"
+  ],
+  "desc": "Bright modern andon light tower above an assembly station with green light on, clean factory background"
+ },
+ {
+  "id": "lean-kaizen",
+  "file": "lean-kaizen.jpg",
+  "cat": "lean",
+  "tags": [
+   "factory",
+   "indonesia",
+   "kaizen",
+   "lean",
+   "meeting",
+   "team",
+   "workers"
+  ],
+  "desc": "Kaizen team meeting at a whiteboard covered with sticky notes on a bright factory mezzanine, Indonesian workers"
+ },
+ {
+  "id": "lean-training",
+  "file": "lean-training.jpg",
+  "cat": "lean",
+  "tags": [
+   "indonesia",
+   "industrial",
+   "lean",
+   "robot",
+   "training",
+   "workers"
+  ],
+  "desc": "Bright industrial training center, instructor teaching young Indonesian technicians at a robot cell"
+ },
+ {
+  "id": "lean-flow",
+  "file": "lean-flow.jpg",
+  "cat": "lean",
+  "tags": [
+   "factory",
+   "lean"
+  ],
+  "desc": "Single-piece flow U-shaped cell in a bright factory, operators working calmly, organized workstations"
+ },
+ {
+  "id": "lean-smed",
+  "file": "lean-smed.jpg",
+  "cat": "lean",
+  "tags": [
+   "lean",
+   "smed",
+   "workers"
+  ],
+  "desc": "Fast die change concept: workers using a quick-change cart at a bright stamping press, organized and clean"
+ },
+ {
+  "id": "lean-safety",
+  "file": "lean-safety.jpg",
+  "cat": "lean",
+  "tags": [
+   "factory",
+   "indonesia",
+   "lean",
+   "safety",
+   "workers"
+  ],
+  "desc": "Smiling Indonesian worker in safety gear giving thumbs up in a bright clean plant, daylight"
+ },
+ {
+  "id": "lean-engineers",
+  "file": "lean-engineers.jpg",
+  "cat": "lean",
+  "tags": [
+   "engineer",
+   "factory",
+   "indonesia",
+   "lean"
+  ],
+  "desc": "Two engineers (man and woman, Indonesian) reviewing blueprints on a tablet in a bright modern factory"
+ },
+ {
+  "id": "lean-pdca",
+  "file": "lean-pdca.jpg",
+  "cat": "lean",
+  "tags": [
+   "lean",
+   "pdca"
+  ],
+  "desc": "3D render of a circular glossy white loop with four colored segments (blue, cyan, teal, orange) floating on white, minimal"
+ },
+ {
+  "id": "id-industrial-estate",
+  "file": "id-industrial-estate.jpg",
+  "cat": "id",
+  "tags": [
+   "estate",
+   "factory",
+   "indonesia",
+   "industrial"
+  ],
+  "desc": "Aerial daylight view of a modern Indonesian industrial estate with white factory roofs, green trees, wide roads, blue sky"
+ },
+ {
+  "id": "id-port",
+  "file": "id-port.jpg",
+  "cat": "id",
+  "tags": [
+   "indonesia",
+   "port"
+  ],
+  "desc": "Aerial daylight view of a busy modern Indonesian container port with colorful containers and cranes, clear sea"
+ },
+ {
+  "id": "id-gov-building",
+  "file": "id-gov-building.jpg",
+  "cat": "id",
+  "tags": [
+   "gov",
+   "indonesia"
+  ],
+  "desc": "Modern Indonesian government building with tropical modern architecture, white facade, red and white flags (no emblem), bright sky"
+ },
+ {
+  "id": "id-conference",
+  "file": "id-conference.jpg",
+  "cat": "id",
+  "tags": [
+   "conference",
+   "indonesia"
+  ],
+  "desc": "Bright large conference hall with a speaker on stage in front of a big screen with abstract blue graphics, audience silhouettes"
+ },
+ {
+  "id": "id-workers",
+  "file": "id-workers.jpg",
+  "cat": "id",
+  "tags": [
+   "factory",
+   "indonesia",
+   "workers"
+  ],
+  "desc": "Group of proud Indonesian factory workers in clean uniforms and helmets standing in a bright modern plant"
+ },
+ {
+  "id": "id-mrt",
+  "file": "id-mrt.jpg",
+  "cat": "id",
+  "tags": [
+   "indonesia",
+   "skyline"
+  ],
+  "desc": "Modern Jakarta skyline in daylight with MRT train on elevated track, clean and optimistic"
+ },
+ {
+  "id": "id-nickel",
+  "file": "id-nickel.jpg",
+  "cat": "id",
+  "tags": [
+   "indonesia",
+   "industrial",
+   "nickel"
+  ],
+  "desc": "Modern nickel smelter processing facility in Sulawesi in bright daylight, clean industrial, blue sky and green hills"
+ },
+ {
+  "id": "id-ev-motorcycle",
+  "file": "id-ev-motorcycle.jpg",
+  "cat": "id",
+  "tags": [
+   "ev",
+   "factory",
+   "indonesia"
+  ],
+  "desc": "Electric motorcycle production line in Indonesia, bright factory, rows of white scooters being assembled"
+ },
+ {
+  "id": "id-batik-tech",
+  "file": "id-batik-tech.jpg",
+  "cat": "id",
+  "tags": [
+   "batik",
+   "indonesia"
+  ],
+  "desc": "Abstract fusion of Indonesian batik pattern made of glowing light-blue circuit lines on white fabric texture"
+ },
+ {
+  "id": "id-smk",
+  "file": "id-smk.jpg",
+  "cat": "id",
+  "tags": [
+   "cnc",
+   "indonesia",
+   "robot",
+   "training"
+  ],
+  "desc": "Bright vocational school workshop, Indonesian students in uniform learning on CNC and robot trainers"
+ },
+ {
+  "id": "id-farm-tech",
+  "file": "id-farm-tech.jpg",
+  "cat": "id",
+  "tags": [
+   "agriculture",
+   "data",
+   "drone",
+   "indonesia"
+  ],
+  "desc": "Smart agriculture in Indonesia: drone over bright green rice terraces with faint data overlay lines"
+ },
+ {
+  "id": "id-umkm",
+  "file": "id-umkm.jpg",
+  "cat": "id",
+  "tags": [
+   "digital",
+   "indonesia",
+   "umkm"
+  ],
+  "desc": "Small Indonesian manufacturer (UMKM) workshop going digital: craftsman using a tablet next to wooden products, bright window light"
+ },
+ {
+  "id": "id-handshake",
+  "file": "id-handshake.jpg",
+  "cat": "id",
+  "tags": [
+   "gov",
+   "indonesia",
+   "industry"
+  ],
+  "desc": "Business handshake between government official and industry executive in a bright modern lobby, Indonesia"
+ },
+ {
+  "id": "id-jakarta-aerial",
+  "file": "id-jakarta-aerial.jpg",
+  "cat": "id",
+  "tags": [
+   "indonesia"
+  ],
+  "desc": "Aerial view of Jakarta business district at bright morning, glass towers, green parks, light haze"
+ },
+ {
+  "id": "abs-aurora",
+  "file": "abs-aurora.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Soft pastel aurora gradient mesh background in white, light cyan, lavender and peach, smooth and premium"
+ },
+ {
+  "id": "abs-glass-waves",
+  "file": "abs-glass-waves.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "3D render of flowing translucent glass ribbons with iridescent cyan and violet reflections on white"
+ },
+ {
+  "id": "abs-grid-floor",
+  "file": "abs-grid-floor.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright minimal 3D scene: infinite white floor with a thin light-blue grid fading to horizon, soft sky"
+ },
+ {
+  "id": "abs-spheres",
+  "file": "abs-spheres.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "3D render of floating glossy white and chrome spheres with soft shadows on pale blue background"
+ },
+ {
+  "id": "abs-blueprint-light",
+  "file": "abs-blueprint-light.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Light technical blueprint background: thin blue engineering lines and gear drawings on white paper texture"
+ },
+ {
+  "id": "abs-particles",
+  "file": "abs-particles.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright abstract wave of tiny blue particles flowing across a white background, elegant"
+ },
+ {
+  "id": "abs-isometric-city",
+  "file": "abs-isometric-city.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract",
+   "city",
+   "factory"
+  ],
+  "desc": "Clean isometric 3D miniature smart factory city in white and light blue, soft shadows, toy-like premium"
+ },
+ {
+  "id": "abs-hex",
+  "file": "abs-hex.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright 3D hexagon pattern surface in white with a few glowing light-blue hexagons"
+ },
+ {
+  "id": "abs-light-tunnel",
+  "file": "abs-light-tunnel.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright white futuristic tunnel corridor with curved walls and light-blue LED lines converging, perspective"
+ },
+ {
+  "id": "abs-holo-gradient",
+  "file": "abs-holo-gradient.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract",
+   "twin"
+  ],
+  "desc": "Holographic iridescent foil gradient texture, pastel silver, cyan and pink, bright"
+ },
+ {
+  "id": "abs-circuit-white",
+  "file": "abs-circuit-white.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "White circuit board pattern with embossed traces and tiny glowing blue nodes, high-key macro"
+ },
+ {
+  "id": "abs-glass-panels",
+  "file": "abs-glass-panels.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Floating frosted glass panels with UI-like shapes (no text) in a bright white space, depth and soft shadows"
+ },
+ {
+  "id": "abs-orbit",
+  "file": "abs-orbit.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "3D render of thin chrome rings orbiting a glowing white core on a light grey background, minimal futuristic"
+ },
+ {
+  "id": "abs-terrain",
+  "file": "abs-terrain.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright low-poly white 3D terrain with thin blue wireframe overlay, airy"
+ },
+ {
+  "id": "abs-chrome-wave",
+  "file": "abs-chrome-wave.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Smooth liquid chrome wave shape reflecting a bright sky on a white background"
+ },
+ {
+  "id": "abs-dots-earth",
+  "file": "abs-dots-earth.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "White globe made of tiny blue dots on a bright white background with thin arcs connecting points"
+ },
+ {
+  "id": "abs-gear",
+  "file": "abs-gear.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "3D render of precision white ceramic gears interlocking with subtle blue accent, bright studio"
+ },
+ {
+  "id": "abs-light-lines",
+  "file": "abs-light-lines.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright minimal background of thin parallel light-blue lines bending into a smooth wave, lots of white space"
+ },
+ {
+  "id": "abs-future-road",
+  "file": "abs-future-road.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Bright futuristic highway at dawn with light trails, modern white bridges, optimistic"
+ },
+ {
+  "id": "abs-microscope",
+  "file": "abs-microscope.jpg",
+  "cat": "abs",
+  "tags": [
+   "abstract"
+  ],
+  "desc": "Scientist in a bright lab using a modern microscope, white and pale blue palette, clean"
+ }
+]

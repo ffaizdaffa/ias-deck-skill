@@ -14,3 +14,10 @@ PRD: `docs/PRD.md`. Repo privat `ffaizdaffa/ias-deck-skill`.
 - Jangan salin skill berlisensi AGPL atau tanpa lisensi ke `vendor/`.
 - Satu atribut `style` per elemen di template (pernah ada bug: `rv()` + `style` ganda membuat posisi node cycle hilang).
 - `install.sh` diuji dengan `HOME=<folder sementara> ./install.sh` agar tidak mengubah home asli.
+
+## Arah visual (8 Nov 2026, keputusan Faiz)
+- **Cerah, bukan gelap.** Semua 40 tema `mode: light`: gradien aurora pastel, panel kaca putih, HUD tipis, tipografi display besar. Referensi: board Pinterest "PPT Template Futuristic" (zaners5), versi cerah.
+- **Pustaka 100 gambar hero** di `skills/ias-deck/assets/heroes/` (render AI via Codex image generation, prompt di `tools/hero-prompts.txt`). Bangun ulang: `python3 tools/build_heroes.py <folder-png> tools/hero-prompts.txt`. Gaya prompt: bright high-key, white/pale + electric blue, subject kanan 60%, kiri 40% kosong, tanpa teks/logo.
+- Pemilihan hero otomatis: tag kata kunci judul (ID→EN di `KW` render.mjs) + bonus kategori per layout + bonus per keluarga tema.
+- Lembar pratinjau tema: `tools/theme_sheets.py`.
+- Higgsfield tidak bisa dipakai (paket gratis, kredit 0).

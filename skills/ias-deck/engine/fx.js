@@ -5,7 +5,7 @@
     const n = parseInt(hex.replace('#', ''), 16);
     return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
   };
-  const K = (c, base) => (c.light ? base * 0.75 : base); // alpha sedikit lebih rendah di tema terang
+  const K = (c, base) => (c.light ? base * 1.15 : base * 1.5); // alpha sedikit lebih rendah di tema terang
 
   const FX = {
     none: () => ({ draw() {} }),

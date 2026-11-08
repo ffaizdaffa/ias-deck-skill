@@ -32,7 +32,12 @@ const L = {
   },
   kpi(s) {
     const it = arr(s.items);
-    return `${head(s)}<div class="cards n${it.length}">${it.map((k) => `<div class="card ${rv()}"><div class="val">${T('span', 'v', k.value)}${T('span', 'u', k.unit)}</div>${T('div', 'lb', k.label)}${T('div', `dl ${String(k.delta || '').trim().startsWith('-') ? 'neg' : ''}`, k.delta)}</div>`).join('')}</div>`;
+    const gauge = (g) => { const r = 120, c = 2 * Math.PI * r, v = Math.max(0, Math.min(100, Number(g) || 0));
+      return `<svg class="gauge" viewBox="0 0 300 300"><circle class="tk" cx="150" cy="150" r="${r + 22}"/><circle class="bg" cx="150" cy="150" r="${r}"/><circle class="fg" cx="150" cy="150" r="${r}" stroke-dasharray="${(c * v / 100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 150 150)"/></svg>`; };
+    const spark = (d) => { if (!Array.isArray(d) || d.length < 2) return ''; const mx = Math.max(...d), mn = Math.min(...d), W = 300, H = 60;
+      const pts = d.map((v, i) => `${(i / (d.length - 1)) * W},${H - ((v - mn) / (mx - mn || 1)) * (H - 6) - 3}`).join(' ');
+      return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="M0,${H} L${pts.replace(/ /g, ' L')} L${W},${H}Z"/><polyline points="${pts}"/></svg>`; };
+    return `${head(s)}<div class="cards n${it.length}">${it.map((k, j) => `<div class="card ${rv()}">${gauge(k.gauge ?? [72, 58, 84, 66][j % 4])}<div class="ch"><b>Metric ${pad(j + 1)}</b><i></i></div><div class="val">${T('span', 'v', k.value)}${T('span', 'u', k.unit)}</div>${T('div', 'lb', k.label)}${T('div', `dl ${String(k.delta || '').trim().startsWith('-') ? 'neg' : ''}`, k.delta)}${spark(k.trend)}</div>`).join('')}</div>`;
   },
   bullets(s) {
     const p = arr(s.points).map(item);
@@ -41,7 +46,8 @@ const L = {
   split(s, ctx) {
     const p = arr(s.points).map(item);
     const text = `<div class="tx">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'body', s.text)}${p.length ? `<ul class="mini">${p.map((x) => `<li class="${rv()}">${T('span', 'it', x.title)}${T('span', 'ds', x.desc)}</li>`).join('')}</ul>` : ''}</div>`;
-    const vis = s.image ? img(s.image, ctx, 'vis card') : `<div class="vis card ${rv()}">${T('div', 'bigv', s.visualValue || '')}${T('div', 'lb', s.visualLabel || '')}</div>`;
+    const pic = s.image ? ctx.asset(s.image) : s.hero ? ctx.hero(s.hero) : '';
+    const vis = pic ? `<div class="photo ${rv()}"><div class="pf"><img src="${pic}" alt=""></div>${s.imageLabel ? `<span class="tagp">${esc(s.imageLabel)}</span>` : ''}</div>` : `<div class="vis card ${rv()}">${T('div', 'bigv', s.visualValue || '')}${T('div', 'lb', s.visualLabel || '')}</div>`;
     return s.side === 'left' ? vis + text : text + vis;
   },
   compare(s) {
@@ -59,11 +65,11 @@ const L = {
   cycle(s) {
     const it = arr(s.items).map(item), n = it.length || 4;
     const nodes = it.map((x, i) => {
-      const a = -Math.PI / 2 + (i * 2 * Math.PI) / n, X = 50 + Math.cos(a) * 34, Y = 50 + Math.sin(a) * 38;
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / n, X = 50 + Math.cos(a) * 34, Y = 50 + Math.sin(a) * 35;
       return `<div class="nd card rv" style="--d:${RV++};left:${X.toFixed(2)}%;top:${Y.toFixed(2)}%">${T('div', 'ix', x.tag || pad(i + 1))}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`;
     }).join('');
     return `<div class="side">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'lead', s.subtitle)}</div>
-    <div class="ring"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="34" ry="38"/></svg>${T('div', 'ctr', s.center)}${nodes}</div>`;
+    <div class="ring"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="34" ry="38"/><ellipse class="in" cx="50" cy="50" rx="22" ry="25" style="stroke:var(--ln);stroke-dasharray:none"/></svg>${T('div', 'ctr', s.center)}${nodes}</div>`;
   },
   grid(s) {
     const it = arr(s.items).map(item), c = s.columns || (it.length <= 4 ? it.length : Math.ceil(it.length / 2));
@@ -99,7 +105,7 @@ const L = {
     <div class="tx">${T('div', 'kicker', s.kicker || 'Pembicara')}${T('h2', 'title', sp.name)}${T('p', 'lead', sp.role)}<ul class="mini">${arr(s.points).map((p) => `<li class="${rv()}">${T('span', 'it', p)}</li>`).join('')}</ul></div>`;
   },
   image(s, ctx) {
-    return `${img(s.image, ctx, 'full')}<div class="cap">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'lead', s.caption)}</div>`;
+    return `<div class="cap">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'lead', s.caption)}</div>`;
   },
   closing(s) {
     return `${T('div', 'kicker', s.kicker)}${T('h1', 'title', s.title || 'Terima kasih')}${T('p', 'lead', s.subtitle)}<ul class="ct">${arr(s.contact).map((c) => T('li', '', c)).join('')}</ul>`;
@@ -118,9 +124,19 @@ export function renderSlide(s, i, total, ctx) {
   if (!fn) throw new Error(`Slide ${i + 1}: layout "${s.layout}" tidak dikenal. Pilihan: ${Object.keys(L).join(', ')}`);
   const body = fn(s, ctx);
   const brand = ctx.deck.brand || {};
-  const foot = `<footer class="foot"><span class="br">${brand.logo ? `<img src="${ctx.asset(brand.logo)}" alt="">` : ''}${esc(brand.name || '')}</span><span class="pg">${pad(i + 1)} / ${pad(total)}</span></footer>`;
+  const foot = brand.logo || brand.name ? `<footer class="foot">${brand.logo ? `<img src="${ctx.asset(brand.logo)}" alt="">` : ''}${esc(brand.name || '')}</footer>` : '';
+  const prog = Array.from({ length: total }, (_, k) => `<i${k === i ? ' class="on"' : ''}></i>`).join('');
+  const decor = `<div class="decor"><span class="d-cn"></span><span class="d-zn"></span><span class="d-rl"></span><span class="d-scan"></span>
+<span class="d-tl"><b>IAS</b> // ${esc(ctx.code)}<i>SEQ ${pad(i + 1)}</i></span><span class="d-tr"><span class="clk">${esc(ctx.clock)}</span><span class="sig"><i></i><i></i><i></i><i></i><i></i></span></span>
+<span class="d-bl">LAT −6.2088 · LON 106.8456 · ${esc(ctx.date)}</span><span class="d-br">${pad(i + 1)} / ${pad(total)}</span><span class="d-prog">${total <= 30 ? prog : ''}</span></div>`;
+  const heroSrc = ctx.heroFor(s, i);
+  const full = ['cover', 'closing', 'image', 'statement'].includes(s.layout);
+  const hero = !heroSrc ? '' : full
+    ? `<div class="hero ${ctx.tint}"><img src="${heroSrc}" alt=""></div>${s.layout === 'cover' ? `<div class="reticle"><i></i><span>Target lock · ${esc(ctx.code)}</span></div>` : ''}`
+    : `<div class="photo"><div class="pf"><img src="${heroSrc}" alt=""></div></div>`;
+  const ghost = s.ghost !== false && ['cover', 'section', 'closing', 'agenda'].includes(s.layout) ? `<div class="ghost">${esc(s.ghost || (s.layout === 'section' ? s.kicker || s.title : ctx.code).split(/\s+/)[0])}</div>` : '';
   return `<section class="slide L-${s.layout === 'before-after' ? 'beforeafter' : s.layout}${s.align ? ' al-' + esc(s.align) : ''}" data-i="${i}">
-<canvas class="fx" width="1920" height="1080"></canvas><div class="decor" data-code="${esc(ctx.code)}" data-n="${pad(i + 1)}"></div>
+<canvas class="fx" width="1920" height="1080"></canvas>${ghost}${hero}${decor}
 <div class="frame">${body}</div>${foot}
 <aside class="notes">${esc(s.notes || '')}</aside></section>`;
 }

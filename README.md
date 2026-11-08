@@ -1,6 +1,6 @@
 # IAS Deck Skill
 
-**Skill pembuat presentasi futuristik untuk Claude Code & Codex.**
+**Skill pembuat presentasi futuristik bergaya cerah untuk Claude Code & Codex.**
 Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperin tentang lean digital factory"* — dan AI akan menyusun alur cerita, memilih layout, lalu menghasilkan:
 
 | Keluaran | Untuk apa |
@@ -9,7 +9,9 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 | **PDF** | Dibagikan ke peserta |
 | **PPTX** | Dikirim ke panitia / diedit di PowerPoint atau Keynote — teks & grafik asli, efek futuristik ikut sebagai latar |
 
+- **Gaya cinematic tech yang cerah**: latar putih/pucat dengan gradien aurora, panel kaca putih, garis HUD tipis, tipografi display besar
 - **40 tema** dalam 6 keluarga: HUD / Command Center · Blueprint / Engineering · Digital Twin · Smart Factory · Data Terminal · Clean Future
+- **100 gambar hero render AI** (manufaktur, Industri 4.0, AI, robotik, IT, lean, Indonesia/Kemenperin, latar 3D abstrak), dipilih otomatis sesuai judul slide. Galeri: `skills/ias-deck/assets/heroes/index.html`
 - **21 layout** khusus materi industri: KPI, value stream map, siklus PDCA, 8 waste (TIMWOODS), sebelum–sesudah, roadmap, arsitektur berlapis, grafik, tabel, dan lainnya
 - Semua tema lolos uji kontras WCAG, sehingga tetap terbaca di proyektor ruangan besar
 - Logo & warna aksen bisa diganti per acara (Astra, Kemenperin, pribadi)
@@ -63,7 +65,9 @@ node skills/ias-deck/engine/render.mjs --gallery --out out && open out/gallery.h
 ```
 Daftar lengkap & rekomendasi per jenis acara: [`skills/ias-deck/references/themes.md`](skills/ias-deck/references/themes.md).
 
-Rekomendasi cepat: forum resmi di ruangan terang → `clean-swiss`, `clean-porcelain`, `bp-paper`, `hud-arctic` · nuansa nasional → `clean-merahputih` · keynote IT di ruangan gelap/LED → `hud-cobalt`, `twin-hologram` · lean/shop-floor → `bp-classic`, `fac-safety`.
+Rekomendasi cepat: forum resmi Kemenperin → `clean-merahputih`, `clean-porcelain`, `hud-arctic` · keynote IT/AI → `hud-cobalt`, `hud-ion`, `twin-hologram` · lean/shop-floor → `bp-classic`, `fac-safety`.
+
+Gambar hero: buka `skills/ias-deck/assets/heroes/index.html`, lalu sebut id-nya ke AI (mis. *"sampul pakai mfg-digital-twin"*).
 
 ## 4. Pakai manual (tanpa AI)
 
@@ -96,8 +100,9 @@ skills/ias-deck/
   SKILL.md                 instruksi untuk Claude/Codex
   references/              tema, layout, panduan cerita
   examples/                contoh deck lean (18 slide)
+  assets/heroes/           100 gambar hero + heroes.json (tag) + index.html (galeri)
   engine/
-    themes.json            40 tema (warna, font, efek, gaya kartu)
+    themes.json            40 tema cerah (warna, font, efek, gaya kartu)
     layouts.mjs            21 layout
     deck.css / deck.js     tampilan & runtime (navigasi, presenter, animasi)
     fx.js                  12 efek latar canvas
@@ -106,6 +111,7 @@ skills/ias-deck/
     check-themes.mjs       uji kontras & kelengkapan tema
     install-fonts.mjs      pemasang font
 vendor/                    3 skill MIT (submodule)
+tools/build_heroes.py      membangun ulang pustaka hero dari PNG hasil generate
 install.sh
 ```
 

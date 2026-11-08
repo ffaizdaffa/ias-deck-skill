@@ -36,6 +36,20 @@ def rgb(css):
     return None
 
 
+def set_outline(run, col):
+    """Teks outline (isi kosong, garis tepi warna aksen) — untuk angka besar layout section/agenda."""
+    from pptx.oxml.ns import qn
+    from lxml import etree
+    rpr = run._r.get_or_add_rPr()
+    for old in rpr.findall(qn("a:solidFill")) + rpr.findall(qn("a:noFill")) + rpr.findall(qn("a:ln")):
+        rpr.remove(old)
+    ln = etree.Element(qn("a:ln"), w="25400")
+    fill = etree.SubElement(ln, qn("a:solidFill"))
+    etree.SubElement(fill, qn("a:srgbClr"), val=str(col))
+    rpr.insert(0, ln)  # urutan skema OOXML: ln, lalu isi (noFill), lalu font
+    rpr.insert(1, etree.Element(qn("a:noFill")))
+
+
 def set_spacing(run, ls_px):
     if ls_px:
         run._r.get_or_add_rPr().set("spc", str(int(ls_px * 0.5 * 100)))  # 1px = 0,5pt; spc dalam 1/100 pt
@@ -82,7 +96,9 @@ def add_text(slide, t):
         f.italic = r.get("i", False)
         f.name = r.get("f") or None
         col = rgb(r.get("c"))
-        if col is not None:
+        if r.get("o") and col is not None:
+            set_outline(run, col)
+        elif col is not None:
             f.color.rgb = col
         set_spacing(run, t.get("ls", 0))
 

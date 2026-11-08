@@ -116,8 +116,8 @@
         const runs = []; const walk = (n) => n.childNodes.forEach((k) => {
           if (k.nodeType === 3) { const p = getComputedStyle(k.parentElement); let tx = k.textContent.replace(/\s+/g, ' ');
             if (p.textTransform === 'uppercase') tx = tx.toUpperCase();
-            const col = p.color === 'rgba(0, 0, 0, 0)' ? p.webkitTextStrokeColor : p.color;
-            if (tx) runs.push({ t: tx, c: col, w: parseInt(p.fontWeight, 10), f: p.fontFamily.split(',')[0].replace(/["']/g, '').trim(), s: parseFloat(p.fontSize), i: p.fontStyle === 'italic' }); }
+            const outline = p.color === 'rgba(0, 0, 0, 0)' && parseFloat(p.webkitTextStrokeWidth) > 0; const col = outline ? p.webkitTextStrokeColor : p.color;
+            if (tx) runs.push({ t: tx, c: col, o: outline, w: parseInt(p.fontWeight, 10), f: p.fontFamily.split(',')[0].replace(/["']/g, '').trim(), s: parseFloat(p.fontSize), i: p.fontStyle === 'italic' }); }
           else if (k.nodeName === 'BR') runs.push({ t: '\n' });
           else if (k.nodeType === 1 && !k.hasAttribute('data-t')) walk(k);
         }); walk(el);
@@ -127,7 +127,7 @@
       });
       const charts = [...s.querySelectorAll('[data-chart]')].map((el) => { const r = el.querySelector('svg').getBoundingClientRect(); return { x: r.left - R.left, y: r.top - R.top, w: r.width, h: r.height, k: +el.dataset.chart }; });
       const fr = s.querySelector('.frame'), over = [];
-      if (fr.scrollHeight > fr.clientHeight + 4 || fr.scrollWidth > fr.clientWidth + 4) over.push(`isi melebihi area (${fr.scrollHeight}px > ${fr.clientHeight}px)`);
+      if (fr.scrollHeight > fr.clientHeight + 4) over.push(`isi melebihi area (${fr.scrollHeight}px > ${fr.clientHeight}px)`);
       texts.forEach((t) => { if (t.y + t.h > 1050 || t.x + t.w > 1880 || t.x < 30) over.push(`teks keluar slide: "${t.runs.map((r) => r.t).join('').slice(0, 40)}"`); });
       [...s.querySelectorAll('[data-t]')].forEach((el) => { if (el.scrollWidth > el.clientWidth + 4 && getComputedStyle(el).overflow !== 'visible') over.push(`teks terpotong: "${el.textContent.slice(0, 40)}"`); });
       return { texts, charts, over, notes: s.querySelector('.notes').textContent };

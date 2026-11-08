@@ -1,72 +1,528 @@
 {
-  "title": "Lean Digital Factory",
-  "code": "LEAN-4.0",
-  "theme": "hud-cobalt",
-  "speaker": { "name": "Irfan A. Shidiq", "role": "General Manager IT" },
-  "event": "Forum Industri 4.0 · Kementerian Perindustrian",
-  "brand": { "name": "IAS Deck", "logo": "" },
-  "slides": [
-    { "layout": "cover", "kicker": "Keynote · Lean Manufacturing", "title": "Lean **Digital** Factory", "subtitle": "Menggabungkan disiplin Toyota Production System dengan data real-time untuk pabrik Indonesia yang lebih cepat dan lebih hemat.", "notes": "Buka dengan pertanyaan ke audiens: berapa persen waktu di lini Anda yang benar-benar menambah nilai?" },
-    { "layout": "agenda", "title": "Peta perjalanan hari ini", "items": [
-      { "title": "Mengapa lean masih relevan", "desc": "Pemborosan yang tidak terlihat di laporan" },
-      { "title": "8 pemborosan di era digital", "desc": "TIMWOODS dan versi datanya" },
-      { "title": "Value stream: dari kertas ke sensor", "desc": "Studi kasus satu lini" },
-      { "title": "Arsitektur pabrik terhubung", "desc": "Dari mesin sampai dashboard" },
-      { "title": "Roadmap 18 bulan", "desc": "Langkah kecil yang terukur" } ], "notes": "Agenda 5 bagian, total 30 menit." },
-    { "layout": "section", "number": "01", "kicker": "Bagian satu", "title": "Pemborosan yang tidak terlihat", "subtitle": "Data ada di mana-mana, keputusan masih menunggu laporan bulanan." },
-    { "layout": "statement", "kicker": "Prinsip", "text": "Tujuan digitalisasi bukan menambah layar, tetapi **memperpendek waktu** antara masalah terjadi dan tindakan diambil.", "source": "Prinsip kerja tim" },
-    { "layout": "kpi", "kicker": "Contoh hasil pilot (data ilustrasi)", "title": "Dampak 6 bulan di satu lini", "items": [
-      { "value": "+18", "unit": "%", "label": "OEE lini perakitan", "delta": "▲ dari 61% ke 79%" },
-      { "value": "-42", "unit": "%", "label": "Waktu changeover", "delta": "▲ SMED + panduan digital" },
-      { "value": "3,1", "unit": "hari", "label": "Lead time produksi", "delta": "▲ turun dari 7,4 hari" } ], "notes": "Tegaskan ini angka ilustrasi; ganti dengan data pilot sebenarnya." },
-    { "layout": "grid", "kicker": "TIMWOODS", "title": "8 pemborosan, versi pabrik digital", "items": [
-      { "tag": "T", "title": "Transport", "desc": "Perpindahan material tanpa nilai" },
-      { "tag": "I", "title": "Inventory", "desc": "Stok WIP menumpuk antar proses" },
-      { "tag": "M", "title": "Motion", "desc": "Gerakan operator yang tidak perlu" },
-      { "tag": "W", "title": "Waiting", "desc": "Mesin & orang menunggu" },
-      { "tag": "O", "title": "Overproduction", "desc": "Produksi melebihi permintaan" },
-      { "tag": "O", "title": "Overprocessing", "desc": "Kerja melebihi kebutuhan pelanggan" },
-      { "tag": "D", "title": "Defects", "desc": "Cacat, rework, scrap" },
-      { "tag": "S", "title": "Skills", "desc": "Potensi tim tidak dipakai" } ] },
-    { "layout": "vsm", "kicker": "Value stream map", "title": "Satu lini, dari bahan baku sampai kirim", "steps": [
-      { "name": "Stamping", "ct": "45 dtk", "co": "60 mnt", "up": "85%", "va": "45 dtk" },
-      { "name": "Welding", "ct": "62 dtk", "co": "30 mnt", "up": "90%", "va": "62 dtk" },
-      { "name": "Painting", "ct": "80 dtk", "co": "45 mnt", "up": "78%", "va": "80 dtk" },
-      { "name": "Assembly", "ct": "55 dtk", "co": "15 mnt", "up": "95%", "va": "55 dtk" } ],
-      "inventory": ["2,5 hari", "1,8 hari", "3,1 hari"], "summary": { "leadTime": "7,4 hr", "valueAdded": "242 dtk", "pce": "0,05%" },
-      "notes": "Process cycle efficiency sangat kecil — itulah ruang perbaikan." },
-    { "layout": "beforeafter", "kicker": "Studi kasus", "title": "Changeover di lini painting", "before": { "title": "Manual & kertas", "points": ["Checklist kertas, sering tertinggal", "Setting parameter dari ingatan operator", "Tidak ada data durasi per langkah"], "metric": "45 mnt", "metricLabel": "rata-rata changeover" }, "after": { "title": "SMED + panduan digital", "points": ["Langkah eksternal dipindah sebelum mesin berhenti", "Resep parameter otomatis dari MES", "Timer per langkah di tablet operator"], "metric": "26 mnt", "metricLabel": "rata-rata changeover" } },
-    { "layout": "cycle", "kicker": "Ritme perbaikan", "title": "PDCA berbasis data", "subtitle": "Setiap siklus diukur, bukan diperkirakan.", "center": "PDCA", "items": [
-      { "tag": "P", "title": "Plan", "desc": "Hipotesis dari data downtime" },
-      { "tag": "D", "title": "Do", "desc": "Uji kecil di satu shift" },
-      { "tag": "C", "title": "Check", "desc": "Bandingkan otomatis vs baseline" },
-      { "tag": "A", "title": "Act", "desc": "Standarkan & sebar ke lini lain" } ] },
-    { "layout": "chart", "kicker": "Tren OEE (data ilustrasi)", "title": "OEE naik bertahap, bukan lompatan", "chart": { "type": "line", "labels": ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"], "series": [{ "name": "OEE", "data": [61, 64, 68, 71, 76, 79] }], "unit": "%" }, "insight": "Kenaikan terbesar datang dari **availability**: downtime tak terencana turun setelah alarm real-time." },
-    { "layout": "chart", "kicker": "Sumber downtime (data ilustrasi)", "title": "Apa yang menghentikan lini", "chart": { "type": "bar", "labels": ["Setup", "Material", "Breakdown", "Quality", "Lain"], "series": [{ "name": "Jam/bulan", "data": [38, 27, 21, 12, 6] }], "unit": "j" }, "insight": "80% downtime dari 3 penyebab. Fokus di sana dulu." },
-    { "layout": "layers", "kicker": "Arsitektur", "title": "Pabrik terhubung dalam 4 lapis", "layers": [
-      { "name": "Keputusan", "items": ["Dashboard OEE", "Andon digital", "Analitik AI"] },
-      { "name": "Aplikasi", "items": ["MES", "ERP", "CMMS", "QMS"] },
-      { "name": "Data", "items": ["Historian", "Data lake", "API gateway"] },
-      { "name": "Mesin", "items": ["PLC", "Sensor IoT", "Edge gateway", "Tablet operator"] } ] },
-    { "layout": "process", "kicker": "Cara memulai", "title": "Lima langkah tanpa proyek raksasa", "steps": [
-      { "title": "Pilih 1 lini", "desc": "Masalah jelas, tim siap" },
-      { "title": "Ukur baseline", "desc": "OEE, lead time, defect" },
-      { "title": "Hubungkan data", "desc": "Sensor & input digital" },
-      { "title": "Perbaiki", "desc": "Kaizen mingguan" },
-      { "title": "Standarkan", "desc": "Replikasi ke lini lain" } ] },
-    { "layout": "timeline", "kicker": "Roadmap", "title": "18 bulan menuju lean digital", "items": [
-      { "when": "Q1", "title": "Pilot 1 lini", "desc": "Baseline & sensor dasar" },
-      { "when": "Q2", "title": "Andon digital", "desc": "Respons < 5 menit" },
-      { "when": "Q3", "title": "MES terintegrasi", "desc": "Resep & traceability" },
-      { "when": "Q4", "title": "5 lini", "desc": "Replikasi standar" },
-      { "when": "Q5–Q6", "title": "Analitik prediktif", "desc": "Maintenance berbasis kondisi" } ] },
-    { "layout": "compare", "kicker": "Pilihan pendekatan", "title": "Big bang atau bertahap?", "left": { "label": "Opsi A", "title": "Big bang", "points": ["Investasi besar di depan", "Risiko adopsi tinggi", "Hasil baru terlihat > 12 bulan"] }, "right": { "label": "Opsi B · disarankan", "title": "Bertahap per lini", "points": ["Mulai dari masalah nyata", "Bukti dalam 90 hari", "Biaya mengikuti hasil"] } },
-    { "layout": "table", "kicker": "Ukuran keberhasilan", "title": "KPI yang dipantau mingguan", "columns": ["KPI", "Definisi", "Baseline", "Target"], "rows": [
-      ["OEE", "Availability × Performance × Quality", "61%", "≥ 80%"],
-      ["Lead time", "Bahan baku masuk sampai kirim", "7,4 hari", "≤ 3 hari"],
-      ["Changeover", "Rata-rata durasi ganti model", "45 mnt", "≤ 20 mnt"],
-      ["First pass yield", "Lolos tanpa rework", "92%", "≥ 98%"] ] },
-    { "layout": "quote", "text": "Tanpa standar, tidak ada perbaikan berkelanjutan.", "author": "Prinsip kaizen", "role": "Toyota Production System" },
-    { "layout": "closing", "kicker": "Terima kasih", "title": "Mari mulai dari **satu lini**.", "subtitle": "Diskusi & tanya jawab", "contact": ["Irfan A. Shidiq", "General Manager IT"] }
-  ]
+ "title": "Lean Digital Factory",
+ "code": "LEAN-4.0",
+ "theme": "hud-cobalt",
+ "speaker": {
+  "name": "Irfan A. Shidiq",
+  "role": "General Manager IT"
+ },
+ "event": "Forum Industri 4.0 · Kementerian Perindustrian",
+ "brand": {
+  "name": "IAS Deck",
+  "logo": ""
+ },
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "Keynote · Lean Manufacturing",
+   "title": "Lean **Digital** Factory",
+   "subtitle": "Menggabungkan disiplin Toyota Production System dengan data real-time untuk pabrik Indonesia yang lebih cepat dan lebih hemat.",
+   "notes": "Buka dengan pertanyaan ke audiens: berapa persen waktu di lini Anda yang benar-benar menambah nilai?",
+   "hero": "mfg-digital-twin"
+  },
+  {
+   "layout": "agenda",
+   "title": "Peta perjalanan hari ini",
+   "items": [
+    {
+     "title": "Mengapa lean masih relevan",
+     "desc": "Pemborosan yang tidak terlihat di laporan"
+    },
+    {
+     "title": "8 pemborosan di era digital",
+     "desc": "TIMWOODS dan versi datanya"
+    },
+    {
+     "title": "Value stream: dari kertas ke sensor",
+     "desc": "Studi kasus satu lini"
+    },
+    {
+     "title": "Arsitektur pabrik terhubung",
+     "desc": "Dari mesin sampai dashboard"
+    },
+    {
+     "title": "Roadmap 18 bulan",
+     "desc": "Langkah kecil yang terukur"
+    }
+   ],
+   "notes": "Agenda 5 bagian, total 30 menit."
+  },
+  {
+   "layout": "section",
+   "number": "01",
+   "kicker": "Bagian satu",
+   "title": "Pemborosan yang tidak terlihat",
+   "subtitle": "Data ada di mana-mana, keputusan masih menunggu laporan bulanan.",
+   "hero": "mfg-smart-floor"
+  },
+  {
+   "layout": "statement",
+   "kicker": "Prinsip",
+   "text": "Tujuan digitalisasi bukan menambah layar, tetapi **memperpendek waktu** antara masalah terjadi dan tindakan diambil.",
+   "source": "Prinsip kerja tim"
+  },
+  {
+   "layout": "split",
+   "kicker": "Gemba tetap nomor satu",
+   "title": "Data mempercepat, **gemba** memastikan",
+   "text": "Sensor dan dashboard memberi sinyal lebih cepat, tetapi keputusan tetap diuji di lantai produksi bersama operator.",
+   "points": [
+    {
+     "title": "Lihat langsung",
+     "desc": "Konfirmasi data di lokasi"
+    },
+    {
+     "title": "Tanya operator",
+     "desc": "Mereka paling tahu hambatannya"
+    }
+   ],
+   "hero": "lean-gemba",
+   "imageLabel": "Gemba walk · Lini 3",
+   "notes": "Tekankan: digitalisasi tidak menggantikan gemba."
+  },
+  {
+   "layout": "kpi",
+   "kicker": "Contoh hasil pilot (data ilustrasi)",
+   "title": "Dampak 6 bulan di satu lini",
+   "items": [
+    {
+     "value": "+18",
+     "unit": "%",
+     "label": "OEE lini perakitan",
+     "delta": "▲ dari 61% ke 79%",
+     "trend": [
+      61,
+      63,
+      66,
+      70,
+      74,
+      79
+     ],
+     "gauge": 79
+    },
+    {
+     "value": "-42",
+     "unit": "%",
+     "label": "Waktu changeover",
+     "delta": "▲ SMED + panduan digital",
+     "trend": [
+      45,
+      41,
+      36,
+      33,
+      29,
+      26
+     ],
+     "gauge": 58
+    },
+    {
+     "value": "3,1",
+     "unit": "hari",
+     "label": "Lead time produksi",
+     "delta": "▲ turun dari 7,4 hari",
+     "trend": [
+      7.4,
+      6.1,
+      5.2,
+      4.4,
+      3.6,
+      3.1
+     ],
+     "gauge": 72
+    }
+   ],
+   "notes": "Tegaskan ini angka ilustrasi; ganti dengan data pilot sebenarnya."
+  },
+  {
+   "layout": "grid",
+   "kicker": "TIMWOODS",
+   "title": "8 pemborosan, versi pabrik digital",
+   "items": [
+    {
+     "tag": "T",
+     "title": "Transport",
+     "desc": "Perpindahan material tanpa nilai"
+    },
+    {
+     "tag": "I",
+     "title": "Inventory",
+     "desc": "Stok WIP menumpuk antar proses"
+    },
+    {
+     "tag": "M",
+     "title": "Motion",
+     "desc": "Gerakan operator yang tidak perlu"
+    },
+    {
+     "tag": "W",
+     "title": "Waiting",
+     "desc": "Mesin & orang menunggu"
+    },
+    {
+     "tag": "O",
+     "title": "Overproduction",
+     "desc": "Produksi melebihi permintaan"
+    },
+    {
+     "tag": "O",
+     "title": "Overprocessing",
+     "desc": "Kerja melebihi kebutuhan pelanggan"
+    },
+    {
+     "tag": "D",
+     "title": "Defects",
+     "desc": "Cacat, rework, scrap"
+    },
+    {
+     "tag": "S",
+     "title": "Skills",
+     "desc": "Potensi tim tidak dipakai"
+    }
+   ]
+  },
+  {
+   "layout": "vsm",
+   "kicker": "Value stream map",
+   "title": "Satu lini, dari bahan baku sampai kirim",
+   "steps": [
+    {
+     "name": "Stamping",
+     "ct": "45 dtk",
+     "co": "60 mnt",
+     "up": "85%",
+     "va": "45 dtk"
+    },
+    {
+     "name": "Welding",
+     "ct": "62 dtk",
+     "co": "30 mnt",
+     "up": "90%",
+     "va": "62 dtk"
+    },
+    {
+     "name": "Painting",
+     "ct": "80 dtk",
+     "co": "45 mnt",
+     "up": "78%",
+     "va": "80 dtk"
+    },
+    {
+     "name": "Assembly",
+     "ct": "55 dtk",
+     "co": "15 mnt",
+     "up": "95%",
+     "va": "55 dtk"
+    }
+   ],
+   "inventory": [
+    "2,5 hari",
+    "1,8 hari",
+    "3,1 hari"
+   ],
+   "summary": {
+    "leadTime": "7,4 hr",
+    "valueAdded": "242 dtk",
+    "pce": "0,05%"
+   },
+   "notes": "Process cycle efficiency sangat kecil — itulah ruang perbaikan."
+  },
+  {
+   "layout": "beforeafter",
+   "kicker": "Studi kasus",
+   "title": "Changeover di lini painting",
+   "before": {
+    "title": "Manual & kertas",
+    "points": [
+     "Checklist kertas, sering tertinggal",
+     "Setting parameter dari ingatan operator",
+     "Tidak ada data durasi per langkah"
+    ],
+    "metric": "45 mnt",
+    "metricLabel": "rata-rata changeover"
+   },
+   "after": {
+    "title": "SMED + panduan digital",
+    "points": [
+     "Langkah eksternal dipindah sebelum mesin berhenti",
+     "Resep parameter otomatis dari MES",
+     "Timer per langkah di tablet operator"
+    ],
+    "metric": "26 mnt",
+    "metricLabel": "rata-rata changeover"
+   }
+  },
+  {
+   "layout": "cycle",
+   "kicker": "Ritme perbaikan",
+   "title": "PDCA berbasis data",
+   "subtitle": "Setiap siklus diukur, bukan diperkirakan.",
+   "center": "PDCA",
+   "items": [
+    {
+     "tag": "P",
+     "title": "Plan",
+     "desc": "Hipotesis dari data downtime"
+    },
+    {
+     "tag": "D",
+     "title": "Do",
+     "desc": "Uji kecil di satu shift"
+    },
+    {
+     "tag": "C",
+     "title": "Check",
+     "desc": "Bandingkan otomatis vs baseline"
+    },
+    {
+     "tag": "A",
+     "title": "Act",
+     "desc": "Standarkan & sebar ke lini lain"
+    }
+   ]
+  },
+  {
+   "layout": "chart",
+   "kicker": "Tren OEE (data ilustrasi)",
+   "title": "OEE naik bertahap, bukan lompatan",
+   "chart": {
+    "type": "line",
+    "labels": [
+     "Jan",
+     "Feb",
+     "Mar",
+     "Apr",
+     "Mei",
+     "Jun"
+    ],
+    "series": [
+     {
+      "name": "OEE",
+      "data": [
+       61,
+       64,
+       68,
+       71,
+       76,
+       79
+      ]
+     }
+    ],
+    "unit": "%"
+   },
+   "insight": "Kenaikan terbesar datang dari **availability**: downtime tak terencana turun setelah alarm real-time."
+  },
+  {
+   "layout": "chart",
+   "kicker": "Sumber downtime (data ilustrasi)",
+   "title": "Apa yang menghentikan lini",
+   "chart": {
+    "type": "bar",
+    "labels": [
+     "Setup",
+     "Material",
+     "Breakdown",
+     "Quality",
+     "Lain"
+    ],
+    "series": [
+     {
+      "name": "Jam/bulan",
+      "data": [
+       38,
+       27,
+       21,
+       12,
+       6
+      ]
+     }
+    ],
+    "unit": "j"
+   },
+   "insight": "80% downtime dari 3 penyebab. Fokus di sana dulu."
+  },
+  {
+   "layout": "layers",
+   "kicker": "Arsitektur",
+   "title": "Pabrik terhubung dalam 4 lapis",
+   "layers": [
+    {
+     "name": "Keputusan",
+     "items": [
+      "Dashboard OEE",
+      "Andon digital",
+      "Analitik AI"
+     ]
+    },
+    {
+     "name": "Aplikasi",
+     "items": [
+      "MES",
+      "ERP",
+      "CMMS",
+      "QMS"
+     ]
+    },
+    {
+     "name": "Data",
+     "items": [
+      "Historian",
+      "Data lake",
+      "API gateway"
+     ]
+    },
+    {
+     "name": "Mesin",
+     "items": [
+      "PLC",
+      "Sensor IoT",
+      "Edge gateway",
+      "Tablet operator"
+     ]
+    }
+   ]
+  },
+  {
+   "layout": "process",
+   "kicker": "Cara memulai",
+   "title": "Lima langkah tanpa proyek raksasa",
+   "steps": [
+    {
+     "title": "Pilih 1 lini",
+     "desc": "Masalah jelas, tim siap"
+    },
+    {
+     "title": "Ukur baseline",
+     "desc": "OEE, lead time, defect"
+    },
+    {
+     "title": "Hubungkan data",
+     "desc": "Sensor & input digital"
+    },
+    {
+     "title": "Perbaiki",
+     "desc": "Kaizen mingguan"
+    },
+    {
+     "title": "Standarkan",
+     "desc": "Replikasi ke lini lain"
+    }
+   ]
+  },
+  {
+   "layout": "timeline",
+   "kicker": "Roadmap",
+   "title": "18 bulan menuju lean digital",
+   "items": [
+    {
+     "when": "Q1",
+     "title": "Pilot 1 lini",
+     "desc": "Baseline & sensor dasar"
+    },
+    {
+     "when": "Q2",
+     "title": "Andon digital",
+     "desc": "Respons < 5 menit"
+    },
+    {
+     "when": "Q3",
+     "title": "MES terintegrasi",
+     "desc": "Resep & traceability"
+    },
+    {
+     "when": "Q4",
+     "title": "5 lini",
+     "desc": "Replikasi standar"
+    },
+    {
+     "when": "Q5–Q6",
+     "title": "Analitik prediktif",
+     "desc": "Maintenance berbasis kondisi"
+    }
+   ]
+  },
+  {
+   "layout": "compare",
+   "kicker": "Pilihan pendekatan",
+   "title": "Big bang atau bertahap?",
+   "left": {
+    "label": "Opsi A",
+    "title": "Big bang",
+    "points": [
+     "Investasi besar di depan",
+     "Risiko adopsi tinggi",
+     "Hasil baru terlihat > 12 bulan"
+    ]
+   },
+   "right": {
+    "label": "Opsi B · disarankan",
+    "title": "Bertahap per lini",
+    "points": [
+     "Mulai dari masalah nyata",
+     "Bukti dalam 90 hari",
+     "Biaya mengikuti hasil"
+    ]
+   }
+  },
+  {
+   "layout": "table",
+   "kicker": "Ukuran keberhasilan",
+   "title": "KPI yang dipantau mingguan",
+   "columns": [
+    "KPI",
+    "Definisi",
+    "Baseline",
+    "Target"
+   ],
+   "rows": [
+    [
+     "OEE",
+     "Availability × Performance × Quality",
+     "61%",
+     "≥ 80%"
+    ],
+    [
+     "Lead time",
+     "Bahan baku masuk sampai kirim",
+     "7,4 hari",
+     "≤ 3 hari"
+    ],
+    [
+     "Changeover",
+     "Rata-rata durasi ganti model",
+     "45 mnt",
+     "≤ 20 mnt"
+    ],
+    [
+     "First pass yield",
+     "Lolos tanpa rework",
+     "92%",
+     "≥ 98%"
+    ]
+   ]
+  },
+  {
+   "layout": "quote",
+   "text": "Tanpa standar, tidak ada perbaikan berkelanjutan.",
+   "author": "Prinsip kaizen",
+   "role": "Toyota Production System"
+  },
+  {
+   "layout": "image",
+   "hero": "id-workers",
+   "kicker": "Kunci keberhasilan",
+   "title": "Talenta Indonesia siap untuk **Industri 4.0**",
+   "caption": "Teknologi hanya alat — orang yang menjalankan perbaikan setiap hari."
+  },
+  {
+   "layout": "closing",
+   "kicker": "Terima kasih",
+   "title": "Mari mulai dari **satu lini**.",
+   "subtitle": "Diskusi & tanya jawab",
+   "contact": [
+    "Irfan A. Shidiq",
+    "General Manager IT"
+   ],
+   "hero": "id-industrial-estate"
+  }
+ ]
 }
