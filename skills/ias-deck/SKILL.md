@@ -29,14 +29,17 @@ Baca `references/storytelling.md`. Aturan inti:
 - **Jangan mengarang angka.** Pakai angka dari user. Jika belum ada, tulis contoh dan beri label "(data ilustrasi)" di kicker + catatan pembicara "ganti dengan data asli".
 - Isi `notes` (catatan pembicara) di setiap slide penting.
 
-### 3. Pilih tema & gambar hero
+### 3. Biarkan user memilih desain (Design Picker) — WAJIB jika user belum menyebut tema
+Jalankan `node SKILL_DIR/engine/render.mjs --picker --out ./out` lalu buka `./out/picker.html` (Mac: `open ./out/picker.html`). Minta user memilih **1 tema** dan **gambar** (urutan klik = sampul, pembatas bagian, penutup; opsi sampul kolase), lalu menekan **Salin pilihan** dan menempelkannya ke chat. **Tunggu** teks `[IAS DECK — PILIHAN DESAIN]` sebelum menulis deck, lalu terapkan: `theme`, `heroes` (urutan), `collage` di slide cover bila diminta.
+
+### 3b. Rujukan tema & gambar hero
 Lihat `references/themes.md` (40 tema cerah, 6 keluarga, rekomendasi per acara). Default yang aman:
 - Forum resmi kementerian/board → `clean-nusantara` (navy-hijau, gaya poster Kemenperin), `clean-merahputih`, `clean-porcelain`, `hud-arctic`.
 - Keynote teknologi/IT/AI → `hud-cobalt`, `hud-ion`, `twin-hologram`, `term-mainframe`.
 - Materi shop-floor/lean/kaizen → `bp-classic`, `fac-safety`, `fac-andon`.
 
 **Gambar hero** (`references/heroes.md`, galeri `assets/heroes/index.html`): slide `cover`, `section`, `closing` otomatis diberi gambar yang cocok dengan kata kunci judul. Untuk hasil terbaik, pilih sendiri: `"heroes": ["mfg-digital-twin", "lean-kaizen", ...]` di akar deck (dipakai berurutan) atau `"hero": "<id>"` per slide; `"hero": false` untuk mematikan. Layout `split` dan `image` juga menerima `"hero": "<id>"`.
-**Jika kamu punya tool pembuat gambar** (mis. Codex image generation), boleh buat 1–3 gambar khusus topik dengan gaya yang sama: *bright high-key, white/pale with electric-blue accents, premium futuristic, subject in right 60%, left 40% empty bright space, no text/logos* — simpan di folder deck lalu isi `"hero": "nama-file.png"`.
+**Gambar khusus per slide (GPT Image via Codex):** isi `"imagine": true` di akar deck (otomatis untuk cover, section, closing, split, image yang belum punya gambar) atau `"imagine": "deskripsi"` per slide, lalu jalankan `node SKILL_DIR/engine/render.mjs deck.json --imagine --all`. Butuh Codex CLI yang sudah login akun ChatGPT (`codex login`); ±1 menit per gambar; hasil disimpan di `images/` dan dicatat ke field `hero` sehingga tidak dibuat ulang (`--force` untuk membuat ulang, `--slides 1,4` untuk slide tertentu). Kalau kamu sendiri Codex, boleh langsung pakai tool image generation-mu dengan gaya yang sama: *bright high-key, white/pale with electric-blue accents, premium futuristic, subject in right 60%, left 40% empty bright space, no text/logos* — simpan di folder deck lalu isi `"hero": "nama-file.png"`.
 Galeri visual tema: `node SKILL_DIR/engine/render.mjs --gallery --out ./out` lalu buka `out/gallery.html`.
 
 ### 4. Tulis file deck JSON
@@ -44,6 +47,9 @@ Simpan di folder kerja user, mis. `./deck/<nama-acara>.json`. Skema & semua layo
 - `**teks**` = sorotan warna aksen. `\n` = baris baru.
 - Logo/foto: path relatif terhadap file JSON (otomatis ditanam ke HTML).
 - Variasikan layout — jangan 5 slide `bullets` berturut-turut.
+- **Tanpa tanda seru** di teks slide. Hal penting dibuat besar dengan menebalkan angka: `**0,05%**` otomatis tampil besar. Teks non-angka yang ditebalkan jadi warna aksen; `==frasa==` jadi pita sorotan.
+- **Ikon otomatis**: kartu, poin, agenda, proses, roadmap, lapisan diberi ikon sesuai kata kunci teks; pakai `icon` untuk memilih sendiri (`references/icons.md`).
+- **Jangan ada ruang kosong**: slide statement/quote/agenda otomatis diberi panel foto; pilih layout visual sebelum `bullets`.
 - **Banyak visual, sedikit teks**: setiap slide wajib punya visual utama (grafik, diagram, hero, angka besar, ikon) dan teks isi ≤ 40 kata. Slide data ditutup `takeaway` satu kalimat + `source`. Ikon: `references/icons.md`. Detail aturan: bagian "Aturan visual" di `references/layouts.md`.
 
 ### 5. Render

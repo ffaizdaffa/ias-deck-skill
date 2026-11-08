@@ -3,15 +3,31 @@
 // Pakai: node render.mjs <deck.json> [--out DIR] [--theme ID] [--pdf] [--pptx] [--all]
 //        node render.mjs --gallery [--out DIR]      (galeri 40 tema)
 //        node render.mjs --list                     (daftar tema & layout)
+//        node render.mjs --picker [--out DIR]       (halaman pilih tema + gambar)
+//        node render.mjs <deck.json> --imagine      (buat gambar khusus per slide via Codex / GPT Image)
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderSlide, LAYOUTS, esc } from './layouts.mjs';
+import { buildPicker } from './picker.mjs';
+import { imagine } from './imagine.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const TH = JSON.parse(fs.readFileSync(path.join(HERE, 'themes.json'), 'utf8'));
 const ICONS = JSON.parse(fs.readFileSync(path.join(HERE, 'icons.json'), 'utf8'));
+// ikon otomatis dari kata kunci (ID/EN) — dipakai bila item tidak menyebut "icon"
+const ICON_KW = [[/biaya|cost|hemat|rupiah|rp|anggaran|budget|harga/, 'coins'], [/waktu|time|cepat|menit|jam|durasi|lead time|changeover|respons/, 'timer'], [/kualitas|quality|cacat|defect|yield|mutu/, 'check-circle-2'],
+  [/aman|safety|k3|keselamatan/, 'hard-hat'], [/risiko|risk|masalah|gangguan|downtime|breakdown/, 'alert-triangle'], [/ai\b|kecerdasan|model|prediksi|predictive|machine learning/, 'brain-circuit'],
+  [/data|dashboard|analitik|kpi|metrik|laporan/, 'chart-line'], [/sensor|iot|getaran/, 'radio-tower'], [/robot|otomasi|cobot|automation/, 'bot'], [/mesin|machine|perawatan|maintenance|setup|cnc/, 'cog'],
+  [/pabrik|factory|lini|produksi|manufaktur|plant/, 'factory'], [/gudang|warehouse|stok|inventory|material/, 'warehouse'], [/kirim|logistik|transport|truck|distribusi/, 'truck'],
+  [/orang|tim|sdm|operator|pekerja|talenta|people|team|inklusif/, 'users'], [/latih|training|vokasi|belajar|skill|keahlian/, 'graduation-cap'], [/kolaborasi|mitra|kerja sama|partner/, 'handshake'],
+  [/pemerintah|kementerian|kebijakan|regulasi|policy/, 'landmark'], [/indonesia|nasional/, 'flag'], [/hijau|berkelanjutan|energi|surya|emisi|lingkungan|sustain/, 'leaf'],
+  [/inovasi|ide|innovation|kaizen|perbaikan/, 'lightbulb'], [/target|tujuan|goal|sasaran/, 'target'], [/naik|tumbuh|growth|daya saing|produktivitas|meningkat/, 'trending-up'],
+  [/keamanan siber|cyber|keamanan|security/, 'shield-check'], [/cloud|server|infrastruktur/, 'cloud'], [/jaringan|network|5g|konek/, 'network'], [/erp|mes|sistem|aplikasi|software/, 'layers'],
+  [/standar|sop|checklist|5s/, 'clipboard-check'], [/roadmap|tahap|langkah|mulai|pilot/, 'rocket'], [/pelanggan|customer|pasar|market/, 'store'], [/ekspor|global|dunia/, 'globe'],
+  [/lihat|gemba|inspeksi|vision/, 'scan-eye'], [/ulang|siklus|pdca|replikasi/, 'refresh-cw'], [/kanban|alur|flow|proses/, 'workflow'], [/uang|kas|cash|modal|investasi/, 'wallet']];
+const autoIcon = (t) => { const x = String(t || '').toLowerCase(); const hit = ICON_KW.find(([re]) => re.test(x)); return hit ? hit[1] : ''; };
 const icon = (n) => (ICONS[n] ? `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>` : (console.warn(`⚠ ikon tidak dikenal: ${n} (lihat references/icons.md)`), ''));
 const HERO_DIR = path.join(HERE, '..', 'assets', 'heroes');
 const HEROES = fs.existsSync(path.join(HERO_DIR, 'heroes.json')) ? JSON.parse(fs.readFileSync(path.join(HERO_DIR, 'heroes.json'), 'utf8')) : [];
@@ -119,7 +135,7 @@ function pickHero(deck, s, i, baseDir, used) {
   if (s.hero === false || deck.autoHero === false) return '';
   if (typeof s.hero === 'string') { used.add(s.hero); return heroSrc(s.hero, baseDir); }
   if (s.layout === 'image') return s.image ? heroSrc(s.image, baseDir) : '';
-  if (!['cover', 'section', 'closing'].includes(s.layout) || !HEROES.length) return '';
+  if (!['cover', 'section', 'closing', 'statement', 'quote', 'agenda'].includes(s.layout) || !HEROES.length) return '';
   const pref = (deck.heroes || []).find((id) => !used.has(id));
   if (pref) { used.add(pref); return heroSrc(pref, baseDir); }
   const words = `${deck.title || ''} ${deck.topic || ''} ${s.title || ''} ${s.kicker || ''} ${s.subtitle || ''}`.toLowerCase().replace(/\*\*/g, '').split(/[^a-z0-9.]+/);
@@ -141,7 +157,7 @@ function buildHtml(deck, baseDir, themeId) {
     deck, code: deck.code || (deck.title || 'DECK').replace(/[^A-Za-z0-9]+/g, '-').slice(0, 18).toUpperCase(),
     chart: (c) => (charts.push(c), charts.length - 1), svgChart,
     clock: new Date().toTimeString().slice(0, 8), date: new Date().toISOString().slice(0, 10), tint: '',
-    hero: (id) => heroSrc(id, baseDir), icon,
+    hero: (id) => heroSrc(id, baseDir), icon, autoIcon, iconsOn: deck.icons !== false,
     heroFor: (s, i) => pickHero(deck, s, i, baseDir, used),
     asset: (p) => {
       if (/^(https?:|data:)/.test(p)) return p;
@@ -230,10 +246,12 @@ async function main() {
   }
   const outDir = path.resolve(opt('--out') || 'out'); fs.mkdirSync(outDir, { recursive: true });
   if (flag('--gallery')) return gallery(outDir);
+  if (flag('--picker')) { gallery(outDir); const f = buildPicker(outDir, { TH, HEROES, HERO_DIR }); console.log(`✔ Design Picker ${f}`); return; }
   const file = args.find((a) => a.endsWith('.json'));
   if (!file) die('Pakai: node render.mjs <deck.json> [--theme ID] [--pdf] [--pptx] [--all] [--out DIR]');
   let deck; try { deck = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { die(`${file}: JSON tidak valid — ${e.message}`); }
   validate(deck, file);
+  if (flag('--imagine')) { deck = await imagine(file, deck, { only: opt('--slides'), force: flag('--force') }); validate(deck, file); }
   const name = path.basename(file, '.json');
   const built = buildHtml(deck, path.dirname(path.resolve(file)), opt('--theme'));
   const htmlFile = path.join(outDir, `${name}.html`);

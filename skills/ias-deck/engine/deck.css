@@ -466,3 +466,45 @@ mark { background: linear-gradient(100deg, var(--a), color-mix(in srgb, var(--a)
 .slide:has(.mosaic) .pre { font-size: calc(44px * var(--ts)); }
 .slide:has(.mosaic) .pills { margin-top: 34px; } .slide:has(.mosaic) .meta { margin-top: 30px; padding-top: 20px; font-size: 22px; }
 .L-closing h1.title { font-size: calc(124px * var(--ts)); max-width: 1150px; }
+
+/* ================= ikon otomatis & huruf besar ================= */
+.ichip.sm { width: 50px; height: 50px; padding: 11px; border-radius: 13px; }
+.ichip.corner { position: absolute; right: 26px; top: 26px; width: 58px; height: 58px; padding: 13px; }
+.L-agenda .row { grid-template-columns: 110px 1fr auto; gap: 0 18px; }
+.cv .ichip { margin-bottom: 16px; background: #fff; }
+.tl .ichip.sm { margin-bottom: 12px; }
+.tile .ichip.corner { width: 52px; height: 52px; padding: 12px; }
+.band .nmw { display: flex; align-items: center; gap: 16px; }
+.mini li.hasi { flex-direction: row; align-items: center; gap: 18px; padding-left: 0; }
+.mini li.hasi::before { display: none; }
+.mini .mt2 { display: flex; flex-direction: column; }
+.duo .card .ichip.corner { top: 30px; right: 30px; }
+.duo .b .ichip { filter: grayscale(.6); }
+strong.xl { font-family: var(--fd), sans-serif; font-size: 1.6em; line-height: .95; font-weight: 800; letter-spacing: -.02em; color: var(--a); -webkit-text-fill-color: var(--a); vertical-align: -.05em; }
+.title strong.xl, .big strong.xl { font-size: 1.25em; }
+.take p strong.xl { font-size: 1.35em; }
+.ins strong.xl { color: color-mix(in srgb, var(--a) 55%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--a) 55%, #fff); }
+.take p { font-size: 29px; }
+h1.title.sm { font-size: calc(128px * var(--ts)); } h1.title.xs { font-size: calc(104px * var(--ts)); }
+.slide:has(.mosaic) h1.title.sm, .slide:has(.mosaic) h1.title.xs { font-size: calc(92px * var(--ts)); }
+.ichip.sm { width: 58px; height: 58px; padding: 13px; }
+.ichip { width: 70px; height: 70px; padding: 16px; }
+
+/* ================= isi ruang kosong: panel foto otomatis ================= */
+.L-statement > .photo, .L-quote > .photo { position: absolute; z-index: 2; right: 120px; top: 150px; bottom: 150px; width: 640px; margin: 0; }
+.L-statement:has(> .photo) .frame, .L-quote:has(> .photo) .frame { right: 840px; }
+.L-statement:has(> .photo) .big { font-size: calc(76px * var(--ts)); }
+.L-quote:has(> .photo) .q { font-size: calc(62px * var(--ts)); }
+.L-agenda > .photo { position: absolute; z-index: 2; left: 132px; bottom: 150px; width: 540px; height: 340px; margin: 0; }
+.L-agenda:has(> .photo) .col-l { justify-content: flex-start; padding-top: 10px; }
+.big em { font-size: 1.08em; }
+/* perbandingan: kartu tidak melar kosong, isi lebih besar */
+.L-compare .duo { align-items: center; }
+.L-compare .duo .card { min-height: 520px; }
+.L-compare .duo li { font-size: 29px; padding: 18px 0 18px 40px; }
+.L-compare .duo .ct { font-size: 54px; }
+.duo .ichip.corner { width: 76px; height: 76px; padding: 18px; }
+.tl .st .it { font-size: 31px; } .tl .wh { font-size: 50px; }
+.chev { align-items: stretch; } .cv { height: auto; min-height: 560px; padding-top: 70px; padding-bottom: 60px; }
+.cv .ix { font-size: 84px; } .cv .it { font-size: 34px; } .cv .ds { font-size: 24px; } .cv .ichip.sm { width: 72px; height: 72px; padding: 17px; margin-bottom: 22px; }
+.L-quote:has(> .photo) .q { font-size: calc(72px * var(--ts)); } .L-quote .qm { font-size: 380px; height: 170px; }

@@ -49,10 +49,15 @@ if [ "$FONTS" -eq 1 ]; then
   node "$ROOT/skills/ias-deck/engine/install-fonts.mjs" || warn "Font gagal dipasang — PPTX tetap jalan dengan font pengganti"
 fi
 
+step "5. Menyiapkan Design Picker"
+node "$ROOT/skills/ias-deck/engine/render.mjs" --picker --out "$ROOT/out" >/dev/null && ok "Design Picker → $ROOT/out/picker.html" || warn "Gagal membuat Design Picker"
+command -v codex >/dev/null && ok "Codex terdeteksi — gambar per slide bisa dibuat (render.mjs --imagine)" || warn "Codex belum ada — fitur gambar per slide (--imagine) butuh: npm i -g @openai/codex && codex login"
+
 step "Selesai."
 cat <<EOF
   Buka sesi BARU Claude Code atau Codex, lalu ketik misalnya:
     "Buatkan deck 12 slide untuk Forum Kemenperin tentang lean digital factory, tema bp-classic"
-  Galeri 40 tema:  node "$ROOT/skills/ias-deck/engine/render.mjs" --gallery --out "$ROOT/out" && open "$ROOT/out/gallery.html"
+  Pilih desain:    open "$ROOT/out/picker.html"
+  Galeri tema:     node "$ROOT/skills/ias-deck/engine/render.mjs" --gallery --out "$ROOT/out" && open "$ROOT/out/gallery.html"
   Contoh deck:     node "$ROOT/skills/ias-deck/engine/render.mjs" "$ROOT/skills/ias-deck/examples/lean-kemenperin.json" --out "$ROOT/out" --all
 EOF

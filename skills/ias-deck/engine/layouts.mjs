@@ -3,7 +3,7 @@
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // **teks** = sorotan aksen, \n = baris baru
-export const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<em>$1</em>').replace(/==(.+?)==/g, '<mark>$1</mark>').replace(/\n/g, '<br>');
+export const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, (m, x) => (/\d/.test(x) ? `<strong class="xl">${x}</strong>` : `<em>${x}</em>`)).replace(/==(.+?)==/g, '<mark>$1</mark>').replace(/\n/g, '<br>');
 
 let RV = 0; // urutan animasi masuk per slide
 const rv = () => `rv" style="--d:${RV++}`;
@@ -11,6 +11,8 @@ const T = (tag, cls, text, attrs = '') => (text === undefined || text === null |
 const pad = (n) => String(n).padStart(2, '0');
 const arr = (x) => (Array.isArray(x) ? x : x ? [x] : []);
 const item = (x) => (typeof x === 'string' ? { title: x } : x || {});
+// ikon: pakai "icon" bila ada, kalau tidak tebak dari teks (bisa dimatikan dengan "icons": false di akar deck)
+const ico = (ctx, x, cls = '') => { const n = x.icon || (ctx.iconsOn ? ctx.autoIcon(`${x.title || ''} ${x.desc || ''} ${x.label || ''}`) : ''); return n ? `<span class="ichip ${cls}">${ctx.icon(n)}</span>` : ''; };
 const head = (s) => `<header class="hd">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'lead', s.subtitle)}</header>`;
 const img = (src, ctx, cls = 'img') => (src ? `<div class="${cls} ${rv()}"><img src="${ctx.asset(src)}" alt=""></div>` : '');
 
@@ -19,11 +21,12 @@ const L = {
     const sp = ctx.deck.speaker || {};
     const meta = [sp.name && `<div class="m">${T('span', 'who', sp.name)}${T('span', 'role', sp.role)}</div>`, ctx.deck.event && `<div class="m">${T('span', 'ev', ctx.deck.event)}</div>`].filter(Boolean).join('<i class="sep"></i>');
     const pil = arr(s.pillars).map(item);
-    return `${T('div', 'kicker', s.kicker)}${T('div', 'pre', s.pretitle)}${T('h1', 'title', s.title)}${T('p', 'lead', s.subtitle)}${pil.length ? `<div class="pills ${rv()}">${pil.map((x) => `<div class="pl"><span class="ichip round">${ctx.icon(x.icon || 'target')}</span>${T('span', 'pt2', x.title)}</div>`).join('')}</div>` : ''}${meta ? `<div class="meta ${rv()}">${meta}</div>` : ''}`;
+    const len = String(s.title || '').replace(/\*\*|==/g, '').length;
+    return `${T('div', 'kicker', s.kicker)}${T('div', 'pre', s.pretitle)}${T('h1', `title${len > 34 ? ' xs' : len > 22 ? ' sm' : ''}`, s.title)}${T('p', 'lead', s.subtitle)}${pil.length ? `<div class="pills ${rv()}">${pil.map((x) => `<div class="pl"><span class="ichip round">${ctx.icon(x.icon || 'target')}</span>${T('span', 'pt2', x.title)}</div>`).join('')}</div>` : ''}${meta ? `<div class="meta ${rv()}">${meta}</div>` : ''}`;
   },
-  agenda(s) {
+  agenda(s, ctx) {
     return `<div class="col-l">${T('div', 'kicker', s.kicker || 'Agenda')}${T('h2', 'title', s.title)}</div>
-    <ol class="list">${arr(s.items).map(item).map((it, i) => `<li class="row ${rv()}"><span class="ix" data-t>${pad(i + 1)}</span><div>${T('div', 'it', it.title)}${T('div', 'ds', it.desc)}</div></li>`).join('')}</ol>`;
+    <ol class="list">${arr(s.items).map(item).map((it, i) => `<li class="row ${rv()}"><span class="ix" data-t>${pad(i + 1)}</span><div>${T('div', 'it', it.title)}${T('div', 'ds', it.desc)}</div>${ico(ctx, it, 'sm')}</li>`).join('')}</ol>`;
   },
   section(s) {
     return `${T('div', 'num', s.number ?? '')}<div class="txt">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'lead', s.subtitle)}</div>`;
@@ -38,30 +41,30 @@ const L = {
     const spark = (d) => { if (!Array.isArray(d) || d.length < 2) return ''; const mx = Math.max(...d), mn = Math.min(...d), W = 300, H = 60;
       const pts = d.map((v, i) => `${(i / (d.length - 1)) * W},${H - ((v - mn) / (mx - mn || 1)) * (H - 6) - 3}`).join(' ');
       return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="M0,${H} L${pts.replace(/ /g, ' L')} L${W},${H}Z"/><polyline points="${pts}"/></svg>`; };
-    return `${head(s)}<div class="cards n${it.length}">${it.map((k, j) => `<div class="card ${rv()}">${k.gauge !== undefined ? gauge(k.gauge) : ''}${k.icon ? `<span class="ichip">${ctx.icon(k.icon)}</span>` : ''}<div class="ch"><b>${esc(k.tag || `Metric ${pad(j + 1)}`)}</b>${k.icon || k.gauge !== undefined ? '' : '<i></i>'}</div><div class="val">${T('span', 'v', k.value)}${T('span', 'u', k.unit)}</div>${T('div', 'lb', k.label)}${T('div', `dl ${String(k.delta || '').trim().startsWith('-') ? 'neg' : ''}`, k.delta)}${spark(k.trend)}</div>`).join('')}</div>`;
+    return `${head(s)}<div class="cards n${it.length}">${it.map((k, j) => `<div class="card ${rv()}">${k.gauge !== undefined ? gauge(k.gauge) : ''}${k.gauge === undefined ? ico(ctx, k) : ''}<div class="ch"><b>${esc(k.tag || `Metric ${pad(j + 1)}`)}</b></div><div class="val">${T('span', 'v', k.value)}${T('span', 'u', k.unit)}</div>${T('div', 'lb', k.label)}${T('div', `dl ${String(k.delta || '').trim().startsWith('-') ? 'neg' : ''}`, k.delta)}${spark(k.trend)}</div>`).join('')}</div>`;
   },
   bullets(s, ctx) {
     const p = arr(s.points).map(item);
-    return `${head(s)}<ul class="pts ${p.length > 4 ? 'two' : ''}">${p.map((x, i) => `<li class="pt ${rv()}">${x.icon ? `<span class="ichip">${ctx.icon(x.icon)}</span>` : `<span class="ix" data-t>${pad(i + 1)}</span>`}<div>${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div></li>`).join('')}</ul>`;
+    return `${head(s)}<ul class="pts ${p.length > 4 ? 'two' : ''}">${p.map((x, i) => `<li class="pt ${rv()}">${ico(ctx, x) || `<span class="ix" data-t>${pad(i + 1)}</span>`}<div>${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div></li>`).join('')}</ul>`;
   },
   split(s, ctx) {
     const p = arr(s.points).map(item);
-    const text = `<div class="tx">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'body', s.text)}${p.length ? `<ul class="mini">${p.map((x) => `<li class="${rv()}">${T('span', 'it', x.title)}${T('span', 'ds', x.desc)}</li>`).join('')}</ul>` : ''}</div>`;
+    const text = `<div class="tx">${T('div', 'kicker', s.kicker)}${T('h2', 'title', s.title)}${T('p', 'body', s.text)}${p.length ? `<ul class="mini">${p.map((x) => { const ic = ico(ctx, x, 'sm'); return `<li class="${ic ? 'hasi ' : ''}${rv()}">${ic}<span class="mt2">${T('span', 'it', x.title)}${T('span', 'ds', x.desc)}</span></li>`; }).join('')}</ul>` : ''}</div>`;
     const pic = s.image ? ctx.asset(s.image) : s.hero ? ctx.hero(s.hero) : '';
     const vis = pic ? `<div class="photo ${rv()}"><div class="pf"><img src="${pic}" alt=""></div>${s.imageLabel ? `<span class="tagp">${esc(s.imageLabel)}</span>` : ''}</div>` : `<div class="vis card ${rv()}">${T('div', 'bigv', s.visualValue || '')}${T('div', 'lb', s.visualLabel || '')}</div>`;
     return s.side === 'left' ? vis + text : text + vis;
   },
-  compare(s) {
-    const side = (x, cls) => `<div class="card ${cls} ${rv()}">${T('div', 'tag', x.label)}${T('h3', 'ct', x.title)}<ul>${arr(x.points).map((p) => T('li', '', p)).join('')}</ul></div>`;
+  compare(s, ctx) {
+    const side = (x, cls) => `<div class="card ${cls} ${rv()}"><span class="ichip corner">${ctx.icon(x.icon || ctx.autoIcon(`${x.title} ${(x.points || []).join(' ')}`) || (cls === 'r' ? 'rocket' : 'layers'))}</span>${T('div', 'tag', x.label)}${T('h3', 'ct', x.title)}<ul>${arr(x.points).map((p) => T('li', '', p)).join('')}</ul></div>`;
     return `${head(s)}<div class="duo">${side(s.left || {}, 'l')}<div class="vs ${rv()}" data-t>${esc(s.vs || 'VS')}</div>${side(s.right || {}, 'r')}</div>`;
   },
-  beforeafter(s) {
-    const side = (x, cls, lab) => `<div class="card ${cls} ${rv()}">${T('div', 'tag', x.label || lab)}${T('h3', 'ct', x.title)}<ul>${arr(x.points).map((p) => T('li', '', p)).join('')}</ul>${x.metric ? `<div class="mt">${T('span', 'v', x.metric)}${T('span', 'lb', x.metricLabel)}</div>` : ''}</div>`;
+  beforeafter(s, ctx) {
+    const side = (x, cls, lab) => `<div class="card ${cls} ${rv()}"><span class="ichip corner">${ctx.icon(x.icon || (cls === 'a' ? 'rocket' : 'clipboard-check'))}</span>${T('div', 'tag', x.label || lab)}${T('h3', 'ct', x.title)}<ul>${arr(x.points).map((p) => T('li', '', p)).join('')}</ul>${x.metric ? `<div class="mt">${T('span', 'v', x.metric)}${T('span', 'lb', x.metricLabel)}</div>` : ''}</div>`;
     return `${head(s)}<div class="duo">${side(s.before || {}, 'b', 'Before')}<div class="arrow ${rv()}"><svg viewBox="0 0 120 40"><path d="M0 20H110M92 4l18 16-18 16"/></svg></div>${side(s.after || {}, 'a', 'After')}</div>`;
   },
-  timeline(s) {
+  timeline(s, ctx) {
     const it = arr(s.items).map(item);
-    return `${head(s)}<div class="tl n${it.length}"><i class="rail ${rv()}"></i>${it.map((x, i) => `<div class="st ${i % 2 ? 'dn' : 'up'} ${rv()}"><i class="dot"></i>${T('div', 'wh', x.when)}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`).join('')}</div>`;
+    return `${head(s)}<div class="tl n${it.length}"><i class="rail ${rv()}"></i>${it.map((x, i) => `<div class="st ${i % 2 ? 'dn' : 'up'} ${rv()}"><i class="dot"></i>${ico(ctx, x, 'sm')}${T('div', 'wh', x.when)}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`).join('')}</div>`;
   },
   cycle(s) {
     const it = arr(s.items).map(item), n = it.length || 4;
@@ -75,7 +78,7 @@ const L = {
   },
   grid(s, ctx) {
     const it = arr(s.items).map(item), c = s.columns || (it.length <= 4 ? it.length : Math.ceil(it.length / 2));
-    return `${head(s)}<div class="tiles" style="--c:${c}">${it.map((x, i) => `<div class="card tile ${rv()}">${x.icon ? `<span class="ichip big">${ctx.icon(x.icon)}</span>` : T('div', 'tg', x.tag || pad(i + 1))}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`).join('')}</div>`;
+    return `${head(s)}<div class="tiles" style="--c:${c}">${it.map((x, i) => `<div class="card tile ${rv()}">${x.icon ? `<span class="ichip big">${ctx.icon(x.icon)}</span>` : `${T('div', 'tg', x.tag || pad(i + 1))}${ico(ctx, x, 'corner')}`}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`).join('')}</div>`;
   },
   vsm(s) {
     const st = arr(s.steps), inv = arr(s.inventory), sum = s.summary || {};
@@ -88,12 +91,12 @@ const L = {
   chart(s, ctx) {
     return `${head(s)}<div class="cw"><div class="chart card ${rv()}" data-chart="${ctx.chart(s.chart)}">${ctx.svgChart(s.chart)}</div>${s.insight || s.insightValue ? `<div class="ins ${rv()}">${T('div', 'kicker', s.insightLabel || 'Artinya')}${T('div', 'iv', s.insightValue)}${T('p', 'body', s.insight)}</div>` : ''}</div>`;
   },
-  layers(s) {
-    return `${head(s)}<div class="stack">${arr(s.layers).map((ly, i) => `<div class="band card ${rv()}">${T('div', 'nm', ly.name)}<div class="chips">${arr(ly.items).map((x) => T('span', 'chip', x)).join('')}</div>${T('div', 'lv', ly.tag || `L${arr(s.layers).length - i}`)}</div>`).join('')}</div>`;
+  layers(s, ctx) {
+    return `${head(s)}<div class="stack">${arr(s.layers).map((ly, i) => `<div class="band card ${rv()}"><div class="nmw">${ico(ctx, { title: ly.name, icon: ly.icon }, 'sm')}${T('div', 'nm', ly.name)}</div><div class="chips">${arr(ly.items).map((x) => T('span', 'chip', x)).join('')}</div>${T('div', 'lv', ly.tag || `L${arr(s.layers).length - i}`)}</div>`).join('')}</div>`;
   },
-  process(s) {
+  process(s, ctx) {
     const it = arr(s.steps).map(item);
-    return `${head(s)}<div class="chev n${it.length}">${it.map((x, i) => `<div class="cv ${rv()}">${T('div', 'ix', x.tag || pad(i + 1))}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`).join('')}</div>`;
+    return `${head(s)}<div class="chev n${it.length}">${it.map((x, i) => `<div class="cv ${rv()}">${ico(ctx, x, 'sm')}${T('div', 'ix', x.tag || pad(i + 1))}${T('div', 'it', x.title)}${T('div', 'ds', x.desc)}</div>`).join('')}</div>`;
   },
   table(s) {
     const num = (v) => parseFloat(String(v).replace(/[^0-9,.-]/g, '').replace(/\.(?=\d{3})/g, '').replace(',', '.')) || 0;
@@ -150,7 +153,7 @@ export function renderSlide(s, i, total, ctx) {
   const heroSrc = Array.isArray(s.collage) ? '' : ctx.heroFor(s, i);
   const mosaic = Array.isArray(s.collage) ? `<div class="mosaic m${Math.min(4, s.collage.length)}">${s.collage.slice(0, 4).map((id, k) => `<div class="mt t${k + 1}"><img src="${ctx.hero(id)}" alt=""></div>`).join('')}</div>` : '';
   const band = s.band ? `<div class="band2"><span class="bl">${brand.logo ? `<img src="${ctx.asset(brand.logo)}" alt="">` : ''}<b data-t>${esc(brand.name || ctx.deck.event || '')}</b></span><i></i><span class="bt" data-t>${rich(s.band)}</span></div>` : '';
-  const full = ['cover', 'closing', 'image', 'statement'].includes(s.layout);
+  const full = ['cover', 'closing', 'image'].includes(s.layout);
   const hero = !heroSrc ? '' : full
     ? `<div class="hero ${ctx.tint}"><img src="${heroSrc}" alt=""></div>${s.layout === 'cover' ? `<div class="reticle"><i></i><span>Target lock · ${esc(ctx.code)}</span></div>` : ''}`
     : `<div class="photo"><div class="pf"><img src="${heroSrc}" alt=""></div></div>`;

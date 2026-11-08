@@ -9,12 +9,14 @@
   "speaker": { "name": "Nama", "role": "Jabatan", "photo": "foto.jpg" },
   "event": "Nama acara · Kota · Tanggal",
   "brand": { "name": "Teks footer kiri bawah (mis. nama instansi/acara)", "logo": "logo.png", "accent": "#0057B8" },  // accent opsional
-  "heroes": ["mfg-digital-twin", "lean-kaizen"],  // opsional: urutan gambar hero untuk cover/section/closing (lihat references/heroes.md)
+  "heroes": ["mfg-digital-twin", "lean-kaizen"],
+  "imagine": true,          // opsional: buat gambar khusus per slide via Codex (render.mjs --imagine)
+  "icons": true,            // opsional: false mematikan ikon otomatis  // opsional: urutan gambar hero untuk cover/section/closing (lihat references/heroes.md)
   "slides": [ { "layout": "...", "notes": "catatan pembicara", "align": "center", "hero": "id-atau-path | false", "ghost": "TEKS LATAR",
-                "takeaway": "Satu kalimat kesimpulan (bar bawah)", "takeawayIcon": "lightbulb", "source": "Sumber data (footer)" } ]
+                "takeaway": "Satu kalimat kesimpulan (bar bawah)", "imagine": "deskripsi gambar khusus slide ini", "takeawayIcon": "lightbulb", "source": "Sumber data (footer)" } ]
 }
 ```
-Semua field teks mendukung `**sorotan**` (warna aksen), `==pita==` (frasa kunci dengan pita warna di belakangnya, gaya poster Kemenperin) dan `\n` (baris baru). Gambar: path relatif ke file JSON, atau URL.
+Semua field teks mendukung `**sorotan**` (warna aksen; **jika berisi angka otomatis tampil besar**, mis. `**42%**`), `==pita==` (frasa kunci dengan pita warna di belakangnya, gaya poster Kemenperin) dan `\n` (baris baru). Gambar: path relatif ke file JSON, atau URL.
 Field `kicker` = label kecil di atas judul (kategori / konteks). Field `notes` muncul di presenter mode & catatan PPTX.
 
 ## Layout

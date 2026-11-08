@@ -1,0 +1,31 @@
+{
+ "title": "AI Predictive Maintenance",
+ "theme": "hud-cobalt",
+ "imagine": true,
+ "speaker": {
+  "name": "Irfan A. Shidiq",
+  "role": "General Manager IT"
+ },
+ "event": "Seminar Kemenperin",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "Keynote",
+   "title": "Mesin memberi kabar **sebelum rusak**",
+   "subtitle": "AI untuk predictive maintenance di pabrik otomotif",
+   "hero": "images/ai-pm-s01.jpg"
+  },
+  {
+   "layout": "split",
+   "kicker": "Cara kerja",
+   "title": "Sensor getaran jadi sinyal dini",
+   "text": "Pola getaran dibaca AI untuk memprediksi kerusakan bearing.",
+   "points": [
+    "Sensor IoT",
+    "Model AI",
+    "Notifikasi teknisi"
+   ],
+   "hero": "images/ai-pm-s02.jpg"
+  }
+ ]
+}

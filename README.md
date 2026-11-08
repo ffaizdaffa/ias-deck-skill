@@ -13,11 +13,47 @@ Cukup minta dalam bahasa biasa — *"buatkan deck 12 slide untuk Forum Kemenperi
 - **41 tema** dalam 6 keluarga: HUD / Command Center · Blueprint / Engineering · Digital Twin · Smart Factory · Data Terminal · Clean Future
 - **100 gambar hero render AI** (manufaktur, Industri 4.0, AI, robotik, IT, lean, Indonesia/Kemenperin, latar 3D abstrak), dipilih otomatis sesuai judul slide. Galeri: `skills/ias-deck/assets/heroes/index.html`
 - **25 layout** khusus materi industri (termasuk waterfall/bridge, Pareto, angka raksasa, deret pilar berikon, kolase foto gaya poster Kemenperin)
-- **102 ikon** (Lucide) untuk kartu, poin, dan pilar
+- **102 ikon** (Lucide), dipasang otomatis sesuai kata kunci di kartu, poin, agenda, proses, roadmap
+- **Design Picker**: satu halaman untuk klik tema + gambar, lalu salin pilihan ke chat AI
+- **Gambar AI khusus per slide** lewat GPT Image (Codex, login akun ChatGPT): `render.mjs deck.json --imagine`
+- Angka penting otomatis tampil besar, slide pernyataan/kutipan/agenda otomatis diberi panel foto (tidak ada ruang kosong)
 - Pola dari referensi: kesimpulan per slide, sumber data, panel insight berangka besar, pita sorotan `==frasa==`
 - Layout dasar: KPI, value stream map, siklus PDCA, 8 waste (TIMWOODS), sebelum–sesudah, roadmap, arsitektur berlapis, grafik, tabel, dan lainnya
 - Semua tema lolos uji kontras WCAG, sehingga tetap terbaca di proyektor ruangan besar
 - Logo & warna aksen bisa diganti per acara (Astra, Kemenperin, pribadi)
+
+## Contoh hasil desain
+
+**Sampul — gambar hero AI + HUD tipis**
+![Sampul lean](docs/showcase/01-sampul-lean.jpg)
+
+**Sampul gaya poster Kemenperin — kolase foto, deret ikon, band navy, pita sorotan**
+![Sampul gaya Kemenperin](docs/showcase/02-sampul-gaya-kemenperin.jpg)
+
+**Visualisasi data — KPI berikon, waterfall/bridge, Pareto, angka raksasa, panel insight, sebelum–sesudah**
+![Visualisasi data](docs/showcase/03-visualisasi-data.jpg)
+
+**Gaya poster — pilar berikon, strip foto miring, panel daftar, waterfall**
+![Gaya poster](docs/showcase/04-gaya-poster-kemenperin.jpg)
+
+**Tanpa ruang kosong — panel foto otomatis, proses berikon, penutup**
+![Tanpa ruang kosong](docs/showcase/05-tanpa-ruang-kosong.jpg)
+
+**Gambar AI khusus per slide (GPT Image via Codex)**
+![Gambar AI per slide](docs/showcase/06-gambar-ai-per-slide.jpg)
+
+**Design Picker — klik tema + gambar, salin ke chat**
+![Design Picker](docs/showcase/07-design-picker.jpg)
+
+<details><summary><b>Semua tema cerah</b></summary>
+
+![Tema](docs/showcase/08-tema-cerah.jpg)
+</details>
+
+<details><summary><b>100 gambar hero</b></summary>
+
+![Gambar hero](docs/showcase/09-100-gambar-hero.jpg)
+</details>
 
 ---
 
@@ -42,7 +78,12 @@ Opsi: `./install.sh --lite` (IAS Deck saja) · `./install.sh --no-fonts`.
 
 ## 2. Pakai
 
-Buka sesi **baru** Claude Code atau Codex di folder kerja mana pun, lalu tulis permintaan, misalnya:
+**Alur yang disarankan:**
+1. Buka `out/picker.html` (dibuat oleh installer), klik **1 tema** dan beberapa **gambar**, tekan **Salin pilihan**.
+2. Buka sesi **baru** Claude Code atau Codex, tempel pilihan tadi, lalu tulis permintaan. Kalau tema belum dipilih, AI akan membuka Design Picker dulu.
+3. Opsional: minta *"buatkan gambar AI khusus tiap slide"* — AI menjalankan `--imagine` (butuh `codex login` dengan akun ChatGPT, ±1 menit per gambar).
+
+Contoh permintaan:
 
 > Buatkan deck 15 slide untuk keynote 25 menit di Forum Industri 4.0 Kemenperin. Topik: lean manufacturing ketemu digital — OEE, SMED, value stream, roadmap 18 bulan. Pembicara Irfan A. Shidiq, GM IT. Tema bp-classic, logo di ./logo.png.
 
